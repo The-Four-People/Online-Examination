@@ -9,40 +9,45 @@ app.use(express.urlencoded({ extended: true }))
 
 function save(name, email, password) {
     const promise = new Promise(function (resolve, reject) {
-        const salt = bcrypt.genSaltSync(10)
-        const hash = bcrypt.hashSync(password.toString(), salt)
-        UserModal.create({
-            name,
-            email,
-            password: hash
-        }).then((data, err) => {
-            if (!err) {
-                console.log(data)
-                resolve({ ok: true, msg: 'User successfully registered' })
-            } else {
-                reject({ ok: false, msg: 'Operation Unsucessfull',error:err})
-            }
-        }).catch(err => {
-            reject({ ok: false, msg: 'Error', error: err })
-        })
+        try {
+
+
+            const salt = bcrypt.genSaltSync(10)
+            const hash = bcrypt.hashSync(password.toString(), salt)
+            UserModal.create({
+                name,
+                email,
+                password: hash
+            }).then((data, err) => {
+                if (!err) {
+                    console.log(data)
+                    resolve({ ok: true, msg: 'User successfully registered' })
+                } else {
+                    reject({ ok: false, msg: 'Operation Unsucessfull', error: err })
+                }
+            }).catch(err => {
+                reject({ ok: false, msg: 'Error', error: err })
+            })
+        } catch (err) {
+            reject({ok:false,msg:"Error",error:err})
+        }
     })
     return promise
 }
 
 Router.post('/', (req, res) => {
     const { name, email, password } = req.body
-    save(name,email,password)
-        .then((data,err) => {
+    save(name, email, password)
+        .then((data, err) => {
             err ? res.json(err) : res.json(data)
         })
         .catch(err => {
-            res.json({ok:false,msg:'An error occured',error:err})
+            res.json({ ok: false, msg: 'An error occured', error: err })
         })
 })
 
 Router.get('/', (req, res) => {
-    console.log(req.body)
-    res.status(200).send("register")
+    res.status(404).send("404 NOT FOUND")
 })
 
 
