@@ -3,11 +3,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: whitesmoke;
+    background-color: #fff;
 }
 
 .register-container .form-container{
-    background-color: #fff;
+    background-color: rgba(253, 231, 171, 0.774);
     padding: 1rem;
     width: 30vw;
     border-radius:1rem;
@@ -27,7 +27,7 @@
     text-align: center;
     width: 20vw;
     border: 0;
-    background-color: #E8F0FE;
+    background-color: #fff;
     border-radius: 0.5rem;
     transition: all 300ms ease-in-out;
     font-family: monospace;
@@ -35,11 +35,11 @@
 
 .register-container .form-container .form input:focus{
     border: 1px solid #000;
-    background-color: #a5b5d14b;
+    background-color: #ebe8e1;
 }
 .register-container .form-container .form input:last-child:hover{
-    background-color: teal;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
 }
 .register-container .form-container .form input:last-child{
     margin: 2rem 0 2rem 0;
@@ -49,6 +49,8 @@
     width: 10vw;
     cursor: pointer;
     border: 3px solid #000;
+    background-color: #000;
+    color: #fff;
 }
 
 @media screen and (max-width:950px){
@@ -83,6 +85,7 @@
         display: block;
         width: 100%;
         overflow-y: hidden;
+        background-color: whitesmoke;
     }
     .register-container .form-container{
         width: 100%;
@@ -96,6 +99,7 @@
 
     .register-container .form-container .form input{
         width: 100%;
+        background-color: #d2f3ef;
     }
 
     .register-container .form-container .form input:last-child{
