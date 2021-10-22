@@ -50,3 +50,56 @@
     cursor: pointer;
     border: 3px solid #000;
 }
+
+@media screen and (max-width:950px){
+    .register-container .form-container{
+        width: 40vw;
+    }
+
+    .register-container .form-container .form input{
+        width: 30vw;
+    }
+
+    .register-container .form-container .form input:last-child{
+        width: 20vw;
+    }
+}
+@media screen and (max-width:600px){
+    .register-container .form-container{
+        width: 60vw;
+    }
+
+    .register-container .form-container .form input{
+        width: 50vw;
+    }
+
+    .register-container .form-container .form input:last-child{
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width:400px){
+    .register-container{
+        display: block;
+        width: 100%;
+        overflow-y: hidden;
+    }
+    .register-container .form-container{
+        width: 100%;
+        padding:0;
+        background-color: whitesmoke;
+    }
+
+    .register-container .form-container .form{
+        padding: 0 2rem;
+    }
+
+    .register-container .form-container .form input{
+        width: 100%;
+    }
+
+    .register-container .form-container .form input:last-child{
+        width: 40vw;
+    }
+}
+
