@@ -22,7 +22,7 @@ export default function Register() {
         console.log("hello")
         if (name && email && password) {
             fetch(
-                "http://localhost:5000/register",
+                `${process.env.REACT_APP_BASE_URI}/register`,
                 {
                     method: "POST",
                     headers: {
