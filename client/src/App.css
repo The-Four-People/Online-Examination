@@ -37,11 +37,11 @@
     border: 1px solid #000;
     background-color: #ebe8e1;
 }
-.register-container .form-container .form input:last-child:hover{
+.register-container .form-container .form input[type="submit"]:hover{
     background-color: #fff;
     color: #000;
 }
-.register-container .form-container .form input:last-child{
+.register-container .form-container .form input[type="submit"]{
     margin: 2rem 0 2rem 0;
     padding:1rem;
     text-transform: uppercase;
@@ -53,6 +53,22 @@
     color: #fff;
 }
 
+.reg-login{
+    margin-top: 0;
+    font-size: 1rem;
+}
+
+.reg-login-link{
+    text-decoration: none;
+    color: #2d2d2d;
+    font-weight: bold;
+}
+
+.reg-login-link:hover{
+    text-decoration: underline;
+    color: #000;
+}
+
 @media screen and (max-width:950px){
     .register-container .form-container{
         width: 40vw;
@@ -62,7 +78,7 @@
         width: 30vw;
     }
 
-    .register-container .form-container .form input:last-child{
+    .register-container .form-container .form input[type="submit"]{
         width: 20vw;
     }
 }
@@ -75,7 +91,7 @@
         width: 50vw;
     }
 
-    .register-container .form-container .form input:last-child{
+    .register-container .form-container .form input[type="submit"]{
         width: 40vw;
     }
 }
@@ -102,7 +118,7 @@
         background-color: #d2f3ef;
     }
 
-    .register-container .form-container .form input:last-child{
+    .register-container .form-container .form input [type="submit"]{
         width: 40vw;
     }
 }

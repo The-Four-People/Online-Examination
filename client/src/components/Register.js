@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 export default function Register() {
     const [name, setname] = useState(null)
     const [email, setemail] = useState(null)
@@ -52,10 +54,11 @@ export default function Register() {
         <div className='register-container'>
             <div className="form-container">
                 <form className="form" onSubmit={handleFormSubmit}>
-                    <input onChange={handleNameChange} name="name" type="text" required />
-                    <input onChange={handleEmailChange} name="email" type="email" required />
-                    <input onChange={handlePasswordChange} name="password" type="password" required />
+                    <input onChange={handleNameChange} name="name" type="text" placeholder="Name" required />
+                    <input onChange={handleEmailChange} name="email" type="email" placeholder="Email" required />
+                    <input onChange={handlePasswordChange} name="password" type="password" placeholder="Password" required />
                     <input type="submit" value="Register" />
+                    <p className="reg-login">Have an account? <Link className="reg-login-link" to="/login">Login</Link></p>
                 </form>
             </div>
         </div>
