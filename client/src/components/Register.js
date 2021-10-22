@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 export default function Register() {
     const [name, setname] = useState(null)
     const [email, setemail] = useState(null)
@@ -25,38 +24,40 @@ export default function Register() {
             fetch(
                 "http://localhost:5000/register",
                 {
-                    method:"POST",
-                    headers:{
-                        'Content-Type':'application/json'
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    body:JSON.stringify({
+                    body: JSON.stringify({
                         name,
                         email,
                         password
                     })
                 }
             )
-            .then((data,err) => {
-                if(!err){
-                    return data.json()
-                }else{
-                    console.log(err)
-                }
-            })
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
+                .then((data, err) => {
+                    if (!err) {
+                        return data.json()
+                    } else {
+                        console.log(err)
+                    }
+                })
+                .then(data => console.log(data))
+                .catch(err => console.log(err))
         }
 
     }
 
     return (
         <div className='register-container'>
-            <form onSubmit={handleFormSubmit}>
-                <input onChange={handleNameChange} name="name" type="text" required />
-                <input onChange={handleEmailChange} name="email" type="email" required />
-                <input onChange={handlePasswordChange} name="password" type="password" required />
-                <button type="submit">Register</button>
-            </form>
+            <div className="form-container">
+                <form className="form" onSubmit={handleFormSubmit}>
+                    <input onChange={handleNameChange} name="name" type="text" required />
+                    <input onChange={handleEmailChange} name="email" type="email" required />
+                    <input onChange={handlePasswordChange} name="password" type="password" required />
+                    <input type="submit" value="Register" />
+                </form>
+            </div>
         </div>
     )
 }
