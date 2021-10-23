@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const Register = require('./Routes/Register')
 const cors = require('cors')
+const  { lookup } = require('geoip-lite')
 dotenv.config()
 const app = express()
 
@@ -24,6 +25,7 @@ function logger(req,res,next){
         ip:req.connection.remoteAddress, // req.ip 
         url:req.url,
         method:req.method,
+        location:lookup(req.connection.remoteAddress)
     }
     console.log()
     console.log(log)
