@@ -25,7 +25,7 @@ function logger(req,res,next){
         url:req.url,
         method:req.method,
     }
-    console.log()
+    console.log(req.connection.remoteAddress)
     console.log(log)
     console.log()
     next()
