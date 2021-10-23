@@ -2,30 +2,28 @@ const express = require('express')
 const dotenv = require('dotenv')
 const Register = require('./Routes/Register')
 const cors = require('cors')
-const  { lookup } = require('geoip-lite')
 dotenv.config()
 const app = express()
 
 app.use(cors())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger)
 
 
-app.use('/register',Register)
+app.use('/register', Register)
 
 
-app.get('/',(req,res) => {
+app.get('/', (req, res) => {
     res.status(404).send("404 not found")
 })
 
 
-function logger(req,res,next){
+function logger(req, res, next) {
     const log = {
-        ip:req.connection.remoteAddress, // req.ip 
-        url:req.url,
-        method:req.method,
-        location:lookup(req.connection.remoteAddress)
+        ip: req.connection.remoteAddress, // req.ip 
+        url: req.url,
+        method: req.method
     }
     console.log()
     console.log(log)
