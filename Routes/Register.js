@@ -10,8 +10,6 @@ app.use(express.urlencoded({ extended: true }))
 function save(name, email, password) {
     const promise = new Promise(function (resolve, reject) {
         try {
-
-
             const salt = bcrypt.genSaltSync(10)
             const hash = bcrypt.hashSync(password.toString(), salt)
             UserModal.create({
