@@ -21,11 +21,11 @@ app.get('/',(req,res) => {
 
 function logger(req,res,next){
     const log = {
-        ip:req.ip,
+        ip:req.connection.remoteAddress, // req.ip 
         url:req.url,
         method:req.method,
     }
-    console.log(req.connection.remoteAddress)
+    console.log()
     console.log(log)
     console.log()
     next()
