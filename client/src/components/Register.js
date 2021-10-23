@@ -54,9 +54,32 @@ export default function Register() {
         <div className='register-container'>
             <div className="form-container">
                 <form className="form" onSubmit={handleFormSubmit}>
-                    <input onChange={handleNameChange} name="name" type="text" placeholder="Name" required />
-                    <input onChange={handleEmailChange} name="email" type="email" placeholder="Email" required />
-                    <input onChange={handlePasswordChange} name="password" type="password" placeholder="Password" required />
+                    <input
+                        onChange={handleNameChange}
+                        name="name"
+                        type="text"
+                        placeholder="Name"
+                        required
+                        maxLength="20" />
+
+                    <input 
+                    onChange={handleEmailChange} 
+                    name="email" 
+                    type="email" 
+                    placeholder="Email" 
+                    required />
+
+                    <input
+                        onChange={handlePasswordChange}
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        required
+                        minLength="5"
+                        maxLength="20" 
+                        // pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                        />
+
                     <input type="submit" value="Register" />
                     <p className="reg-login">Have an account? <Link className="reg-login-link" to="/login">Login</Link></p>
                 </form>
