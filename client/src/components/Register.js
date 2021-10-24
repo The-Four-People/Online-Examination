@@ -1,28 +1,18 @@
-import React, { useState } from 'react'
+import React, {  useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Register() {
-    const [name, setname] = useState(null)
-    const [email, setemail] = useState(null)
-    const [password, setpassword] = useState(null)
-
-    function handleNameChange(e) {
-        setname(e.target.value)
-    }
-
-    function handleEmailChange(e) {
-        setemail(e.target.value)
-    }
-
-    function handlePasswordChange(e) {
-        setpassword(e.target.value)
-    }
-
+    const name  = useRef(null)
+    const email  = useRef(null)
+    const password = useRef(null)
 
     function handleFormSubmit(e) {
         e.preventDefault()
-        console.log("hello")
-        if (name && email && password) {
+        const Name = name.current.value
+        const Email = email.current.value
+        const Password = password.current.value
+        console.log("Registering.....")
+        if (Name && Email && Password) {
             fetch(
                 `${process.env.REACT_APP_BASE_URI}/register`,
                 {
@@ -31,9 +21,9 @@ export default function Register() {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        name,
-                        email,
-                        password
+                        name:Name,
+                        email:Email,
+                        password:Password
                     })
                 }
             )
@@ -55,30 +45,30 @@ export default function Register() {
             <div className="form-container">
                 <form className="form" onSubmit={handleFormSubmit}>
                     <input
-                        onChange={handleNameChange}
                         name="name"
                         type="text"
                         placeholder="Name"
                         required
-                        maxLength="20" />
-
-                    <input 
-                    onChange={handleEmailChange} 
-                    name="email" 
-                    type="email" 
-                    placeholder="Email" 
-                    required />
+                        maxLength="20" 
+                        ref={name}/>
 
                     <input
-                        onChange={handlePasswordChange}
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        ref={email}
+                        required />
+
+                    <input
                         name="password"
                         type="password"
                         placeholder="Password"
                         required
                         minLength="5"
-                        maxLength="20" 
-                        // pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
-                        />
+                        maxLength="20"
+                        ref={password}
+                    // pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                    />
 
                     <input type="submit" value="Register" />
                     <p className="reg-login">Have an account? <Link className="reg-login-link" to="/login">Login</Link></p>
