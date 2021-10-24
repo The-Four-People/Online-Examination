@@ -2,12 +2,14 @@ import React, { useRef,useState } from 'react'
 import { Link,Redirect } from 'react-router-dom'
 
 export default function Register() {
+    document.title = "Sign up | Online Examination"
     const name = useRef(null)
     const email = useRef(null)
     const password = useRef(null)
 
     // For checking if registration is successfull and then redirecting to login page
     const [success, setSuccess] = useState(false)
+
 
     function handleFormSubmit(e) {
         e.preventDefault()
