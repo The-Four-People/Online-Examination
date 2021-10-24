@@ -1,10 +1,13 @@
-import React, {  useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useRef,useState } from 'react'
+import { Link,Redirect } from 'react-router-dom'
 
 export default function Register() {
-    const name  = useRef(null)
-    const email  = useRef(null)
+    const name = useRef(null)
+    const email = useRef(null)
     const password = useRef(null)
+
+    // For checking if registration is successfull and then redirecting to login page
+    const [success, setSuccess] = useState(false)
 
     function handleFormSubmit(e) {
         e.preventDefault()
@@ -21,9 +24,9 @@ export default function Register() {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        name:Name,
-                        email:Email,
-                        password:Password
+                        name: Name,
+                        email: Email,
+                        password: Password
                     })
                 }
             )
@@ -34,7 +37,12 @@ export default function Register() {
                         console.log(err)
                     }
                 })
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data)
+                    if(data.ok === true){
+                        setSuccess(true)
+                    }
+                })
                 .catch(err => console.log(err))
         }
 
@@ -49,8 +57,8 @@ export default function Register() {
                         type="text"
                         placeholder="Name"
                         required
-                        maxLength="20" 
-                        ref={name}/>
+                        maxLength="20"
+                        ref={name} />
 
                     <input
                         name="email"
@@ -74,6 +82,7 @@ export default function Register() {
                     <p className="reg-login">Have an account? <Link className="reg-login-link" to="/login">Login</Link></p>
                 </form>
             </div>
+            {success && <Redirect push to="/login"/>}
         </div>
     )
 }
