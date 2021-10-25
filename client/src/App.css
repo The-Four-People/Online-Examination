@@ -1,4 +1,4 @@
-.register-container{
+.main-form-container{
     height: inherit;
     display: flex;
     align-items: center;
@@ -6,20 +6,20 @@
     background-color: #fff;
 }
 
-.register-container .form-container{
+.main-form-container .form-container{
     background-color: rgba(253, 231, 171, 0.774);
     padding: 1rem;
     width: 30vw;
     border-radius:1rem;
 }
 
-.register-container .form-container .form{
+.main-form-container .form-container .form{
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.register-container .form-container .form input{
+.main-form-container .form-container .form input{
     margin: 1rem 0 1rem 0;
     padding: 1rem;
     outline: none;
@@ -33,15 +33,15 @@
     font-family: monospace;
 }
 
-.register-container .form-container .form input:focus{
+.main-form-container .form-container .form input:focus{
     border: 1px solid #000;
     background-color: #ebe8e1;
 }
-.register-container .form-container .form input[type="submit"]:hover{
+.main-form-container .form-container .form input[type="submit"]:hover{
     background-color: #fff;
     color: #000;
 }
-.register-container .form-container .form input[type="submit"]{
+.main-form-container .form-container .form input[type="submit"]{
     margin: 2rem 0 2rem 0;
     padding:1rem;
     text-transform: uppercase;
@@ -70,55 +70,55 @@
 }
 
 @media screen and (max-width:950px){
-    .register-container .form-container{
+    .main-form-container .form-container{
         width: 40vw;
     }
 
-    .register-container .form-container .form input{
+    .main-form-container .form-container .form input{
         width: 30vw;
     }
 
-    .register-container .form-container .form input[type="submit"]{
+    .main-form-container .form-container .form input[type="submit"]{
         width: 20vw;
     }
 }
 @media screen and (max-width:600px){
-    .register-container .form-container{
+    .main-form-container .form-container{
         width: 60vw;
     }
 
-    .register-container .form-container .form input{
+    .main-form-container .form-container .form input{
         width: 50vw;
     }
 
-    .register-container .form-container .form input[type="submit"]{
+    .main-form-container .form-container .form input[type="submit"]{
         width: 40vw;
     }
 }
 
 @media screen and (max-width:400px){
-    .register-container{
+    .main-form-container{
         display: block;
         width: 100%;
         overflow-y: hidden;
         background-color: #fff;
     }
-    .register-container .form-container{
+    .main-form-container .form-container{
         width: 100%;
         padding:0;
         background-color: #fff;
     }
 
-    .register-container .form-container .form{
+    .main-form-container .form-container .form{
         padding: 0 2rem;
     }
 
-    .register-container .form-container .form input{
+    .main-form-container .form-container .form input{
         width: 100%;
         background-color: #d2f3ef;
     }
 
-    .register-container .form-container .form input [type="submit"]{
+    .main-form-container .form-container .form input [type="submit"]{
         width: 40vw;
     }
 }
