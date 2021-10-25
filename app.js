@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const Register = require('./Routes/Register')
+const Login = require('./Routes/Login')
 const cors = require('cors')
 dotenv.config()
 const app = express()
@@ -12,10 +13,10 @@ app.use(logger)
 
 
 app.use('/register', Register)
-
+app.use('/login',Login)
 
 app.get('/', (req, res) => {
-    res.status(404).send("404 not found")
+    res.sendStatus(404)
 })
 
 
