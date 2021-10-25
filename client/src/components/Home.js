@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
+    document.title = "Online Examination"
     return (
         <div>
             <h1>Hello this is Home of our Online Examination 😆</h1>
