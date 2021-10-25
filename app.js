@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const Register = require('./Routes/Register')
 const Login = require('./Routes/Login')
+const Verify = require('./Routes/Verify')
 const cors = require('cors')
 dotenv.config()
 const app = express()
@@ -12,9 +13,9 @@ app.use(express.json())
 app.use(logger)
 
 
-app.use('/register', Register)
-app.use('/login',Login)
-
+app.use('/api/register', Register)
+app.use('/api/login',Login)
+app.use('/api/verify',Verify)
 app.get('/', (req, res) => {
     res.sendStatus(404)
 })
