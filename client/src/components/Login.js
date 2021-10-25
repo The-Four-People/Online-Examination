@@ -113,14 +113,13 @@ export default function Login() {
                         minLength="5"
                         maxLength="20"
                         ref={password}
-                    // pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                     />
 
-                    <input type="submit" value="Register" />
-                    <p className="reg-login">Have an account? <Link className="reg-login-link" to="/register">Register</Link></p>
+                    <input type="submit" value="Login" />
+                    <p className="reg-login">Don't have an account? <Link className="reg-login-link" to="/register">Register</Link></p>
                 </form>
             </div>
-            {isLoggedIn && <Redirect push to="/" />}
+            {isLoggedIn && <Redirect to="/" />}
         </div>
     )
 }
