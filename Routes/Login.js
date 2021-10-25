@@ -69,7 +69,8 @@ router.post('/',
     body('password').isLength({ min: 5, max: 20 }),
     validate,
     (req, res) => {
-        const { email, password } = req.body
+        let { email, password } = req.body
+        password = password.toString()
         findUser(email, password)
             .then((user, err) => {
                 if (user) {
