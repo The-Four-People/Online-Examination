@@ -2,10 +2,16 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const UserModal = require('../Modals/User')
+const dotenv = require('dotenv')
+const path = require('path')
 const { body, validationResult } = require('express-validator')
+const jwt = require("jsonwebtoken")
 
-
+dotenv.config({
+    path:path.join(__dirname,'../','.env')
+})
 router.use(express.json())
+
 
 const validate = (req, res, next) => {
     let errors = validationResult(req)
@@ -76,9 +82,12 @@ router.post('/',
                 if (user) {
                     const isPasswordCorrect = checkpassword(password, user.password)
                     if (isPasswordCorrect) {
-                        res.json({ ok: true, msg: "User found"})
-                    }else{
-                        res.json({ok:false,msg:"Password Incorrect"})
+                        const { name, email } = user
+                        const jwt_token = jwt.sign({ name: name, email: email },process.env.key, { expiresIn: '2h' })
+                        console.log(jwt_token)
+                        res.json({ ok: true, msg: "User found", sec: jwt_token })
+                    } else {
+                        res.json({ ok: false, msg: "Password Incorrect" })
                     }
                 } else {
                     res.json({ ok: false, msg: "User not found" })

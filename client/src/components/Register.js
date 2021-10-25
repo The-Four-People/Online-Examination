@@ -19,7 +19,7 @@ export default function Register() {
         console.log("Registering.....")
         if (Name && Email && Password) {
             fetch(
-                `${process.env.REACT_APP_BASE_URI}/register`,
+                `${process.env.REACT_APP_BASE_URI}/api/register`,
                 {
                     method: "POST",
                     headers: {
