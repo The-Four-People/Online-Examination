@@ -7,7 +7,7 @@ dotenv.config({
 })
 
 // console.log(process.env.CONNECTION_URI)
-mongoose.connect(`${process.env.CONNECTION_URI}myFirstDatabase/${process.env.CONNECTION_SUFFIX}`,{useNewUrlParser:true,useUnifiedTopology:true})
+mongoose.connect(`${process.env.CONNECTION_URI}developers${process.env.CONNECTION_SUFFIX}`,{useNewUrlParser:true,useUnifiedTopology:true})
     .then(() => {
         console.log('Successfully connected to the database')
     })
@@ -30,5 +30,5 @@ const User = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Users',User)
+module.exports = mongoose.model('admins',User)
 
