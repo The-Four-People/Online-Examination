@@ -1,5 +1,6 @@
 import React from 'react';
-import { picHam, picEmptyProfile } from '../res/resIndex';
+import { picEmptyProfile } from '../res/resIndex';
+import { Sidebar } from './componentIndex';
 
 const sha1 = '#3aafa9';
 const secd = '#2b7a78';
@@ -79,7 +80,7 @@ const NavbarSignInBtn = () => {
 const NavbarBrand = () => {
     return (
         <div className='navbar-brand'>
-            <img src={picHam} className='menubar-show' alt='ham' />
+            <Sidebar />
             <img
                 src='https://gpmumbai.ac.in/gpmweb/wp-content/uploads/2021/04/GPM-LOGO-2021.png'
                 className='navbar-icon'
