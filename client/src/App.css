@@ -240,7 +240,7 @@
 .navbar-brand h3 {
     margin: 0px 1rem 0rem 1rem;
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .navbar-items {
@@ -335,7 +335,7 @@
 
 .menu {
     background-color: var(--prim);
-    width: 10rem;
+    width: 15rem;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -356,7 +356,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 0.5rem 0 0.5rem 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     height: 3.2rem;
 }
 .menu-text > a {
@@ -367,6 +367,7 @@
     align-items: center;
     padding: 0.5rem 1rem;
     border-radius: 4px;
+    width: 100%;
 }
 .menu-text > a:hover {
     background-color: #2b7a78;
@@ -382,23 +383,18 @@
     align-items: center;
 }
 /* /sidebar */
-@media only screen and (max-width: 600px) {
-    .navbar-icon {
-        display: none;
-    }
-    .navbar-brand h3 {
+
+@media only screen and (max-width: 1110px) {
+    .navbar-link {
+        padding: 1rem;
         font-size: 1rem;
     }
-    #card-user-name {
-        display: none;
+
+    .navbar-brand h3 {
+        font-size: 1.2rem;
     }
-    #card-dropdown {
-        left: -4rem;
+    .btn {
         font-size: 0.8rem;
-        width: 5.8rem;
-    }
-    .card-user-icon {
-        margin: 0 0.5rem 0 0.5rem;
     }
 }
 
@@ -419,16 +415,33 @@
     }
 }
 
-@media only screen and (max-width: 1110px) {
-    .navbar-link {
-        padding: 0.8rem 1rem 1rem 1rem;
-        font-size: 1rem;
+@media only screen and (max-width: 600px) {
+    .navbar-icon {
+        display: none;
     }
-
+    #btn-sign-in {
+        font-size: 0.7rem;
+    }
+    .dropdown {
+        margin-left: 0;
+    }
+    .navbar-container {
+        padding-right: 0rem;
+    }
     .navbar-brand h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
     }
-    .btn {
+    #card-user-name {
+        display: none;
+    }
+    #card-dropdown {
+        left: -4rem;
         font-size: 0.8rem;
+        width: 5.8rem;
+    }
+    .card-user-icon {
+        margin: 0 0.5rem 0 0.5rem;
     }
 }

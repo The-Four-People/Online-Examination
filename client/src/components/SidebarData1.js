@@ -5,7 +5,7 @@ import * as IoIcons from 'react-icons/io';
 
 export const SidebarData1 = [
     {
-        title: 'Page 1',
+        title: 'A very long task',
         path: '/',
         icon: <AiIcons.AiFillHome />,
         cName: 'menu-text',
