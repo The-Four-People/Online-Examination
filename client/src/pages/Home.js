@@ -13,7 +13,7 @@ export default function Home() {
                     <Link to='/login'>Login</Link>
                 </h2>
                 <h2>
-                    <Link to='/register'>Register</Link>
+                    <Link to='/register-admin'>Register</Link>
                 </h2>
             </div>
         </>
