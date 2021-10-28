@@ -18,7 +18,7 @@ function save(name, email, password) {
             }).then((data, err) => {
                 if (!err) {
                     console.log(data)
-                    resolve({ ok: true, msg: 'User successfully registered' })
+                    resolve({ ok: true, msg: 'Admin successfully registered' })
                 } else {
                     reject({ ok: false, msg: 'Operation Unsucessfull', error: err })
                 }

@@ -85,7 +85,7 @@ router.post('/',
                         const { name, email, role } = user
                         const jwt_token = jwt.sign({ name: name, email: email, role: role }, process.env.key, { expiresIn: '2h' })
                         console.log(jwt_token)
-                        res.json({ ok: true, msg: "User found", token: jwt_token })
+                        res.json({ ok: true, msg: "Student found", token: jwt_token })
                     } else {
                         res.json({ ok: false, msg: "Password Incorrect" })
                     }
