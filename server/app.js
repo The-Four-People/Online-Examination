@@ -1,21 +1,26 @@
 const express = require('express')
 const dotenv = require('dotenv')
-const Register = require('./Routes/Register')
-const Login = require('./Routes/Login')
-const Verify = require('./Routes/Verify')
+const {adminRegister,teacherRegister,studentRegister }= require('./Routes/Register/registerIndex')
+const { adminLogin,studentLogin,teacherLogin }= require('./Routes/Login/loginIndex')
+const { isAdmin,isAdminOrTeacher} = require('./Middlewares/middlewareIndex')
 const cors = require('cors')
 dotenv.config()
 const app = express()
 
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.json({ limit: '100mb' }))
 app.use(logger)
 
 
-app.use('/api/register', Register)
-app.use('/api/login',Login)
-app.use('/api/verify',Verify)
+app.use('/api/register/admin', isAdmin, adminRegister)
+app.use('/api/register/teacher',isAdmin,teacherRegister)
+app.use('/api/register/student',isAdminOrTeacher,studentRegister)
+
+app.use('/api/login/admin', adminLogin)
+app.use('/api/login/teacher',teacherLogin)
+app.use('/api/login/student',studentLogin)
+
 app.get('/', (req, res) => {
     res.sendStatus(404)
 })

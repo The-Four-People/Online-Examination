@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Navbar } from '../components/componentIndex';
+import { Navbar } from '../../components/componentIndex';
 
 export default function Register() {
     document.title = 'Sign up | Online Examination';

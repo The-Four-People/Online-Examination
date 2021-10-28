@@ -13,9 +13,10 @@ function App() {
                 <Route exact path='/login'>
                     <Login />
                 </Route>
-                <Route exact path='/register-admin'>
+                <Route exact path='/register/admin'>
                     <Register />
                 </Route>
+
             </Switch>
         </BrowserRouter>
     );

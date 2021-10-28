@@ -8,7 +8,7 @@ export default function Login() {
     const [sec, setSec] = useState(() => {
         if (localStorage.getItem('user')) {
             const temp = JSON.parse(localStorage.getItem('user'));
-            return temp.sec;
+            return temp.token;
         } else {
             return null;
         }
@@ -78,7 +78,7 @@ export default function Login() {
                         setSec(data.sec);
                         localStorage.setItem(
                             'user',
-                            JSON.stringify({ sec: data.sec })
+                            JSON.stringify({ token: data.token })
                         );
                     }
                 })
