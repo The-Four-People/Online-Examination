@@ -1,26 +1,39 @@
 const express = require('express')
-const UserModal = require('../Modals/User')
+const { teacherUser } = require('../../Modals/modalsIndex')
 const bcrypt = require('bcrypt')
 const { body, validationResult } = require('express-validator')
-const Router = express.Router()
-const app = express()
+const router = express.Router()
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+
+router.post('/',
+    body('email').isEmail(),
+    body('password').isLength({ min: 5 }),
+    validation,
+    (req, res) => {
+        const { name, email, password } = req.body
+        save(name, email, password)
+            .then((data, err) => {
+                err ? res.json(err) : res.json(data)
+            })
+            .catch(err => {
+                res.json({ ok: false, msg: 'An error occured', error: err })
+            })
+    }
+)
 
 function save(name, email, password) {
     const promise = new Promise(function (resolve, reject) {
         try {
             const salt = bcrypt.genSaltSync(10)
             const hash = bcrypt.hashSync(password.toString(), salt)
-            UserModal.create({
+            teacherUser.create({
                 name,
                 email,
                 password: hash
             }).then((data, err) => {
                 if (!err) {
                     console.log(data)
-                    resolve({ ok: true, msg: 'User successfully registered' })
+                    resolve({ ok: true, msg: 'Teacher successfully registered' })
                 } else {
                     reject({ ok: false, msg: 'Operation Unsucessfull', error: err })
                 }
@@ -34,7 +47,7 @@ function save(name, email, password) {
     return promise
 }
 
-const validation = (req, res, next) => {
+function validation(req, res, next) {
     let errors = validationResult(req)
     if (!errors.isEmpty()) {
         errors = errors.errors
@@ -54,24 +67,4 @@ const validation = (req, res, next) => {
     }
     next()
 }
-Router.post('/',
-    body('email').isEmail(),
-    body('password').isLength({ min: 5 }),
-    validation,
-    (req, res) => {
-        const { name, email, password } = req.body
-        save(name, email, password)
-            .then((data, err) => {
-                err ? res.json(err) : res.json(data)
-            })
-            .catch(err => {
-                res.json({ ok: false, msg: 'An error occured', error: err })
-            })
-    })
-
-Router.get('/', (req, res) => {
-    res.sendStatus(404) 
-})
-
-
-module.exports = Router
+module.exports = router

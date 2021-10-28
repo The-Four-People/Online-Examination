@@ -6,15 +6,15 @@ dotenv.config({
     path:path.join(__dirname,'../','.env')
 })
 
-// console.log(process.env.CONNECTION_URI)
-mongoose.connect(`${process.env.CONNECTION_URI}administrator${process.env.CONNECTION_SUFFIX}`,{useNewUrlParser:true,useUnifiedTopology:true})
+// mongoose.connection.close()
+mongoose.connect(`${process.env.CONNECTION_URI}online-exam${process.env.CONNECTION_SUFFIX}`,{useNewUrlParser:true,useUnifiedTopology:true})
     .then(() => {
         console.log('Successfully connected to the database')
     })
     .catch((err) => {
         console.log('Error ' + err)
     })
-const User = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     name: {
         type:String,
         required:true
@@ -27,8 +27,13 @@ const User = new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    role:{
+        type:String,
+        required:true,
+        default:"admin"
     }
 })
 
-module.exports = mongoose.model('admins',User)
+module.exports = mongoose.model('admins',adminSchema)
 

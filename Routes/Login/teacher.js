@@ -1,16 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const UserModal = require('../Modals/User')
+const { teacherUser } = require('../../Modals/modalsIndex')
 const dotenv = require('dotenv')
 const path = require('path')
 const { body, validationResult } = require('express-validator')
 const jwt = require("jsonwebtoken")
 
 dotenv.config({
-    path:path.join(__dirname,'../','.env')
+    path: path.join(__dirname, '../', '.env')
 })
-router.use(express.json())
+
 
 
 const validate = (req, res, next) => {
@@ -39,7 +39,7 @@ const validate = (req, res, next) => {
 function findUser(email) {
     const promise = new Promise((resolve, reject) => {
         try {
-            UserModal.findOne({ email: email },
+            teacherUser.findOne({ email: email },
                 function (err, user) {
                     if (!err) {
                         resolve(user)
@@ -82,15 +82,15 @@ router.post('/',
                 if (user) {
                     const isPasswordCorrect = checkpassword(password, user.password)
                     if (isPasswordCorrect) {
-                        const { name, email } = user
-                        const jwt_token = jwt.sign({ name: name, email: email },process.env.key, { expiresIn: '2h' })
+                        const { name, email, role } = user
+                        const jwt_token = jwt.sign({ name: name, email: email, role: role }, process.env.key, { expiresIn: '2h' })
                         console.log(jwt_token)
-                        res.json({ ok: true, msg: "User found", sec: jwt_token })
+                        res.json({ ok: true, msg: "User found", token: jwt_token })
                     } else {
                         res.json({ ok: false, msg: "Password Incorrect" })
                     }
                 } else {
-                    res.json({ ok: false, msg: "User not found" })
+                    res.json({ ok: false, msg: "Teacher not found" })
                 }
             }).
             catch(err => {
