@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const { teacherUser } = require('../../Modals/modalsIndex')
+const { teacherUser } = require('../../Models/modelIndex')
 const dotenv = require('dotenv')
 const path = require('path')
 const { body, validationResult } = require('express-validator')

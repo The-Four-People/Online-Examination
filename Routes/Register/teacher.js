@@ -1,5 +1,5 @@
 const express = require('express')
-const { teacherUser } = require('../../Modals/modalsIndex')
+const { teacherUser } = require('../../Models/modelIndex')
 const bcrypt = require('bcrypt')
 const { body, validationResult } = require('express-validator')
 const router = express.Router()
