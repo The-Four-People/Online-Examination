@@ -323,11 +323,10 @@
     background-color: var(--prim);
     height: 3rem;
     width: 3rem;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
 }
 .menu-btn > svg {
-    margin-left: 0.8rem;
     font-size: 1.6rem;
     background: none;
     color: white;
@@ -377,9 +376,9 @@
 }
 .menu-close-btn {
     width: 100%;
+    padding-left: 0.8;
     height: 4rem;
     display: flex;
-    justify-content: start;
     align-items: center;
 }
 /* /sidebar */
