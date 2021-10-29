@@ -20,6 +20,7 @@ const teacherSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    courses:[String],
     role:{
         type:String,
         required:true,
