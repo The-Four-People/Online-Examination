@@ -26,6 +26,8 @@ app.use('/api/login/student', studentLogin)
 
 //Courses Router
 app.use('/api/course/new',createCourse)
+
+
 app.get('/', (req, res) => {
     res.sendStatus(404)
 })

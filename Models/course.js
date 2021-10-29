@@ -8,10 +8,10 @@ dotenv.config({
 })
 
 
-const quiz = new mongoose.Schema({
+const quiz = {
     id: {
         type: Number,
-        required: true
+        required: true,
     },
     marks: {
         type: Number,
@@ -23,14 +23,13 @@ const quiz = new mongoose.Schema({
     },
     options: {
         type:[String],
-        required:true
     },
     answer: {
         type: String,
         required: true
     }
 
-})
+}
 
 const courseSchema = new mongoose.Schema({
     name: {
