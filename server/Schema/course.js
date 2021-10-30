@@ -11,22 +11,22 @@ dotenv.config({
 const quiz = {
     id: {
         type: Number,
-        required: true,
+        // required: true,
     },
     marks: {
         type: Number,
-        required: true
+        // required: true
     },
     question: {
         type: String,
-        required: true
+        // required: true
     },
     options: {
         type:[String],
     },
     answer: {
         type: String,
-        required: true
+        // required: true
     }
 
 }
@@ -38,18 +38,28 @@ const courseSchema = new mongoose.Schema({
     },
     isStarted: {
         type: Boolean,
-        required: true
+        required: true,
+        default:false
     },
     total_marks: {
         type: Number,
-        required: true
+        // required: true,
+        default:null
+    },
+    courseId:{
+        type:String,
+        required:true
     },
     quiz: [quiz],
     createdAt: {
         type: Date,
         required: true,
         default: Date.now
+    },
+    createdBy:{
+        type:mongoose.SchemaTypes.ObjectId,
+        required:true
     }
 })
 
-module.exports = mongoose.model('courses',courseSchema)
+module.exports = courseSchema
