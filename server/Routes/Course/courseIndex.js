@@ -1,5 +1,6 @@
-const createCourse = require('./create')
-
+const createCourse = require('./create');
+const courseId = require('./courseId');
 module.exports = {
-    createCourse
-} 
+    createCourse,
+    courseId,
+};
