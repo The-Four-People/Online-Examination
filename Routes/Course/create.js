@@ -1,8 +1,11 @@
 const express = require('express')
 const { teacherUser } = require('../../Models/modelIndex')
+const { courseSchema } = require('../../Schema/schemaIndex')
 const dotenv = require('dotenv')
 const path = require('path')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
+
 const { nanoid } = require('nanoid')
 const router = express.Router()
 
@@ -17,8 +20,14 @@ router.post('/', async (req, res, next) => {
         const verify = jwt.verify(token, process.env.key)
         const teacher = await findTeachersEmail(verify.email)
         console.log(teacher)
-        const updated = await updateTeacherCourses(teacher, req.body.courseName)
-        res.json({ok:updated})
+        const smallID = nanoid()
+        const collectionCreated = await createCollection(req.body.courseName,smallID,(teacher._id).toString())
+        const [teacherID,updated] = await updateTeacherCourses(teacher, smallID)
+        if(collectionCreated && updated){
+            res.json({ ok: true,msg:"Collection successfully created and added to teachers document" })
+        }else{
+            res.json({ok:collectionCreated,msg:"Collection creation unsuccessfull"})
+        }
     }
     catch (err) {
         console.log(err)
@@ -26,22 +35,57 @@ router.post('/', async (req, res, next) => {
     }
 })
 
-const updateTeacherCourses = (teacher, courseName) => {
+
+const createCollection = (courseName,courseID,createdBy) => {
+    const promise = new Promise((res,rej) => {
+        try {
+            const collection = mongoose.model(courseID,courseSchema)
+            collection.create({
+                name:courseName,
+                createdBy:createdBy,
+                courseId:courseID
+            })
+            .then((data,err) => {
+                if(!err){
+                    res(true)
+                }else{
+                    console.log(err)
+                    rej(false)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                rej(false)
+            })
+
+        } catch (err) {
+            rej(false)
+        }
+    })
+
+    return promise
+}
+
+
+const updateTeacherCourses = (teacher, smallID) => {
+    let arr = [ null,false]
     const promise = new Promise((res, rej) => {
         try {
-            teacher.courses.push(nanoid())
+            teacher.courses.push(smallID)
             teacher.save()
                 .then(data => {
                     console.log(data)
-                    res(true)
+                    arr = [ (data._id).toString(),true ]
+                    res(arr)
                 })
                 .catch(err => {
                     console.log(err)
-                    rej(false)
+                    rej(arr)
                 })
         } catch (err) {
             console.log(err)
-            rej(false)
+
+            rej(arr)
         }
     })
 
