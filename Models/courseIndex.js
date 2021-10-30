@@ -18,8 +18,8 @@ const courseIndexSchema = new mongoose.Schema({
     course_name: {
         type: String,
     },
-    teacher_email: {
-        type: String,
+    teacher_id: {
+        type: mongoose.SchemaTypes.ObjectId,
     },
 });
 
