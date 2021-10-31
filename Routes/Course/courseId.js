@@ -124,9 +124,24 @@ router.post('/:code', async (req, res) => {
                         if (student) {
                             // console.log(teacher.courses[index].students_enrolled)
                             // console.log((student._id).toString())
-                            teacher.courses[index].students_enrolled.push(
-                                student._id.toString()
+
+                            const students_enrolled = new Set(
+                                teacher.courses[index].students_enrolled
                             );
+                            if (students_enrolled.has(student._id.toString())) {
+                                res.json({
+                                    ok: false,
+                                    msg: 'Student already registered',
+                                });
+                                return;
+                            } else {
+                                students_enrolled.add(student._id.toString());
+                                teacher.courses[index].students_enrolled =
+                                    Array.from(students_enrolled);
+                            }
+                            // teacher.courses[index].students_enrolled.push(
+                            //   student._id.toString()
+                            // );
                             const courseObj = {
                                 course_id: course.code,
                                 course_name: teacher.courses[index].name,
