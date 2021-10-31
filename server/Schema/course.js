@@ -1,12 +1,10 @@
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-const path = require('path')
-
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const path = require('path');
 
 dotenv.config({
-    path: path.join(__dirname, "../", ".env")
-})
-
+    path: path.join(__dirname, '../', '.env'),
+});
 
 const quiz = {
     id: {
@@ -22,44 +20,50 @@ const quiz = {
         // required: true
     },
     options: {
-        type:[String],
+        type: [String],
     },
     answer: {
         type: String,
         // required: true
-    }
-
-}
+    },
+};
 
 const courseSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+    },
+    test_name: {
+        type: String,
+    },
+    test_type: {
+        type: String,
+        default: 'mock',
     },
     isStarted: {
         type: Boolean,
         required: true,
-        default:false
+        default: false,
     },
     total_marks: {
         type: Number,
         // required: true,
-        default:null
+        default: null,
     },
-    courseId:{
-        type:String,
-        required:true
+    courseId: {
+        type: String,
+        required: true,
     },
     quiz: [quiz],
     createdAt: {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now,
     },
-    createdBy:{
-        type:mongoose.SchemaTypes.ObjectId,
-        required:true
-    }
-})
+    createdBy: {
+        type: mongoose.SchemaTypes.ObjectId,
+        required: true,
+    },
+});
 
-module.exports = courseSchema
+module.exports = courseSchema;

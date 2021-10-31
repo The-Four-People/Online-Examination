@@ -12,9 +12,10 @@ dotenv.config({
     path: path.join(__dirname, '../../', '.env'),
 });
 
-const updateCourseIndex = (name, code, id) => {
+const updateCourseIndex = async (name, code, id) => {
     console.log(name, code, id);
-    courseIndex
+    var done = false;
+    await courseIndex
         .create({
             course_code: code,
             course_name: name,
@@ -23,12 +24,65 @@ const updateCourseIndex = (name, code, id) => {
         .then((data, err) => {
             if (!err) {
                 console.log('Course Index updated');
+                done = true;
             } else {
                 console.log(err);
             }
         })
         .catch((err) => console.log(err));
+    return done;
 };
+
+router.post('/:id', async (req, res) => {
+    try {
+        const authToken = req.headers['authorization'];
+        const token = authToken.split(' ')[1];
+        const verify = jwt.verify(token, process.env.key);
+        const teacher = await findTeachersEmail(verify.email);
+        var courseFromIndex = await courseIndex
+            .findOne({ course_code: req.params.id })
+            .exec();
+        console.log(courseFromIndex);
+
+        if (courseFromIndex) {
+            const collectionCreated = await createCollection(
+                courseFromIndex.course_name,
+                req.params.id,
+                req.body.testName,
+                req.body.testType,
+                req.body.marks,
+                teacher._id.toString()
+            );
+            if (collectionCreated)
+                res.json({ ok: true, msg: `${req.body.testName} created` });
+        } else {
+            res.json({ ok: false, msg: 'Course Not created' });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+router.post('/:id/:test', async (req, res) => {
+    try {
+        var newQues = {
+            id: req.body.id,
+            question: req.body.question,
+            marks: req.body.marks,
+            answer: req.body.answer,
+            options: req.body.options,
+        };
+
+        const collection = mongoose.model(req.params.id, courseSchema);
+        const test = await collection
+            .findOne({ test_name: req.params.test })
+            .exec();
+        const questionInserted = insertNewQuestion(test, newQues);
+        res.json({ ok: questionInserted });
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 router.post('/', async (req, res, next) => {
     try {
@@ -38,25 +92,29 @@ router.post('/', async (req, res, next) => {
         const teacher = await findTeachersEmail(verify.email);
         console.log(teacher);
         const smallID = randomString.generate(7);
-        const collectionCreated = await createCollection(
+        // const collectionCreated = await createCollection(
+        //     req.body.courseName,
+        //     smallID,
+        //     teacher._id.toString()
+        // );
+        const indexUpdated = await updateCourseIndex(
             req.body.courseName,
             smallID,
             teacher._id.toString()
         );
-        const updated = await updateTeacherCourses(req.body.courseName,teacher, smallID);
-        await updateCourseIndex(
+        const teacherUpdated = await updateTeacherCourses(
             req.body.courseName,
-            smallID,
-            teacher._id.toString()
+            teacher,
+            smallID
         );
-        if (collectionCreated && updated) {
+        if (indexUpdated && teacherUpdated) {
             res.json({
                 ok: true,
                 msg: 'Collection successfully created and added to teachers document',
             });
         } else {
             res.json({
-                ok: collectionCreated,
+                ok: indexUpdated,
                 msg: 'Collection creation unsuccessfull',
             });
         }
@@ -66,7 +124,14 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-const createCollection = (courseName, courseID, createdBy) => {
+const createCollection = (
+    courseName,
+    courseID,
+    testName,
+    testType,
+    marks,
+    createdBy
+) => {
     const promise = new Promise((res, rej) => {
         try {
             const collection = mongoose.model(courseID, courseSchema);
@@ -75,6 +140,9 @@ const createCollection = (courseName, courseID, createdBy) => {
                     name: courseName,
                     createdBy: createdBy,
                     courseId: courseID,
+                    test_name: testName,
+                    test_type: testType,
+                    total_marks: marks,
                 })
                 .then((data, err) => {
                     if (!err) {
@@ -96,14 +164,35 @@ const createCollection = (courseName, courseID, createdBy) => {
     return promise;
 };
 
-const updateTeacherCourses = (courseName,teacher, smallID) => {
+const insertNewQuestion = (test, question) => {
+    const promise = new Promise((res, rej) => {
+        try {
+            test.quiz.push(question);
+            test.save()
+                .then((data) => {
+                    console.log(data);
+                    res(true);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    rej(false);
+                });
+        } catch (err) {
+            console.log(err);
+            rej(false);
+        }
+    });
+    return promise;
+};
+
+const updateTeacherCourses = (courseName, teacher, smallID) => {
     const promise = new Promise((res, rej) => {
         try {
             // ["jklnkl","sj"]
             const arr = {
-                name:courseName,
-                code:smallID
-            }
+                name: courseName,
+                code: smallID,
+            };
             teacher.courses.push(arr);
             teacher
                 .save()
