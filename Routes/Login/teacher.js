@@ -88,9 +88,9 @@ router.post(
                         user.password
                     );
                     if (isPasswordCorrect) {
-                        const { _id, name, email, role } = user;
+                        const { name, email, role } = user;
                         const jwt_token = jwt.sign(
-                            { _id: _id, name: name, email: email, role: role },
+                            { name: name, email: email, role: role },
                             process.env.key,
                             { expiresIn: '2h' }
                         );
