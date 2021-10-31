@@ -22,10 +22,6 @@ const courseIndexSchema = new mongoose.Schema({
     teacher_id: {
         type: mongoose.SchemaTypes.ObjectId,
     },
-    enrolled_student: {
-        type: [String],
-        default: [],
-    },
     created_on: {
         type: Date,
         required: true,
