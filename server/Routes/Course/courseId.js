@@ -27,8 +27,6 @@ const findCourseProperty = (property, value) => {
     return promise;
 };
 
-const postStudent = (course_code) => {};
-
 router.post('/', (req, res) => {
     let text = '';
     if (req.obj.role === 'student') {
@@ -54,6 +52,7 @@ router.get('/', (req, res) => {
                 }
             })
             .catch((err) => res.json(err));
+    } else if (req.obj.role === 'student') {
     }
 });
 

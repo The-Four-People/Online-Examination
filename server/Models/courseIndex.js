@@ -1,5 +1,6 @@
 // look up file for admin and other purposes
 // consist of { course_code , course_name, teacher_email}
+// extra field -> created on and enrolled student
 
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -20,6 +21,15 @@ const courseIndexSchema = new mongoose.Schema({
     },
     teacher_id: {
         type: mongoose.SchemaTypes.ObjectId,
+    },
+    enrolled_student: {
+        type: [String],
+        default: [],
+    },
+    created_on: {
+        type: Date,
+        required: true,
+        default: Date.now,
     },
 });
 
