@@ -6,6 +6,21 @@ dotenv.config({
     path:path.join(__dirname,'../','.env')
 })
 
+const teacherCoursesSchema = {
+    name:{
+        type:String,
+        required:true
+    },
+    code:{
+        type:String,
+        required:true
+    },
+    students_enrolled:{
+        type:[String],
+        unique:true
+    }
+}
+
 const teacherSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -20,7 +35,7 @@ const teacherSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    courses:[String],
+    courses:[teacherCoursesSchema],
     role:{
         type:String,
         required:true,

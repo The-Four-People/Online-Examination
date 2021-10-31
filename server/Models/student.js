@@ -25,9 +25,10 @@ const studentSchema = new mongoose.Schema({
             {
                 course_id: { type: String, unique: true },
                 course_name: String,
-                teacher_email: String,
+                teacher_id: String,
             },
         ],
+        unique:true,
         default: [],
     },
     role: {
