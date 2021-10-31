@@ -90,6 +90,7 @@ router.post('/',
                         res.json({ ok: false, msg: "Password Incorrect" })
                     }
                 } else {
+                    console.log(user,err)
                     res.json({ ok: false, msg: "Teacher not found" })
                 }
             }).

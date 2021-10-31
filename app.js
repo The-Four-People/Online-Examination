@@ -5,17 +5,22 @@ const {
     teacherRegister,
     studentRegister,
 } = require('./Routes/Register/registerIndex');
+
 const {
     adminLogin,
     studentLogin,
     teacherLogin,
 } = require('./Routes/Login/loginIndex');
+
 const { createCourse, courseId } = require('./Routes/Course/courseIndex');
+
 const {
     isAdmin,
     isAdminOrTeacher,
     hasToken,
 } = require('./Middlewares/middlewareIndex');
+
+
 const cors = require('cors');
 dotenv.config();
 const app = express();
