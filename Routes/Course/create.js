@@ -43,7 +43,7 @@ router.post('/', async (req, res, next) => {
             smallID,
             teacher._id.toString()
         );
-        const updated = await updateTeacherCourses(teacher, smallID);
+        const updated = await updateTeacherCourses(req.body.courseName,teacher, smallID);
         await updateCourseIndex(
             req.body.courseName,
             smallID,
@@ -96,11 +96,15 @@ const createCollection = (courseName, courseID, createdBy) => {
     return promise;
 };
 
-const updateTeacherCourses = (teacher, smallID) => {
+const updateTeacherCourses = (courseName,teacher, smallID) => {
     const promise = new Promise((res, rej) => {
         try {
             // ["jklnkl","sj"]
-            teacher.courses.push(smallID);
+            const arr = {
+                name:courseName,
+                code:smallID
+            }
+            teacher.courses.push(arr);
             teacher
                 .save()
                 .then((data) => {
