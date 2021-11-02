@@ -32,7 +32,7 @@ const postStudent = (course_code) => {};
 
 router.post('/', (req, res) => {});
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (req.obj.role === 'student') {
         findStudentByEmail(req.obj.email)
             .then((student) => {
@@ -47,7 +47,10 @@ router.get('/', (req, res) => {
             })
             .catch((err) => res.json({ ok: false, msg: 'get / error' }));
     } else if (req.obj.role === 'teacher') {
-        findCourseProperty('teacher_id', req.obj._id)
+        const teacher = await teacherUser
+            .findOne({ email: req.obj.email })
+            .exec();
+        findCourseProperty('teacher_id', teacher._id)
             .then((courses) => {
                 if (courses) {
                     res.json(courses);
@@ -230,11 +233,14 @@ router.get('/:code', async (req, res) => {
         }
     } else if (req.obj.role === 'teacher') {
         var course_auth = false;
+        var teacher = await teacherUser
+            .findOne({ email: req.obj.email })
+            .exec();
         await findCourseProperty('course_code', req.params.code)
             .then(async ([course]) => {
                 if (course) {
                     course_auth =
-                        req.obj._id.toString() === course.teacher_id.toString();
+                        teacher._id.toString() === course.teacher_id.toString();
                     console.log(course_auth);
                 } else {
                     res.json({ ok: false, msg: 'not found' });
