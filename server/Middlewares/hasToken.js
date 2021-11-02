@@ -12,14 +12,12 @@ const hasToken = async (req, res, next) => {
         const auth = req.headers['authorization'];
         const authToken = auth.split(' ')[1];
         const result = jwt.verify(authToken, process.env.key);
-        if (result.role === 'admin' || result.role === 'student') {
+        if (
+            result.role === 'admin' ||
+            result.role === 'student' ||
+            result.role === 'teacher'
+        ) {
             req.obj = result;
-            next();
-        } else if (result.role === 'teacher') {
-            const teacher = await teacherUser
-                .findOne({ email: result.email })
-                .exec();
-            req.obj = teacher;
             next();
         } else {
             res.json({ ok: false, msg: 'hasToken - Unidentified token' });
