@@ -50,7 +50,6 @@ router.get('/', (req, res) => {
         findCourseProperty('teacher_id', req.obj._id)
             .then((courses) => {
                 if (courses) {
-                    console.log('Getting all courses');
                     res.json(courses);
                 } else {
                     res.json({ ok: false, msg: 'not found' });
@@ -196,6 +195,39 @@ router.post('/:code', async (req, res) => {
 
 router.get('/:code', async (req, res) => {
     if (req.obj.role === 'student') {
+        var isStudentEnrolled = await findStudentByEmail(req.obj.email)
+            .then((student) => {
+                return student.course_enrolled.some(
+                    (c) => c.course_id === req.params.code
+                );
+            })
+            .catch((err) => console.log(err));
+
+        if (isStudentEnrolled) {
+            var collection = mongoose.model(req.params.code, courseSchema);
+            var tests = await collection.find({}).exec();
+            var response = tests.map((test) => {
+                var obj = {
+                    test_name: test.test_name,
+                    test_type: test.test_type,
+                    total_marks: test.total_marks,
+                    isStarted: test.isStarted,
+                    createdAt: test.createdAt,
+                };
+                // if (test.isStarted) {
+                //     obj.quiz = test.quiz.map((question) => {
+                //         return {
+                //             id: question.id,
+                //             marks: question.marks,
+                //             question: question.question,
+                //             options: question.options,
+                //         };
+                //     });
+                // }
+                return obj;
+            });
+            res.json(response);
+        }
     } else if (req.obj.role === 'teacher') {
         var course_auth = false;
         await findCourseProperty('course_code', req.params.code)
@@ -220,6 +252,47 @@ router.get('/:code', async (req, res) => {
                     res.json(err);
                 }
             });
+        }
+    }
+});
+
+router.get('/:code/:test', async (req, res) => {
+    if (req.obj.role === 'student') {
+        var isStudentEnrolled = await findStudentByEmail(req.obj.email)
+            .then((student) => {
+                return student.course_enrolled.some(
+                    (c) => c.course_id === req.params.code
+                );
+            })
+            .catch((err) => console.log(err));
+
+        if (isStudentEnrolled) {
+            var collection = mongoose.model(req.params.code, courseSchema);
+            var test = await collection
+                .findOne({ test_name: req.params.test })
+                .exec();
+            if (test) {
+                var obj = {
+                    test_name: test.test_name,
+                    test_type: test.test_type,
+                    total_marks: test.total_marks,
+                    isStarted: test.isStarted,
+                    createdAt: test.createdAt,
+                };
+                if (test.isStarted) {
+                    obj.quiz = test.quiz.map((question) => {
+                        return {
+                            id: question.id,
+                            marks: question.marks,
+                            question: question.question,
+                            options: question.options,
+                        };
+                    });
+                }
+                res.json(obj);
+            } else {
+                res.json({ ok: false, msg: `Test doesn't exist` });
+            }
         }
     }
 });
