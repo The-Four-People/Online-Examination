@@ -23,7 +23,7 @@ const hasToken = async (req, res, next) => {
 			res.json({ ok: false, msg: "hasToken - Unidentified token" });
 		}
 	} catch (err) {
-		res.json({ ok: false, msg: "Token Expired" });
+		res.json({ ok: false, msg: "Please provide a valid token" });
 		console.log(err);
 	}
 };
