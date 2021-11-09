@@ -298,7 +298,54 @@ router.get("/:code/:test", async (req, res) => {
 	}
 });
 
-router.post("/:code/:test/start", (req, res) => {
-	console.log(req.obj);
+router.post("/:code/:test/start", async (req, res) => {
+	if (req.obj.role === "teacher" || req.obj.role === "admin") {
+		if (req.obj.role === "teacher") {
+			const teacher = await teacherUser
+				.findOne({ email: req.obj.email })
+				.exec();
+			if (teacher) {
+				// console.log(teacher);
+				let isCourseByThisTeacher = false;
+				teacher.courses.map((course) => {
+					if (course.code === req.params.code) {
+						isCourseByThisTeacher = true;
+					}
+				});
+
+				if (isCourseByThisTeacher) {
+					const collection = mongoose.model(req.params.code, courseSchema);
+					const test = await collection
+						.findOne({ test_name: req.params.test })
+						.exec();
+					if (
+						req.body.start !== undefined &&
+						typeof req.body.start === "boolean"
+					) {
+						test.isStarted = req.body.start;
+						test
+							.save()
+							.then((testObj) => {
+								testObj.isStarted
+									? res.json({ ok: true, msg: "Test succesfully started" })
+									: res.json({ ok: true, msg: "Test succesfully Closed" });
+							})
+							.catch((err) => {
+								res.json({ ok: false, msg: "An error occured", error: err });
+							});
+					} else {
+						res.json({ ok: false, msg: "Please provide valid credentials" });
+					}
+				} else {
+					res.json({
+						ok: false,
+						msg: "You're not authorized to do this task",
+					});
+				}
+			} else {
+				res.json({ ok: false, msg: "No teacher with that credentials" });
+			}
+		}
+	}
 });
 module.exports = router;
