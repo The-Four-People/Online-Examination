@@ -1,66 +1,61 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { Navbar } from "../../components/componentIndex";
+import { Navbar } from "../componentIndex";
+import hasToken from "../../methods/hasToken";
 
-export default function Register() {
-	document.title = "Sign up | Online Examination";
-	const name = useRef(null);
+export default function Login() {
+	document.title = "Login | Online Examination";
+	const [isLoggedIn, setisLoggedIn] = useState(false);
 	const email = useRef(null);
 	const password = useRef(null);
 
-	// For checking if registration is successfull and then redirecting to login page
-	const [success, setSuccess] = useState(false);
+	useEffect(() => {
+		const data = hasToken();
+		setisLoggedIn(data.ok);
+	}, []);
 
 	function handleFormSubmit(e) {
 		e.preventDefault();
-		const Name = name.current.value;
+		console.log("Login.......");
 		const Email = email.current.value;
 		const Password = password.current.value;
-		console.log("Registering.....");
-		if (Name && Email && Password) {
-			fetch(`${process.env.REACT_APP_BASE_URI}/api/register`, {
+		if (Email && Password) {
+			fetch(`${process.env.REACT_APP_BASE_URI}/api/login/teacher`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					name: Name,
 					email: Email,
 					password: Password,
 				}),
 			})
 				.then((data, err) => {
-					if (!err) {
+					if (data) {
 						return data.json();
 					} else {
 						console.log(err);
 					}
 				})
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					if (data.ok === true) {
-						setSuccess(true);
+						localStorage.setItem("token", JSON.stringify(data.token));
+						setisLoggedIn(true);
 					}
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 	}
-
 	return (
 		<>
-			<Navbar signIn={true} />
+			{isLoggedIn && <Redirect to="/" />}
+			<Navbar signIn={false} />
 			<div className="main-form-container">
 				<div className="form-container">
 					<form className="form" onSubmit={handleFormSubmit}>
-						<input
-							name="name"
-							type="text"
-							placeholder="Name"
-							required
-							maxLength="20"
-							ref={name}
-						/>
-
 						<input
 							name="email"
 							type="email"
@@ -77,19 +72,17 @@ export default function Register() {
 							minLength="5"
 							maxLength="20"
 							ref={password}
-							// pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
 						/>
 
-						<input type="submit" value="Register" />
+						<input type="submit" value="Login" />
 						<p className="reg-login">
-							Have an account?{" "}
-							<Link className="reg-login-link" to="/login">
-								Login
+							Don't have an account?{" "}
+							<Link className="reg-login-link" to="/register">
+								Register
 							</Link>
 						</p>
 					</form>
 				</div>
-				{success && <Redirect push to="/login" />}
 			</div>
 		</>
 	);
