@@ -6,6 +6,7 @@ import hasToken from "../../methods/hasToken";
 export default function Login() {
 	document.title = "Login | Online Examination";
 	const [isLoggedIn, setisLoggedIn] = useState(false);
+	const [role, setrole] = useState("teacher");
 	const email = useRef(null);
 	const password = useRef(null);
 
@@ -14,13 +15,23 @@ export default function Login() {
 		setisLoggedIn(data.ok);
 	}, []);
 
+	function teacherClickHandle(e) {
+		setrole("teacher");
+		console.log(role);
+	}
+
+	function studentClickHandle(e) {
+		setrole("student");
+		console.log(role);
+	}
+
 	function handleFormSubmit(e) {
 		e.preventDefault();
 		console.log("Login.......");
 		const Email = email.current.value;
 		const Password = password.current.value;
 		if (Email && Password) {
-			fetch(`${process.env.REACT_APP_BASE_URI}/api/login/teacher`, {
+			fetch(`${process.env.REACT_APP_BASE_URI}/api/login/${role}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -55,6 +66,10 @@ export default function Login() {
 			<Navbar signIn={false} />
 			<div className="main-form-container">
 				<div className="form-container">
+					<div>
+						<button onClick={teacherClickHandle}>Teacher</button>
+						<button onClick={studentClickHandle}>Student</button>
+					</div>
 					<form className="form" onSubmit={handleFormSubmit}>
 						<input
 							name="email"
