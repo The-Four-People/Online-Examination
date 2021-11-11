@@ -69,6 +69,24 @@
     color: #000;
 }
 
+.btn-cont{
+    display: flex;
+}
+
+.btn-role{
+    border: 0;
+    cursor: pointer;
+    margin: 5px;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #000;
+    font-weight: 500;
+    font-family: monospace;
+    transition: 400ms;
+}
+
+
 @media screen and (max-width: 950px) {
     .main-form-container .form-container {
         width: 40vw;
