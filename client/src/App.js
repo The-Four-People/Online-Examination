@@ -1,8 +1,8 @@
 import "./App.css";
 import { Home } from "./pages/pageIndex";
-import { Login, Register } from "./components/componentIndex";
+import { Login, RegisterStudent } from "./components/componentIndex";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, Sidebar } from "./components/componentIndex";
+// import { Navbar, Sidebar } from "./components/componentIndex";
 
 function App() {
 	return (
@@ -14,8 +14,8 @@ function App() {
 				<Route exact path="/login">
 					<Login />
 				</Route>
-				<Route exact path="/register/admin">
-					<Register />
+				<Route exact path="/register">
+					<RegisterStudent />
 				</Route>
 			</Switch>
 		</BrowserRouter>

@@ -66,11 +66,11 @@ export default function Login() {
 			<Navbar signIn={false} />
 			<div className="main-form-container">
 				<div className="form-container">
-					<div>
-						<button onClick={teacherClickHandle}>Teacher</button>
-						<button onClick={studentClickHandle}>Student</button>
-					</div>
 					<form className="form" onSubmit={handleFormSubmit}>
+						<div>
+							<button onClick={teacherClickHandle}>Teacher</button>
+							<button onClick={studentClickHandle}>Student</button>
+						</div>
 						<input
 							name="email"
 							type="email"
