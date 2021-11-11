@@ -17,6 +17,9 @@ function App() {
 				<Route exact path="/register">
 					<RegisterStudent />
 				</Route>
+				{/* <Route exact path="/:courseid/new">
+
+				</Route>  */}
 			</Switch>
 		</BrowserRouter>
 	);
