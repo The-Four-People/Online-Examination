@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Navbar } from "../componentIndex";
 import hasToken from "../../methods/hasToken";
@@ -9,7 +9,7 @@ export default function Login() {
 	const email = useRef(null);
 	const password = useRef(null);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const data = hasToken();
 		setisLoggedIn(data.ok);
 	}, []);
