@@ -69,11 +69,11 @@
     color: #000;
 }
 
-.btn-cont{
+.btn-cont {
     display: flex;
 }
 
-.btn-role{
+.btn-role {
     border: 0;
     cursor: pointer;
     margin: 5px;
@@ -85,7 +85,6 @@
     font-family: monospace;
     transition: 400ms;
 }
-
 
 @media screen and (max-width: 950px) {
     .main-form-container .form-container {
@@ -241,6 +240,7 @@
     padding-right: 3rem;
     top: 0;
     left: 0;
+    z-index: 3;
     height: 3.5rem;
     align-items: center;
     justify-content: space-between;
@@ -359,11 +359,11 @@
     position: fixed;
     top: 0;
     left: -100%;
-    transition: 1.2s ease-in;
+    transition: 0.6s ease-in;
 }
 .menu.active {
     left: 0;
-    transition: 1s ease-out;
+    transition: 0.5s ease-out;
 }
 .menu-items {
     list-style: none;
@@ -400,6 +400,103 @@
     align-items: center;
 }
 /* /sidebar */
+
+/* Teacher DashBoard start */
+.body-container {
+    background: red;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    justify-content: flex-start;
+}
+.r1 {
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 100%;
+    background: blue;
+}
+.r1-card {
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
+    padding: 0.5rem;
+    height: 12rem;
+    background: green;
+    margin: 0.5rem;
+}
+.r-card-top {
+    width: 100%;
+    position: relative;
+    display: flex;
+    height: 30%;
+    background: orange;
+    align-items: center;
+}
+.r-card-top > img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin: 1rem 1rem 1rem 2rem;
+}
+.r-card-top > span {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+}
+.r-card-bottom {
+    width: 100%;
+    background: gray;
+    padding: 1rem;
+    position: relative;
+    height: 70%;
+}
+.r-card-bottom > ul {
+    list-style: none;
+    overflow-y: auto;
+}
+.r2 {
+    display: flex;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    column-gap: 2rem;
+    padding: 0 1.5rem 2rem 1.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+    background: yellow;
+}
+.r2-card {
+    width: 16rem;
+    height: 12rem;
+    background: brown;
+    margin-top: 1rem;
+}
+.create-btn {
+    display: block;
+    position: fixed;
+    height: 4rem;
+    width: 4rem;
+    top: 82%;
+    border: none;
+    left: 90%;
+    background: green;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px black;
+}
+.create-btn:hover {
+    background: darkgreen;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px black;
+    transition: 0.1s;
+}
+.create-btn > img {
+    position: relative;
+    width: 50%;
+    height: 50%;
+    top: 0.2rem;
+}
+/* Teacher DashBoard end */
 
 @media only screen and (max-width: 1110px) {
     .navbar-link {
