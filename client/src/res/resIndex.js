@@ -1,3 +1,9 @@
 export { default as picHam } from './picHam.jpg';
 export { default as picEmptyProfile } from './picEmptyProfile.png';
 export { default as plusImg } from './plusImg.png';
+export { default as BG1 } from './BG1.jpg';
+export { default as BG2 } from './BG2.jpg';
+export { default as BG3 } from './BG3.jpg';
+export { default as BG4 } from './BG4.jpg';
+export { default as BG5 } from './BG5.jpg';
+export { default as BG6 } from './BG6.jpg';

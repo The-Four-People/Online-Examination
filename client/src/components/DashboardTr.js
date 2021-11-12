@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { picEmptyProfile, plusImg } from '../res/resIndex';
+import {
+    picEmptyProfile,
+    plusImg,
+    BG1,
+    BG2,
+    BG3,
+    BG4,
+    BG5,
+    BG6,
+} from '../res/resIndex';
 
-const D = (params) => {
+const DashboardTr = (params) => {
     const [courses, setCourses] = useState([]);
     const getCourses = () => {
         const res = fetch(`${process.env.REACT_APP_BASE_URI}/api/course`, {
@@ -57,6 +66,26 @@ const CourseCards = (params) => {
     const [tests, setTests] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const randomBG = () => {
+        var str = 'BG' + Math.floor(Math.random() * 5 + 1);
+        switch (str) {
+            case 'BG1':
+                return BG1;
+            case 'BG2':
+                return BG2;
+            case 'BG3':
+                return BG3;
+            case 'BG4':
+                return BG4;
+            case 'BG5':
+                return BG5;
+            case 'BG6':
+                return BG6;
+            default:
+                return BG3;
+        }
+    };
+
     useEffect(() => {
         fetch(
             `${process.env.REACT_APP_BASE_URI}/api/course/${params.courseCode}`,
@@ -85,8 +114,7 @@ const CourseCards = (params) => {
             <div
                 className='r-card-top'
                 style={{
-                    background:
-                        'url(https://www.gravatar.com/avatar/pqr?s=600&d=identicon) no-repeat',
+                    backgroundImage: `url(${randomBG()})`,
                     backgroundSize: 'cover',
                 }}
             >
@@ -99,7 +127,7 @@ const CourseCards = (params) => {
                     ) : (
                         tests.map((test) => {
                             return (
-                                <li key={test._id}>
+                                <li key={test.test_name}>
                                     <a href='/#'>{test.test_name}</a>
                                 </li>
                             );
@@ -116,9 +144,12 @@ const InfoCard = ({ user }) => {
         <div className='r1-card'>
             <div className='r-card-top'>
                 <img alt='img' src={picEmptyProfile} />
-                <span>{user.email}</span>
+                <span>{user.name}</span>
             </div>
-            <div className='r-card-bottom'>{user.role}</div>
+            <div className='r-card-bottom'>
+                <span>Role : {user.role}</span>
+                <span>Email : {user.email}</span>
+            </div>
         </div>
     );
 };
@@ -131,4 +162,4 @@ const CreateButton = () => {
     );
 };
 
-export default D;
+export default DashboardTr;
