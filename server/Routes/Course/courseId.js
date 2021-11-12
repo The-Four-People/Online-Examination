@@ -245,7 +245,7 @@ router.get("/:code", async (req, res) => {
 
 		if (course_auth) {
 			const collection = mongoose.model(req.params.code, courseSchema);
-			collection.find({}, (err, course) => {
+			collection.find({}, "-quiz -_id -createdBy", (err, course) => {
 				if (!err) {
 					console.log(course);
 					res.json(course);
@@ -312,7 +312,7 @@ router.get("/:code/:test", async (req, res) => {
 					.findOne({ test_name: req.params.test }, "-_id -__v -createdBy")
 					.exec();
 				if (test) {
-					test.map;
+					// test.map;
 					res.json({ ok: true, data: test });
 				} else {
 					res.json({ ok: false, msg: "No test with found" });
