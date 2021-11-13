@@ -14,12 +14,13 @@ const {
 
 const { createCourse, courseId } = require('./Routes/Course/courseIndex');
 
+const { searchCourse } = require('./Routes/Search/searchIndex');
+
 const {
     isAdmin,
     isAdminOrTeacher,
     hasToken,
 } = require('./Middlewares/middlewareIndex');
-
 
 const cors = require('cors');
 dotenv.config();
@@ -43,6 +44,9 @@ app.use('/api/login/student', studentLogin);
 //Courses Router
 app.use('/api/course/new', createCourse);
 app.use('/api/course/', hasToken, courseId);
+
+//Search Router
+app.use('/api/search/course', hasToken, searchCourse);
 
 app.get('/', (req, res) => {
     res.sendStatus(404);

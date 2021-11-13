@@ -1,5 +1,5 @@
 import './App.css';
-import { Home, Dashboard } from './pages/pageIndex';
+import { Home, Dashboard, Course } from './pages/pageIndex';
 import { Login, RegisterStudent } from './components/componentIndex';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // import { Navbar, Sidebar } from "./components/componentIndex";
@@ -23,6 +23,9 @@ function App() {
                 {/* Testing */}
                 <Route exact path='/dashboard'>
                     <Dashboard />
+                </Route>
+                <Route exact path='/c/:code'>
+                    <Course />
                 </Route>
             </Switch>
         </BrowserRouter>
