@@ -87,15 +87,15 @@
 }
 
 .popup-container{
-    
     color: #fff;
     top: 30%;
     left: 33%;
     z-index: 100;
     position: fixed;
-    /* backdrop-filter: blur(15px); */
     font-family: monospace;
-
+    border: 1px solid #000;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
 }
 
 .popup-form{
@@ -106,14 +106,15 @@
     gap: 1rem;
     border-radius: 10px;
     height: 30vh;
-    width: 35vw;
-    background-color:#fff ;
+    width: 34vw;
+    background-color:rgba(245, 245, 245, 0.842);
 }
 
 .popup-input{
     width: 25vw;
     text-align: center;
     padding: 0.5rem;
+    border: 2px solid #000;
 }
 
 .popup-btn{
@@ -134,6 +135,19 @@
 }
 
 @media screen and (max-width: 950px) {
+    
+    .popup-form{
+        width: 40vw;
+    }
+    
+    .popup-input{
+        width: 30vw;
+    }
+    .popup-btn{
+        width: 10vw;
+    }
+
+
     .main-form-container .form-container {
         width: 40vw;
     }
@@ -146,7 +160,21 @@
         width: 20vw;
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 670px) {
+    
+    .popup-container{
+        left: 25%;
+    }
+    .popup-form{
+        width: 50vw;
+    }
+    
+    .popup-input{
+        width: 40vw;
+    }
+    .popup-btn{
+        width: 20vw;
+    }
     .main-form-container .form-container {
         width: 60vw;
     }
@@ -161,6 +189,19 @@
 }
 
 @media screen and (max-width: 400px) {
+    .popup-container{
+        left: 17%;
+    }
+    .popup-form{
+        width: 70vw;
+    }
+    
+    .popup-input{
+        width: 60vw;
+    }
+    .popup-btn{
+        width: 30vw;
+    }
     .main-form-container {
         display: block;
         width: 100%;
