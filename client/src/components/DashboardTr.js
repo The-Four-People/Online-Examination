@@ -214,6 +214,7 @@ const PopUp = (props) => {
 							placeholder="Enter course name"
 							required
 							ref={courseName}
+							autoFocus
 						/>
 						<button type="submit" className="popup-btn">
 							Create
