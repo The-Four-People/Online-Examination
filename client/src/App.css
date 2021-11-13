@@ -377,6 +377,9 @@
     font-size: 0.8rem;
     padding: 0.7rem;
 }
+#card-dropdown {
+    margin-left: 10%;
+}
 .card-user-container:hover {
     cursor: pointer;
     background-color: #ddd;
@@ -450,7 +453,6 @@
 
 /* Teacher DashBoard start */
 .body-container {
-    background: red;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -463,41 +465,52 @@
     justify-content: space-between;
     flex-shrink: 0;
     width: 100%;
-    background: blue;
 }
 .r1-card {
     display: flex;
     flex-direction: column;
-    width: 25rem;
-    padding: 0.5rem;
+    flex-shrink: 0;
+    flex-grow: 1;
+    border: 1px solid gray;
+    border-radius: 10px;
+    min-width: 13rem;
+    max-width: 25rem;
     height: 12rem;
-    background: green;
+    background: white;
     margin: 0.5rem;
 }
 .r-card-top {
     width: 100%;
     position: relative;
+    background: var(--secd);
     display: flex;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid gray;
+    font-weight: bold;
     height: 30%;
-    background: orange;
     align-items: center;
 }
 .r-card-top > img {
     width: 2.5rem;
     height: 2.5rem;
+    border: 3px solid darkgray;
     border-radius: 50%;
     margin: 1rem 1rem 1rem 2rem;
 }
 .r-card-top > span {
     font-size: 1.2rem;
+    color: white;
     margin-left: 1rem;
 }
 .r-card-bottom {
     width: 100%;
-    background: gray;
     padding: 1rem;
     position: relative;
     height: 70%;
+}
+.r-card-bottom > span {
+    display: block;
 }
 .r-card-bottom > ul {
     list-style: none;
@@ -511,13 +524,17 @@
     padding: 0 1.5rem 2rem 1.5rem;
     flex-wrap: wrap;
     width: 100%;
-    background: yellow;
 }
 .r2-card {
     width: 16rem;
     height: 12rem;
-    background: brown;
+    border-radius: 10px;
+    border: 1px solid gray;
+    background: white;
     margin-top: 1rem;
+}
+.r2-card > .r-card-top {
+    background-color: #000;
 }
 .create-btn {
     display: block;
@@ -557,6 +574,10 @@
     .btn {
         font-size: 0.8rem;
     }
+    .r1 {
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
 }
 
 @media only screen and (max-width: 900px) {
@@ -573,6 +594,15 @@
     .card-user-icon {
         height: 1.6rem;
         width: 1.6rem;
+    }
+    .create-btn {
+        left: 80%;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .r2 {
+        justify-content: space-evenly;
     }
 }
 
