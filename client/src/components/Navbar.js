@@ -1,12 +1,14 @@
 import React from 'react';
 import { picEmptyProfile } from '../res/resIndex';
 import { Sidebar } from './componentIndex';
+import hasToken from '../methods/hasToken';
 
 const sha1 = '#3aafa9';
 const secd = '#2b7a78';
 
 const UserCard = () => {
     const [isClicked, setIsClicked] = React.useState(true);
+    const [name, setName] = React.useState('');
     const handleClick = () => {
         const btn = document.querySelector('.card-user-container');
         const show = document.querySelector('.dropdown-content');
@@ -23,6 +25,10 @@ const UserCard = () => {
         }
         setIsClicked(!isClicked);
     };
+    React.useEffect(() => {
+        var obj = hasToken();
+        if (obj) setName(obj.name);
+    }, []);
     return (
         <div className='dropdown'>
             <div className='card-user-container' onClick={() => handleClick()}>
@@ -31,13 +37,9 @@ const UserCard = () => {
                     alt='user'
                     className='card-user-icon'
                 />
-                <span id='card-user-name'>SS19CO018</span>
+                <span id='card-user-name'>{name}</span>
             </div>
-            <div
-                className='dropdown-content'
-                id='card-dropdown'
-                style={{ marginLeft: '1.5rem' }}
-            >
+            <div className='dropdown-content' id='card-dropdown'>
                 <a href='http://#'>Profile</a>
                 <a href='http://#'>Log out</a>
             </div>
@@ -95,6 +97,8 @@ const NavbarItems = (props) => {
     const showUserCard = () => {
         if (props.signIn) {
             return <NavbarSignInBtn />;
+        } else {
+            return <UserCard />;
         }
     };
     React.useEffect(() => showUserCard(), []);
