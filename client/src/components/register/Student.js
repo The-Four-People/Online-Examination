@@ -15,7 +15,7 @@ export default function Student() {
 
 	useLayoutEffect(() => {
 		const data = hasToken();
-		console.log(data);
+		// console.log(data);
 		if (data.ok === true && data.role === "teacher") {
 			setisAuthorise(true);
 		} else {
@@ -62,7 +62,7 @@ export default function Student() {
 
 	return (
 		<>
-			{isAuthorise === false ? <Redirect to="/dashboard" /> : ""}
+			{isAuthorise === false ? <Redirect to="/" /> : ""}
 			<Navbar />
 			<div className="main-form-container">
 				<div className="form-container">
