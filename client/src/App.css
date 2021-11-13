@@ -98,7 +98,7 @@
     backdrop-filter: blur(10px);
 }
 
-.popup-form{
+.popup-form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,14 +110,14 @@
     background-color:rgba(245, 245, 245, 0.842);
 }
 
-.popup-input{
+.popup-input {
     width: 25vw;
     text-align: center;
     padding: 0.5rem;
     border: 2px solid #000;
 }
 
-.popup-btn{
+.popup-btn {
     padding: 0.5rem;
     width: 7vw;
     border: 2px solid #000;
@@ -128,10 +128,9 @@
     transition: 400ms ease-in-out;
 }
 
-.popup-btn:hover{
+.popup-btn:hover {
     background-color: #fff;
     color: #000;
-
 }
 
 @media screen and (max-width: 950px) {
@@ -462,7 +461,7 @@
 }
 .menu-text {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding: 0.5rem 1rem 0.5rem 1rem;
     height: 3.2rem;
@@ -500,6 +499,23 @@
     min-height: 100vh;
     width: 100%;
     justify-content: flex-start;
+}
+.copied-label {
+    display: none;
+    background: white;
+    color: slategray;
+    margin-left: 0.6rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    border-radius: 10%;
+    font-size: 0.6rem;
+}
+.heading-sep {
+    margin-left: 2.3rem;
+    margin-right: 3rem;
+    border-bottom: 2px solid lightslategray;
+    font-size: 1.7rem;
+    color: #354146;
 }
 .r1 {
     display: flex;
@@ -541,6 +557,7 @@
 }
 .r-card-top > span {
     font-size: 1.2rem;
+    display: block;
     color: white;
     margin-left: 1rem;
 }
@@ -576,6 +593,11 @@
 }
 .r2-card > .r-card-top {
     background-color: #000;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 .create-btn {
     display: block;

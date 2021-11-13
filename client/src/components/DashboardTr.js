@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { FaClone } from "react-icons/fa";
 import {
 	picEmptyProfile,
 	plusImg,
@@ -9,12 +10,13 @@ import {
 	BG5,
 	BG6,
 } from "../res/resIndex";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const DashboardTr = (params) => {
 	const [courses, setCourses] = useState([]);
 	const [createButtonClicked, setcreateButtonClicked] = useState(false);
 	const getCourses = () => {
-		const res = fetch(`${process.env.REACT_APP_BASE_URI}/api/course`, {
+		fetch(`${process.env.REACT_APP_BASE_URI}/api/course`, {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json",
@@ -29,8 +31,6 @@ const DashboardTr = (params) => {
 				setCourses(data);
 			})
 			.catch((err) => console.log(err));
-
-		return res;
 	};
 	useEffect(() => {
 		getCourses();
@@ -45,9 +45,11 @@ const DashboardTr = (params) => {
 			<div className="body-container">
 				<div className="r1">
 					<InfoCard user={params.user} />
-					<div className="r1-card">A</div>
-					<div className="r1-card">A</div>
+					<div className="r1-card">Upcoming Tests</div>
+					<div className="r1-card">Search bar</div>
 				</div>
+
+				<h1 className="heading-sep">Courses :</h1>
 
 				<div className="r2">
 					{courses.map((course) => {
@@ -73,8 +75,8 @@ const CourseCards = (params) => {
 	const [tests, setTests] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const randomBG = () => {
-		var str = "BG" + Math.floor(Math.random() * 5 + 1);
+	const randomBG = (code) => {
+		var str = "BG" + ((code.charCodeAt(0) % 6) + 1);
 		switch (str) {
 			case "BG1":
 				return BG1;
@@ -92,7 +94,11 @@ const CourseCards = (params) => {
 				return BG3;
 		}
 	};
-
+	const showCopied = () => {
+		const label = document.querySelector(`#${params.courseCode}`);
+		label.style.display = "inline-block";
+		setTimeout(() => (label.style.display = "none"), 1000);
+	};
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_BASE_URI}/api/course/${params.courseCode}`, {
 			method: "GET",
@@ -107,25 +113,49 @@ const CourseCards = (params) => {
 			})
 			.then((data) => {
 				setTests(data);
+
 				setIsLoading(false);
 			});
 	}, []);
-
 	return (
 		<div className="r2-card">
 			<div
 				className="r-card-top"
 				style={{
-					backgroundImage: `url(${randomBG()})`,
+					backgroundImage: `url(${randomBG(params.courseCode)})`,
 					backgroundSize: "cover",
 				}}
 			>
 				<span>{params.courseName}</span>
+				<span style={{ fontSize: "0.8rem", fontWeight: "normal" }}>
+					{params.courseCode}
+					<CopyToClipboard text={params.courseCode} onCopy={() => showCopied()}>
+						<button
+							style={{
+								background: "none",
+								border: "none",
+								color: "white",
+								marginLeft: "0.7rem",
+								marginTop: "0.3rem",
+								cursor: "pointer",
+							}}
+						>
+							<FaClone />
+						</button>
+					</CopyToClipboard>
+					<div className="copied-label" id={params.courseCode}>
+						Copied
+					</div>
+				</span>
 			</div>
 			<div className="r-card-bottom">
 				<ul>
 					{isLoading ? (
 						<h2>Loading...</h2>
+					) : tests.length === 0 ? (
+						<li>
+							<button className="btn btn-primary">Create test</button>
+						</li>
 					) : (
 						tests.map((test) => {
 							return (
