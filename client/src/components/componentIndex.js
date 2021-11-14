@@ -4,5 +4,6 @@ export { default as Login } from './login/Login';
 export { default as RegisterAdmin } from './register/Admin';
 export { default as RegisterStudent } from './register/Student';
 export { default as DashboardTr } from './DashboardTr';
+export { default as CourseTr } from './CourseTr';
 
 // use import {ComponentName1, ComponentName2} from './component/componentIndex'

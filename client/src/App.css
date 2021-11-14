@@ -86,7 +86,7 @@
     transition: 400ms;
 }
 
-.popup-container{
+.popup-container {
     color: #fff;
     top: 30%;
     left: 33%;
@@ -107,7 +107,7 @@
     border-radius: 10px;
     height: 30vh;
     width: 34vw;
-    background-color:rgba(245, 245, 245, 0.842);
+    background-color: rgba(245, 245, 245, 0.842);
 }
 
 .popup-input {
@@ -134,18 +134,16 @@
 }
 
 @media screen and (max-width: 950px) {
-    
-    .popup-form{
+    .popup-form {
         width: 40vw;
     }
-    
-    .popup-input{
+
+    .popup-input {
         width: 30vw;
     }
-    .popup-btn{
+    .popup-btn {
         width: 10vw;
     }
-
 
     .main-form-container .form-container {
         width: 40vw;
@@ -160,18 +158,17 @@
     }
 }
 @media screen and (max-width: 670px) {
-    
-    .popup-container{
+    .popup-container {
         left: 25%;
     }
-    .popup-form{
+    .popup-form {
         width: 50vw;
     }
-    
-    .popup-input{
+
+    .popup-input {
         width: 40vw;
     }
-    .popup-btn{
+    .popup-btn {
         width: 20vw;
     }
     .main-form-container .form-container {
@@ -188,17 +185,17 @@
 }
 
 @media screen and (max-width: 400px) {
-    .popup-container{
+    .popup-container {
         left: 17%;
     }
-    .popup-form{
+    .popup-form {
         width: 70vw;
     }
-    
-    .popup-input{
+
+    .popup-input {
         width: 60vw;
     }
-    .popup-btn{
+    .popup-btn {
         width: 30vw;
     }
     .main-form-container {
@@ -407,15 +404,13 @@
     background-color: #ddd;
 }
 
-
-
 .card-user-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     background-color: white;
-    max-width: 8rem;
+    min-width: 8rem;
     height: 2.5rem;
     border-radius: 0.5rem;
 }
@@ -509,7 +504,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    min-height: 100vh;
     width: 100%;
     justify-content: flex-start;
 }
@@ -525,6 +519,7 @@
 }
 .heading-sep {
     margin-left: 2.3rem;
+    margin-top: 0.5rem;
     margin-right: 3rem;
     border-bottom: 2px solid lightslategray;
     font-size: 1.7rem;
@@ -568,11 +563,19 @@
     border-radius: 50%;
     margin: 1rem 1rem 1rem 2rem;
 }
-.r-card-top > span {
+.r-card-top > a {
+    text-decoration: none;
+}
+.r-card-top > span,
+.r-card-top a > span {
     font-size: 1.2rem;
     display: block;
+    text-decoration: none;
     color: white;
     margin-left: 1rem;
+}
+.r-card-top a span:hover {
+    text-decoration: underline white solid;
 }
 .r-card-bottom {
     width: 100%;
@@ -638,6 +641,64 @@
 }
 /* Teacher DashBoard end */
 
+/* Test page */
+
+.table-info {
+    align-self: center;
+    border-collapse: collapse;
+    height: 80%;
+}
+.table-info th {
+    font-weight: normal;
+    width: 40%;
+    color: black;
+    text-align: start;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+}
+.table-info td {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    color: gray;
+}
+.center-msg {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: gray;
+}
+#test-container {
+    display: flex;
+    justify-content: space-between;
+}
+#test-container > .r2 {
+    width: 70%;
+}
+#test-search-container {
+    width: 20rem;
+    height: 24rem;
+    padding: 0.5rem;
+    border: 5px solid #17252a;
+    margin: 0.5rem 1rem;
+}
+.test-list {
+    background: white;
+    color: black;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid black;
+    display: flex;
+    margin-top: 0.2rem;
+    justify-content: space-between;
+    transition: 0.3s;
+}
+.test-list:hover {
+    background-color: #354146;
+    color: white;
+}
+/* Test page end */
 @media only screen and (max-width: 1110px) {
     .navbar-link {
         padding: 1rem;
@@ -654,6 +715,14 @@
         flex-wrap: wrap;
         justify-content: space-evenly;
     }
+    #test-container > .r2 {
+        width: 100%;
+    }
+    #test-container {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
 }
 
 @media only screen and (max-width: 900px) {
@@ -665,7 +734,7 @@
         height: 1.2rem;
     }
     .card-user-container {
-        height: 1.8rem;
+        height: 2rem;
     }
     .card-user-icon {
         height: 1.6rem;
@@ -700,6 +769,9 @@
         margin-left: 0.2rem;
         margin-right: 0.2rem;
     }
+    .card-user-container {
+        min-width: unset;
+    }
     #card-user-name {
         display: none;
     }
@@ -710,5 +782,13 @@
     }
     .card-user-icon {
         margin: 0 0.5rem 0 0.5rem;
+    }
+    .heading-sep {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+    }
+    #test-search-container {
+        width: 12rem;
+        font-size: 0.9rem;
     }
 }
