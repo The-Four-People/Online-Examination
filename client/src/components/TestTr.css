@@ -35,6 +35,16 @@
     margin-top: 2rem;
     cursor: pointer;
     width: 15vw !important;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+    border-radius: 5px;
+    transition: 300ms ease-in-out;
+}
+
+.quiz-btn:hover{
+    color: #000;
+    background-color: #fff;
 }
 
 .quiz-form table tr td input {
@@ -52,7 +62,7 @@
 }
 
 .hero-container{
-    height: 20vh;
+    /* height: 20vh; */
     margin-top: 1rem;
     padding: 1rem;
     background-color: #252525;
@@ -86,7 +96,7 @@
 
 .question-arrow{
     cursor: pointer;
-    transition: 500ms ease-in-out;
+    transition: 300ms ease-in-out;
 }
 
 .questions{
@@ -96,4 +106,21 @@
 .individual-question{
     background-color: peachpuff;
     margin-bottom: 0.5rem;
+}
+
+.individual-question-heading{
+    display: flex;
+    align-items: center;
+}
+
+.individual-question-options{
+    margin-left: 3rem;
+    display: none;
+
+}
+
+.right{
+    margin-left:auto;
+    margin-right: 1rem;
+    gap: 1rem;
 }

@@ -112,13 +112,38 @@ const DisplayQuestions = ({ test }) => {
 };
 
 const DisplayIndividualQuestion = ({ question }) => {
+	const [isSmallArrowClicked, setisSmallArrowClicked] = useState(false);
+	const css = {
+		transform: isSmallArrowClicked ? "rotate(90deg)" : null,
+		transition: "300ms ease-in-out",
+	};
+
+	const css1 = {
+		display: isSmallArrowClicked ? "block" : "none",
+	};
+
+	function handleSmallArrowClicked() {
+		setisSmallArrowClicked(!isSmallArrowClicked);
+	}
 	return (
 		<div className="individual-question">
 			{question ? (
 				<>
-					<IoMdArrowDropright />
-					<h1>{question.question}</h1>
-					<ul>
+					<div className="individual-question-heading">
+						<IoMdArrowDropright style={css} onClick={handleSmallArrowClicked} />
+						<h1>{question.question}</h1>
+						<div className="individual-question-heading right">
+							<div className="individual-question-heading">
+								<h1>Marks :</h1>
+								<h1>{question.marks}</h1>
+							</div>
+							<div className="individual-question-heading">
+								<h1>Answer :</h1>
+								<h1>{question.answer}</h1>
+							</div>
+						</div>
+					</div>
+					<ul className="individual-question-options" style={css1}>
 						{question.options.map((option) => (
 							<li>{option}</li>
 						))}
@@ -174,6 +199,7 @@ const RenderForm = ({ courseCode, testCode, getTest }) => {
 				if (data.ok) {
 					console.log("Quiz successfully added");
 					getTest();
+					document.getElementsByClassName("quiz-form")[0].reset();
 				} else {
 					console.log("Quiz addition unsuccessfull");
 				}
