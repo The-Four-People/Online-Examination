@@ -77,7 +77,8 @@ router.post("/:id/:test", async (req, res) => {
 		const test = await collection
 			.findOne({ test_name: req.params.test })
 			.exec();
-		const questionInserted = insertNewQuestion(test, newQues);
+		const questionInserted = await insertNewQuestion(test, newQues);
+		console.log(questionInserted);
 		res.json({ ok: questionInserted });
 	} catch (err) {
 		console.log(err);
