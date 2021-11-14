@@ -70,7 +70,6 @@ const Coursetbody = (params) => {
 								})}
 							</div>
 						)}
-						{console.log(course)}
 						{course ? <StudentDisplay courseCode={course.course_code} /> : null}
 					</div>
 				</div>
@@ -105,7 +104,6 @@ const StudentDisplay = ({ courseCode }) => {
 				}
 			)
 				.then((data, err) => {
-					console.log(data);
 					if (data) return data.json();
 					else console.log(err);
 				})
