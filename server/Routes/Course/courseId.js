@@ -30,7 +30,9 @@ const findCourseProperty = (property, value) => {
 
 const postStudent = (course_code) => {};
 
-router.post("/", (req, res) => {});
+router.post("/", (req, res) => {
+	res.send("Not Found");
+});
 
 router.get("/", async (req, res) => {
 	if (req.obj.role === "student") {
@@ -202,7 +204,10 @@ router.get("/:code", async (req, res) => {
 					(c) => c.course_id === req.params.code
 				);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				console.log(err);
+				res.json({ ok: false, error: err });
+			});
 
 		if (isStudentEnrolled) {
 			var collection = mongoose.model(req.params.code, courseSchema);
@@ -228,6 +233,8 @@ router.get("/:code", async (req, res) => {
 				return obj;
 			});
 			res.json(response);
+		} else {
+			res.json({ ok: false, msg: "Not Enrolled" });
 		}
 	} else if (req.obj.role === "teacher") {
 		var course_auth = false;
@@ -254,6 +261,8 @@ router.get("/:code", async (req, res) => {
 				}
 			});
 		}
+	} else {
+		res.json({ ok: false, msg: "Not Authorized" });
 	}
 });
 
