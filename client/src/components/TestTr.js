@@ -40,6 +40,31 @@ function TestTr() {
 		getTest();
 	}, []);
 
+	function handleOnToggleBtn(e) {
+		fetch(
+			`${process.env.REACT_APP_BASE_URI}/api/course/${courseCode}/${testCode}/start`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+				},
+				body: JSON.stringify({
+					start: !test.isStarted,
+				}),
+			}
+		)
+			.then((data, err) => {
+				if (data) return data.json();
+				else console.log(err);
+			})
+			.then((data) => {
+				if (data.ok) {
+					console.log("isStarted succesfully toggled");
+					getTest();
+				}
+			});
+	}
 	return (
 		<>
 			{test ? (
@@ -55,6 +80,14 @@ function TestTr() {
 								<tr>
 									<td>Started</td>
 									<td>{test.isStarted ? "Yes" : "No"}</td>
+									<td>
+										<button
+											onClick={handleOnToggleBtn}
+											className="toggle-test-btn"
+										>
+											Toggle
+										</button>
+									</td>
 								</tr>
 								<tr>
 									<td>Type</td>
@@ -116,6 +149,7 @@ const DisplayIndividualQuestion = ({ question }) => {
 	const css = {
 		transform: isSmallArrowClicked ? "rotate(90deg)" : null,
 		transition: "300ms ease-in-out",
+		marginRight: "0.5rem",
 	};
 
 	const css1 = {
@@ -211,7 +245,7 @@ const RenderForm = ({ courseCode, testCode, getTest }) => {
 	return (
 		<div className="quiz">
 			<form className="quiz-form" onSubmit={handleFormSubmit}>
-				<table>
+				<table className="quiz-table">
 					<tr>
 						<td>
 							<label>ID </label>
@@ -269,7 +303,7 @@ const RenderForm = ({ courseCode, testCode, getTest }) => {
 							<input
 								ref={Options}
 								type="text"
-								placeholder="Enter space separated options"
+								placeholder="Enter Comma separated options"
 								required
 							/>
 						</td>

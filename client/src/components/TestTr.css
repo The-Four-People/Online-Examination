@@ -13,14 +13,11 @@
     display: flex;
     justify-content: center;
     /* margin-top: 1rem; */
-    background-color: palegoldenrod;
+    background-color: rgb(235, 236, 141);
     border-radius:10px;
     margin-left: 1rem;
 }
 
-.add-btn{
-    background-color: orchid;
-}
 
 .quiz-form{
     /* background-color: #f5f5f5; */
@@ -30,6 +27,19 @@
     align-items: center;
     gap: 1rem;
 } 
+
+.quiz-table tr td label{
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.quiz-table tr td{
+    padding: 0.3rem;
+}
+
+.quiz-table tr td input{
+    font-family: monospace;
+}
 
 .quiz-btn {
     margin-top: 2rem;
@@ -80,7 +90,7 @@
 .main-info{
     width: 45vw;
     border-radius: 10px;
-    background-color: orchid;
+    background-color: rgb(226, 236, 141);
     padding: 1rem;
 }
 
@@ -92,6 +102,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-family: monospace;
 }
 
 .question-arrow{
@@ -106,17 +117,19 @@
 .individual-question{
     background-color: peachpuff;
     margin-bottom: 0.5rem;
+    font-family: monospace;
 }
 
 .individual-question-heading{
     display: flex;
     align-items: center;
+    font-family: monospace !important;
 }
 
 .individual-question-options{
-    margin-left: 3rem;
+    margin-left: 4rem;
     display: none;
-
+    margin-top:0.3rem ;
 }
 
 .right{

@@ -226,7 +226,7 @@
 
 /* Tejas CSS */
 * {
-    font-family: gadugi, sans-serif;
+    font-family: monospace, gadugi, sans-serif;
     font-size: 18px;
     box-sizing: border-box;
     margin: 0px;
