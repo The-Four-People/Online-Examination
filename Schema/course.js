@@ -10,7 +10,7 @@ const quiz = {
 	_id: false,
 	id: {
 		type: Number,
-		unique: true,
+		// unique: true,
 		// required: true,
 	},
 	marks: {
