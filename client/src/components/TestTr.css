@@ -137,3 +137,8 @@
     margin-right: 1rem;
     gap: 1rem;
 }
+
+
+.toggle-test-btn{
+    cursor: pointer;
+}
