@@ -36,7 +36,6 @@ const UserCard = () => {
 	const logOut = () => {
 		localStorage.clear();
 		setisLoggedOut(true);
-		console.log("Hello");
 	};
 
 	return (
@@ -49,7 +48,7 @@ const UserCard = () => {
 				<Link to="/dashboard">Dashboard</Link>
 				<p onClick={logOut}>Log out</p>
 			</div>
-			{isLoggedOut ? <Redirect to="/" /> : null}
+			{isLoggedOut ? <Redirect to="/login" /> : null}
 		</div>
 	);
 };
@@ -89,7 +88,8 @@ const NavbarSignInBtn = () => {
 const NavbarBrand = () => {
 	return (
 		<div className="navbar-brand">
-			<Sidebar />
+			{hasToken().ok ? <Sidebar /> : ""}
+
 			<img
 				src="https://gpmumbai.ac.in/gpmweb/wp-content/uploads/2021/04/GPM-LOGO-2021.png"
 				className="navbar-icon"
@@ -109,20 +109,7 @@ const NavbarItems = (props) => {
 		}
 	};
 	React.useEffect(() => showUserCard(), []);
-	return (
-		<div className="navbar-items">
-			<a href="https:/#" className="navbar-link">
-				page1
-			</a>
-			<a href="https://#" className="navbar-link">
-				page2
-			</a>
-			<a href="https://#" className="navbar-link">
-				page3
-			</a>
-			{showUserCard()}
-		</div>
-	);
+	return <div className="navbar-items">{showUserCard()}</div>;
 };
 
 const Navbar = (props) => {

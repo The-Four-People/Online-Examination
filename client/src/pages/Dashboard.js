@@ -16,6 +16,7 @@ const Dashboard = () => {
 				</>
 			);
 		} else if (user.role === "student") {
+			return <h1>Student dashboard</h1>;
 		} else {
 			return <h1>Something went wrong</h1>;
 		}

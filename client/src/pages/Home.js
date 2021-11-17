@@ -9,7 +9,7 @@ export default function Home() {
 		<>
 			<Navbar signIn={!hasToken().ok} />
 			<div>
-				<h1>Hello this is Home of our Online Examination 😆</h1>
+				<h1>Hello this is Home of our Online Examination</h1>
 				<h2>
 					<Link to="/login">Login</Link>
 				</h2>
