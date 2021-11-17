@@ -1,7 +1,6 @@
 import React from "react";
 import hasToken from "../methods/hasToken";
-import { Navbar, TestTr } from "../components/componentIndex";
-
+import { Navbar, TestTr, TestSt } from "../components/componentIndex";
 function Test() {
 	const [user, setUser] = React.useState({});
 	React.useLayoutEffect(() => {
@@ -16,7 +15,12 @@ function Test() {
 				</>
 			);
 		} else if (user.role === "student") {
-			return <h1>Hi user.name</h1>;
+			return (
+				<>
+					<Navbar signIn={!user.ok} />
+					<TestSt user={user} />
+				</>
+			);
 		} else {
 			return <h1>Something went wrong</h1>;
 		}

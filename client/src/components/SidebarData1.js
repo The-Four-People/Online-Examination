@@ -2,30 +2,26 @@ import React from "react";
 // import * as FaIcons from 'react-icons/fa'; Never Used
 import * as AiIcons from "react-icons/ai";
 // import * as IoIcons from 'react-icons/io';
+import { RiDashboardFill } from "react-icons/ri";
+import { MdCreate } from "react-icons/md";
 
 export const SidebarData1 = [
 	{
-		title: "A very long task",
+		title: "Home",
 		path: "/",
 		icon: <AiIcons.AiFillHome />,
 		cName: "menu-text",
 	},
 	{
-		title: "Page 2",
-		path: "/",
-		icon: <AiIcons.AiFillHome />,
+		title: "Dashboard",
+		path: "/dashboard",
+		icon: <RiDashboardFill />,
 		cName: "menu-text",
 	},
 	{
-		title: "Page 3",
-		path: "/",
-		icon: <AiIcons.AiFillHome />,
-		cName: "menu-text",
-	},
-	{
-		title: "Page 4",
-		path: "/",
-		icon: <AiIcons.AiFillHome />,
+		title: "Create Student",
+		path: "/register",
+		icon: <MdCreate />,
 		cName: "menu-text",
 	},
 ];

@@ -213,11 +213,13 @@ router.get("/:code", async (req, res) => {
 			var collection = mongoose.model(req.params.code, courseSchema);
 			var tests = await collection.find({}).exec();
 			var response = tests.map((test) => {
+				// console.log(test);
 				var obj = {
 					test_name: test.test_name,
 					test_type: test.test_type,
 					total_marks: test.total_marks,
 					isStarted: test.isStarted,
+					course_name: test.name,
 					createdAt: test.createdAt,
 				};
 				// if (test.isStarted) {
@@ -287,6 +289,7 @@ router.get("/:code/:test", async (req, res) => {
 					test_type: test.test_type,
 					total_marks: test.total_marks,
 					isStarted: test.isStarted,
+					course_name: test.name,
 					createdAt: test.createdAt,
 				};
 				if (test.isStarted) {
@@ -299,10 +302,12 @@ router.get("/:code/:test", async (req, res) => {
 						};
 					});
 				}
-				res.json(obj);
+				res.json({ ok: true, ...obj });
 			} else {
 				res.json({ ok: false, msg: `Test doesn't exist` });
 			}
+		} else {
+			res.json({ ok: false, msg: "Student Not register" });
 		}
 	} else if (req.obj.role === "teacher") {
 		const teacher = await teacherUser.findOne({ email: req.obj.email }).exec();
