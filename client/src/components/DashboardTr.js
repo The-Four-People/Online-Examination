@@ -12,9 +12,10 @@ import {
 } from "../res/resIndex";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
+import "./TestTr.css";
 
 const DashboardTr = (params) => {
-	const [courses, setCourses] = useState([]);
+	const [courses, setCourses] = useState(null);
 	const [createButtonClicked, setcreateButtonClicked] = useState(false);
 	const getCourses = () => {
 		fetch(`${process.env.REACT_APP_BASE_URI}/api/course`, {
@@ -50,23 +51,41 @@ const DashboardTr = (params) => {
 					<div className="r1-card">Search bar</div>
 				</div>
 
-				<h1 className="heading-sep">Courses :</h1>
+				{courses !== null ? (
+					<>
+						{courses.length > 0 ? (
+							<>
+								<h1 className="heading-sep">Courses :</h1>
+								<div className="r2">
+									{courses.map((course) => {
+										return (
+											<CourseCards
+												key={course._id}
+												courseCode={course.course_code}
+												courseName={course.course_name}
+											/>
+										);
+									})}
+								</div>
 
-				<div className="r2">
-					{courses.map((course) => {
-						return (
-							<CourseCards
-								key={course._id}
-								courseCode={course.course_code}
-								courseName={course.course_name}
-							/>
-						);
-					})}
-				</div>
-				<CreateButton
-					createButtonClicked={createButtonClicked}
-					setcreateButtonClicked={setcreateButtonClicked}
-				/>
+								<CreateButton
+									createButtonClicked={createButtonClicked}
+									setcreateButtonClicked={setcreateButtonClicked}
+								/>
+							</>
+						) : (
+							<>
+								<div className="center-msg">No course created</div>
+								<CreateButton
+									createButtonClicked={createButtonClicked}
+									setcreateButtonClicked={setcreateButtonClicked}
+								/>
+							</>
+						)}
+					</>
+				) : (
+					<div className="center-msg">Loading........</div>
+				)}
 			</div>
 		</>
 	);
@@ -163,7 +182,9 @@ const CourseCards = (params) => {
 						tests.map((test) => {
 							return (
 								<li key={test.test_name}>
-									<a href="/#">{test.test_name}</a>
+									<Link to={`/c/${params.courseCode}/${test.test_name}`}>
+										{test.test_name}
+									</Link>
 								</li>
 							);
 						})

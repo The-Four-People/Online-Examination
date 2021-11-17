@@ -1,11 +1,13 @@
 import React from "react";
 import hasToken from "../methods/hasToken";
 import { Navbar, TestTr, TestSt } from "../components/componentIndex";
+
 function Test() {
 	const [user, setUser] = React.useState({});
 	React.useLayoutEffect(() => {
 		setUser(hasToken());
 	}, []);
+
 	const decideRender = () => {
 		if (user.role === "teacher") {
 			return (

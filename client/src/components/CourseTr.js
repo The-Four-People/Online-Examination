@@ -73,7 +73,9 @@ const Coursetbody = (params) => {
 						{course ? <StudentDisplay courseCode={course.course_code} /> : null}
 					</div>
 				</div>
-			) : null}
+			) : (
+				<div className="center-msg">Loading.......</div>
+			)}
 		</>
 	);
 };
