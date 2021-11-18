@@ -39,6 +39,7 @@ router.post("/:id", async (req, res) => {
 		const token = authToken.split(" ")[1];
 		const verify = jwt.verify(token, process.env.key);
 		const teacher = await findTeachersEmail(verify.email);
+		console.log(req.params.id)
 		var courseFromIndex = await courseIndex
 			.findOne({ course_code: req.params.id })
 			.exec();
