@@ -27,9 +27,9 @@ function TestTr() {
 			.then((data) => {
 				console.log(data);
 				if (data.ok) {
-					setTest(data.data);
+					setTest({ ok: data.ok, ...data.data });
 				} else {
-					setTest({ ok: false });
+					setTest(data);
 				}
 			})
 			.catch((err) => {
@@ -68,45 +68,49 @@ function TestTr() {
 	return (
 		<>
 			{test ? (
-				<div className="body-contd">
-					<div className="hero-container">
-						<div className="heading-sep heading">
-							{test.test_name} - {test.name}
+				test.ok === true ? (
+					<div className="body-contd">
+						<div className="hero-container">
+							<div className="heading-sep heading">
+								{test.test_name} - {test.name}
+							</div>
 						</div>
-					</div>
-					<div className="main-container">
-						<div className="main-info">
-							<table>
-								<tr>
-									<td>Started</td>
-									<td>{test.isStarted ? "Yes" : "No"}</td>
-									<td>
-										<button
-											onClick={handleOnToggleBtn}
-											className="toggle-test-btn"
-										>
-											Toggle
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Type</td>
-									<td>{test.test_type}</td>
-								</tr>
-								<tr>
-									<td>Marks</td>
-									<td>{test.total_marks}</td>
-								</tr>
-							</table>
+						<div className="main-container">
+							<div className="main-info">
+								<table>
+									<tr>
+										<td>Started</td>
+										<td>{test.isStarted ? "Yes" : "No"}</td>
+										<td>
+											<button
+												onClick={handleOnToggleBtn}
+												className="toggle-test-btn"
+											>
+												Toggle
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td>Type</td>
+										<td>{test.test_type}</td>
+									</tr>
+									<tr>
+										<td>Marks</td>
+										<td>{test.total_marks}</td>
+									</tr>
+								</table>
+							</div>
+							<RenderForm
+								getTest={getTest}
+								courseCode={courseCode}
+								testCode={testCode}
+							/>
 						</div>
-						<RenderForm
-							getTest={getTest}
-							courseCode={courseCode}
-							testCode={testCode}
-						/>
+						<DisplayQuestions test={test} />
 					</div>
-					<DisplayQuestions test={test} />
-				</div>
+				) : (
+					<div className="center-msg">Test doesn't exists</div>
+				)
 			) : (
 				<div className="center-msg">Loading.........</div>
 			)}
