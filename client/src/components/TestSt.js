@@ -122,61 +122,49 @@ const Started = ({ test }) => {
 	function handleSubmit(e) {
 		console.log(result);
 		e.preventDefault();
-		console.log(e.target);
 		var bool = window.confirm("Do you want to really submit?");
 		if (bool) {
 			console.log("Submitted");
+		} else {
+			console.log("Not Submitted");
 		}
 	}
 	return (
 		<div className="started-block">
-			<form onSubmit={handleSubmit}>
+			<form className="started-form" onSubmit={handleSubmit}>
 				{test.quiz.map((question) => (
-					<Question result={result} setResult={setResult} question={question} />
+					<Question
+						key={question.id}
+						result={result}
+						setResult={setResult}
+						question={question}
+					/>
 				))}
-				<button type="submit"> Submit </button>
+				<div className="started-btn-block">
+					<button className="started-btn" type="submit">
+						Submit
+					</button>
+				</div>
 			</form>
 		</div>
 	);
 };
 
 const Question = ({ question, result, setResult }) => {
-	function checkIfExists(id, option) {
-		// result.map((res) => {
-		// 	console.log(res[`${id}`]);
-		// 	// if(res[`${id}`] === )
-		// });
-
-		// if (result.find((res) => res[`${id}`] === option) === undefined)
-		// 	return false;
-
-		// return true;
-		return result.hasOwnProperty(id);
-	}
 	return (
 		<div className="question-student">
-			<h1>{question.question}</h1>
-			<ul>
+			<h1>
+				{question.id}. {question.question}
+			</h1>
+			<ul className="question-ul">
 				{question.options.map((option) => (
-					<li>
+					<li key={option}>
 						<input
 							onChange={() => {
-								// if (checkIfExists(question.id, option)) {
-								// 	setResult(
-								// 		result.filter((res) => {
-								// 			let temp = res[`${question.id}`] !== option;
-								// 			console.log(temp, res[`${question.id}`], option);
-								// 			return temp;
-								// 		})
-								// 	);
-								// 	console.log(result);
-								// }
 								const obj = result.filter(
 									(res) => !res.hasOwnProperty(question.id)
 								);
-								// setResult(obj);
 
-								console.log(obj);
 								setResult([...obj, { [question.id]: option }]);
 								console.log(result);
 							}}

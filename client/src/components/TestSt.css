@@ -25,3 +25,42 @@
 .rules-list{
     margin-left: 2rem;
 }
+
+.started-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.question-student{
+    margin-top: 1rem;
+}
+.question-ul{
+    list-style: none;
+}
+
+.question-ul li{
+    margin-left: 2rem;
+}
+
+.started-form{
+    padding: 1rem;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.started-btn-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 2rem;
+}
+.started-btn{
+    cursor: pointer;
+    padding: 0.5rem;
+}
