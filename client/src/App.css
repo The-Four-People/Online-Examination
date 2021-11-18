@@ -97,7 +97,6 @@
     border-radius: 10px;
     backdrop-filter: blur(10px);
 }
-
 .popup-form {
     display: flex;
     justify-content: center;
@@ -711,4 +710,43 @@
     .card-user-icon {
         margin: 0 0.5rem 0 0.5rem;
     }
+}
+
+/*Nadim css*/
+.popup-Testcontainer{
+    color:blue;
+    top:30%;
+    left:33%;
+    z-index:100;
+    position:fixed;
+    border-radius: 10px;
+    border: 1px solid crimson;   
+}
+.popup-Testform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 10px;
+    height: 30vh;
+    width: 34vw;
+    background-color:rgba(245, 245, 245, 0.842);
+}
+.test-heading{
+    margin-top: 2.3rem;
+}
+.popup-testbttn{
+    padding: 0.5rem;
+}
+@media screen and (max-width: 950px) { 
+    .popup-Testcontainer{
+        left: 25%;
+    }
+
+    .popup-Testform{
+            width: 40vw;
+        
+    }
+    
 }
