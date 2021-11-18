@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaClone } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import {
     picEmptyProfile,
     plusImg,
@@ -10,13 +10,12 @@ import {
     BG5,
     BG6,
 } from '../res/resIndex';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Link } from 'react-router-dom';
 import './TestTr.css';
 
-const DashboardTr = (params) => {
+const DashboardSt = (params) => {
     const [courses, setCourses] = useState(null);
     const [createButtonClicked, setcreateButtonClicked] = useState(false);
+
     const getCourses = () => {
         fetch(`${process.env.REACT_APP_BASE_URI}/api/course`, {
             method: 'GET',
@@ -33,19 +32,21 @@ const DashboardTr = (params) => {
             })
             .then((data) => {
                 setCourses(data);
+                console.log(data);
             })
             .catch((err) => console.log(err));
     };
+
     useEffect(() => {
         getCourses();
     }, []);
+
     return (
-        <>
-            <PopUp
-                setcreateButtonClicked={setcreateButtonClicked}
-                clicked={createButtonClicked}
-                getCourses={getCourses}
-            />
+        <>  <PopUp
+        setcreateButtonClicked={setcreateButtonClicked}
+        clicked={createButtonClicked}
+        getCourses={getCourses}
+    />
             <div className='body-container'>
                 <div className='r1'>
                     <InfoCard user={params.user} />
@@ -63,8 +64,9 @@ const DashboardTr = (params) => {
                                         return (
                                             <CourseCards
                                                 key={course._id}
-                                                courseCode={course.course_code}
+                                                courseCode={course.course_id}
                                                 courseName={course.course_name}
+                                                teacherId={course.teacher_id}
                                             />
                                         );
                                     })}
@@ -80,7 +82,7 @@ const DashboardTr = (params) => {
                         ) : (
                             <>
                                 <div className='center-msg'>
-                                    No course created
+                                    No course enrolled
                                 </div>
                                 <CreateButton
                                     createButtonClicked={createButtonClicked}
@@ -101,6 +103,7 @@ const DashboardTr = (params) => {
 
 const CourseCards = (params) => {
     const [tests, setTests] = useState([]);
+    const [teacher, setTeacher] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const randomBG = (code) => {
@@ -122,12 +125,7 @@ const CourseCards = (params) => {
                 return BG3;
         }
     };
-    const showCopied = () => {
-        const label = document.querySelector(`#${params.courseCode}`);
-        label.style.display = 'inline-block';
-        setTimeout(() => (label.style.display = 'none'), 1000);
-    };
-    useEffect(() => {
+    const getTests = () => {
         fetch(
             `${process.env.REACT_APP_BASE_URI}/api/course/${params.courseCode}`,
             {
@@ -146,9 +144,38 @@ const CourseCards = (params) => {
             })
             .then((data) => {
                 setTests(data);
-
+                getTeacher();
                 setIsLoading(false);
             });
+    };
+
+    const getTeacher = () => {
+        fetch(`${process.env.REACT_APP_BASE_URI}/api/search/teacher/`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `bearer ${JSON.parse(
+                    localStorage.getItem('token')
+                )}`,
+            },
+            body: JSON.stringify({
+                id: params.teacher_id,
+            }),
+        })
+            .then((data, err) => {
+                if (data) return data.json();
+                else console.log(err);
+            })
+            .then((data) => {
+                if (data !== null) setTeacher(data);
+                else setTeacher({ name: 'unknown' });
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        setTeacher({ name: '...' });
+        getTests();
     }, []);
     return (
         <div className='r2-card'>
@@ -164,26 +191,9 @@ const CourseCards = (params) => {
                 </Link>
                 <span style={{ fontSize: '0.8rem', fontWeight: 'normal' }}>
                     {params.courseCode}
-                    <CopyToClipboard
-                        text={params.courseCode}
-                        onCopy={() => showCopied()}
-                    >
-                        <button
-                            style={{
-                                background: 'none',
-                                border: 'none',
-                                color: 'white',
-                                marginLeft: '0.7rem',
-                                marginTop: '0.3rem',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            <FaClone />
-                        </button>
-                    </CopyToClipboard>
-                    <div className='copied-label' id={params.courseCode}>
-                        Copied
-                    </div>
+                </span>
+                <span style={{ fontSize: '0.8rem', fontWeight: 'normal' }}>
+                    {teacher?.name || '...'}
                 </span>
             </div>
             <div className='r-card-bottom'>
@@ -192,11 +202,7 @@ const CourseCards = (params) => {
                         <h2>Loading...</h2>
                     ) : tests.length === 0 ? (
                         <li>
-                            <Link to={`/c/${params.courseCode}/`}>
-                                <button className='btn btn-primary'>
-                                    Create test
-                                </button>
-                            </Link>
+                            <span>No Upcoming Tests</span>
                         </li>
                     ) : (
                         tests.map((test) => {
@@ -251,18 +257,18 @@ const PopUp = (props) => {
         e.preventDefault();
         try {
             if (courseName.current.value !== null)
-                fetch(`${process.env.REACT_APP_BASE_URI}/api/course/new`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `bearer ${JSON.parse(
-                            localStorage.getItem('token')
-                        )}`,
-                    },
-                    body: JSON.stringify({
-                        courseName: courseName.current.value,
-                    }),
-                })
+                fetch(
+                    `${process.env.REACT_APP_BASE_URI}/api/course/${courseName.current.value}`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `bearer ${JSON.parse(
+                                localStorage.getItem('token')
+                            )}`,
+                        },
+                    }
+                )
                     .then((data, err) => {
                         if (!err) return data.json();
                         else console.log(err);
@@ -287,13 +293,13 @@ const PopUp = (props) => {
                         <input
                             className='popup-input'
                             type='text'
-                            placeholder='Enter course name'
+                            placeholder='Enter course code'
                             required
                             ref={courseName}
                             autoFocus
                         />
                         <button type='submit' className='popup-btn'>
-                            Create
+                            Enroll
                         </button>
                     </form>
                 </div>
@@ -303,4 +309,5 @@ const PopUp = (props) => {
         return null;
     }
 };
-export default DashboardTr;
+
+export default DashboardSt;
