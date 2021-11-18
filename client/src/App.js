@@ -1,6 +1,6 @@
 import "./App.css";
 import { Home, Dashboard, Course, Test } from "./pages/pageIndex";
-import { Login, RegisterStudent } from "./components/componentIndex";
+import { Login, RegisterStudent, Test } from "./components/componentIndex";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import { Navbar, Sidebar } from "./components/componentIndex";
 
@@ -17,10 +17,9 @@ function App() {
 				<Route exact path="/register">
 					<RegisterStudent />
 				</Route>
-				{/* <Route exact path="/:courseid/new">
-
-				</Route>  */}
-				{/* Testing */}
+				<Route exact path="/c/:courseid/new">
+					<Test />
+				</Route>
 				<Route exact path="/dashboard">
 					<Dashboard />
 				</Route>
