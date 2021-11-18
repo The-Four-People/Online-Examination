@@ -17,10 +17,9 @@ function App() {
 				<Route exact path="/register">
 					<RegisterStudent />
 				</Route>
-				{/* <Route exact path="/:courseid/new">
-
-				</Route>  */}
-				{/* Testing */}
+				{/* <Route exact path="/c/:courseid/new">
+					<Test />
+				</Route> */}
 				<Route exact path="/dashboard">
 					<Dashboard />
 				</Route>

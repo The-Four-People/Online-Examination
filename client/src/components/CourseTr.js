@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BG1, BG2, BG3, BG4, BG5, BG6 } from "../res/resIndex";
-import { Link } from "react-router-dom";
+import { BG1, BG2, BG3, BG4, BG5, BG6, plusImg } from "../res/resIndex";
+import { Link, useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaClone } from "react-icons/fa";
+import { TestCr } from "./componentIndex";
 
 const Coursetbody = (params) => {
 	const [tests, setTests] = useState([]);
 	const [course, setCourse] = useState(null);
+	const [code, setCode] = useState(useParams().code);
 	const [isLoading, setIsLoading] = useState(true);
+	const [createButtonClicked, setcreateButtonClicked] = useState(false);
 
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_BASE_URI}/api/course`, {
@@ -22,12 +25,7 @@ const Coursetbody = (params) => {
 				else console.log(err);
 			})
 			.then((data) => {
-				setCourse(
-					data.find(
-						(ele) =>
-							ele.course_code === window.location.pathname.replace("/c/", "")
-					)
-				);
+				setCourse(data.find((ele) => ele.course_code === code));
 			})
 			.catch((err) => console.log(err));
 
@@ -52,7 +50,7 @@ const Coursetbody = (params) => {
 				setIsLoading(false);
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [createButtonClicked]);
 	return (
 		<>
 			{course ? (
@@ -72,6 +70,13 @@ const Coursetbody = (params) => {
 						)}
 						{course ? <StudentDisplay courseCode={course.course_code} /> : null}
 					</div>
+					<CreateButton
+						createButtonClicked={createButtonClicked}
+						setcreateButtonClicked={setcreateButtonClicked}
+					/>
+					{createButtonClicked ? (
+						<TestCr setcreateButtonClicked={setcreateButtonClicked} />
+					) : null}
 				</div>
 			) : (
 				<div className="center-msg">Loading.......</div>
@@ -79,7 +84,18 @@ const Coursetbody = (params) => {
 		</>
 	);
 };
-
+const CreateButton = (params) => {
+	return (
+		<button
+			onClick={(e) => {
+				params.setcreateButtonClicked(!params.createButtonClicked);
+			}}
+			className="create-btn"
+		>
+			<img src={plusImg} alt="+" />
+		</button>
+	);
+};
 const StudentDisplay = ({ courseCode }) => {
 	const [students, setStudents] = useState([]);
 	const [isloading, setIsLoading] = useState(true);
