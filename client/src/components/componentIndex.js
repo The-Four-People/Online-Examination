@@ -6,6 +6,7 @@ export { default as RegisterStudent } from './register/Student';
 export { default as DashboardTr } from './DashboardTr';
 export { default as DashboardSt } from './DashboardSt';
 export { default as CourseTr } from './CourseTr';
+export { default as CourseSt } from './CourseSt';
 export { default as TestTr } from './TestTr';
 export { default as TestSt } from './TestSt';
 export { default as TestCr } from './TestCr';
