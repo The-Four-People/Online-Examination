@@ -7,6 +7,6 @@ export { default as DashboardTr } from "./DashboardTr";
 export { default as CourseTr } from "./CourseTr";
 export { default as TestTr } from "./TestTr";
 export { default as TestSt } from "./TestSt";
-export { default as Test } from "./Test";
+export { default as TestCr } from "./TestCr";
 
 // use import {ComponentName1, ComponentName2} from './component/componentIndex'
