@@ -268,6 +268,36 @@ router.get("/:code", async (req, res) => {
 	}
 });
 
+function updateStudentUser(email, collectionName) {
+	const promise = new Promise(async (resolve, reject) => {
+		try {
+			const student = await findStudentByEmail(email);
+			if (student) {
+				student.test_attempted.push(collectionName);
+				student
+					.save()
+					.then((data, err) => {
+						// console.log("Hello", data, err);
+						if (!err) {
+							resolve(true);
+						} else {
+							reject(false);
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+						reject(false);
+					});
+			} else {
+				reject(false);
+			}
+		} catch (err) {
+			console.log(err);
+			reject(false);
+		}
+	});
+	return promise;
+}
 // router.use("/:code/:test/attempt", TestAttempt);
 router.post(
 	"/:code/:test/attempt",
@@ -293,15 +323,93 @@ router.post(
 			res.json("Not Found");
 		}
 	},
-	(req, res) => {
-		const model = mongoose.model(
-			`${req.params.code}-${req.params.test}`,
-			testSchema
-		);
-		// console.log(`asdsd ${asd}`)
-		res.json({ ok: true });
+	async (req, res) => {
+		try {
+			const original_quiz_length = await getQuestionCounts(
+				req.params.code,
+				req.params.test
+			);
+			const attempt_quiz_length = req.body.length;
+			// console.log(req.body);
+			// req.body.map((data) => {
+			// 	const key = Object.keys(data)[0];
+			// 	console.log(data[key]);
+			// });
+			if (original_quiz_length === attempt_quiz_length) {
+				const model = mongoose.model(
+					`${req.params.code}-${req.params.test}`,
+					testSchema
+				);
+				let attempt = [];
+				req.body.map((data) => {
+					let key = Object.keys(data)[0];
+					let tempObj = {
+						id: key,
+						answer: data[key],
+					};
+					attempt.push(tempObj);
+				});
+
+				const already_attempted = await model
+					.findOne({ student_email: req.obj.email })
+					.exec();
+				if (already_attempted) {
+					res.json({ ok: false, msg: "Already attempted" });
+				} else {
+					model
+						.create({
+							course_code: req.params.code,
+							test_name: req.params.test,
+							student_email: req.obj.email,
+							quiz: attempt,
+						})
+						.then((data, err) => {
+							if (!err) {
+								updateStudentUser(
+									req.obj.email,
+									`${req.params.code}-${req.params.test}`
+								).then((data, err) => {
+									if (data) {
+										res.json({ ok: true, msg: "Test succesfully attempted" });
+									} else {
+										res.json({
+											ok: false,
+											msg: "Updating student unsuccessfull",
+										});
+									}
+								});
+							} else {
+								res.json({
+									ok: false,
+									msg: "Test attempt unsuccessfull",
+									error: err,
+								});
+							}
+						})
+						.catch((err) => {
+							res.json({
+								ok: false,
+								msg: "Test attempt unsuccessful",
+								error: err,
+							});
+						});
+				}
+			} else {
+				res.json({ ok: false, msg: "All questions should be answered" });
+			}
+		} catch (err) {
+			console.log(err);
+		}
 	}
 );
+
+async function getQuestionCounts(code, test) {
+	const course = mongoose.model(code, courseSchema);
+	let testDoc = await course.findOne({ test_name: test }).exec();
+	if (testDoc) {
+		return testDoc.quiz.length;
+	}
+}
 
 router.get("/:code/:test", async (req, res) => {
 	if (req.obj.role === "student") {

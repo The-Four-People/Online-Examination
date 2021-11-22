@@ -31,6 +31,10 @@ const studentSchema = new mongoose.Schema({
 		unique: true,
 		default: [],
 	},
+	test_attempted: {
+		type: [String],
+		default: [],
+	},
 	role: {
 		type: String,
 		required: true,

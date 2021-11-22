@@ -14,10 +14,6 @@ const Schema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	test_code: {
-		type: String,
-		required: true,
-	},
 	test_name: {
 		type: String,
 		required: true,
