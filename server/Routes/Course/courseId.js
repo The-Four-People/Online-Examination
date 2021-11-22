@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const { teacherUser, studentUser } = require("../../Models/modelIndex");
 const { courseIndex } = require("../../Models/modelIndex");
-const { courseSchema } = require("../../Schema/schemaIndex");
+const { courseSchema, testSchema } = require("../../Schema/schemaIndex");
 
 dotenv.config({
 	path: path.join(__dirname, "../", ".env"),
@@ -267,6 +267,41 @@ router.get("/:code", async (req, res) => {
 		res.json({ ok: false, msg: "Not Authorized" });
 	}
 });
+
+// router.use("/:code/:test/attempt", TestAttempt);
+router.post(
+	"/:code/:test/attempt",
+	async (req, res, next) => {
+		if (req.obj.role === "student") {
+			console.log(req.params.code);
+			var isStudentEnrolled = await findStudentByEmail(req.obj.email)
+				.then((student) => {
+					return student.course_enrolled.some(
+						(c) => c.course_id === req.params.code
+					);
+				})
+				.catch((err) => {
+					console.log(err);
+					res.json({ ok: false, error: err });
+				});
+			if (isStudentEnrolled) {
+				next();
+			} else {
+				res.json({ ok: false, msg: "Student Not Enrolled" });
+			}
+		} else {
+			res.json("Not Found");
+		}
+	},
+	(req, res) => {
+		const model = mongoose.model(
+			`${req.params.code}-${req.params.test}`,
+			testSchema
+		);
+		// console.log(`asdsd ${asd}`)
+		res.json({ ok: true });
+	}
+);
 
 router.get("/:code/:test", async (req, res) => {
 	if (req.obj.role === "student") {
