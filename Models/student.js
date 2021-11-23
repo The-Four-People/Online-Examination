@@ -32,7 +32,13 @@ const studentSchema = new mongoose.Schema({
 		default: [],
 	},
 	test_attempted: {
-		type: [String],
+		type: [
+			{
+				_id: false,
+				code: String,
+				marks: Number,
+			},
+		],
 		default: [],
 	},
 	role: {
