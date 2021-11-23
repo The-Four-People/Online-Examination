@@ -268,12 +268,15 @@ router.get("/:code", async (req, res) => {
 	}
 });
 
-function updateStudentUser(email, collectionName) {
+function updateStudentUser(email, collectionName, marks) {
 	const promise = new Promise(async (resolve, reject) => {
 		try {
 			const student = await findStudentByEmail(email);
 			if (student) {
-				student.test_attempted.push(collectionName);
+				student.test_attempted.push({
+					code: collectionName,
+					marks: marks,
+				});
 				student
 					.save()
 					.then((data, err) => {
@@ -296,6 +299,42 @@ function updateStudentUser(email, collectionName) {
 			reject(false);
 		}
 	});
+	return promise;
+}
+
+function checkMarks(original_quiz, attempt_quiz) {
+	const promise = new Promise((resolve, reject) => {
+		try {
+			let marks = 0;
+			const ids = Object.keys(attempt_quiz);
+			// console.log(original_quiz);
+			ids.map((id) => {
+				// console.log(id);
+				original_quiz.find((curr) => {
+					// console.log(curr.id == parseInt(id + 1));
+					// console.log(curr.id, parseInt(id) + 1);
+					if (curr.id === parseInt(id) + 1) {
+						// console.log(
+						// 	curr.id,
+						// 	id,
+						// 	curr.answer,
+						// 	Object.values(attempt_quiz[id])[0]
+						// );
+						// console.log(curr.answer === Object.values(attempt_quiz[id])[0]);
+						if (curr.answer === Object.values(attempt_quiz[id])[0]) {
+							marks += curr.marks;
+							// console.log(marks);
+						}
+					}
+				});
+			});
+			resolve(marks);
+		} catch (e) {
+			reject(null);
+			console.log(e);
+		}
+	});
+
 	return promise;
 }
 // router.use("/:code/:test/attempt", TestAttempt);
@@ -325,16 +364,15 @@ router.post(
 	},
 	async (req, res) => {
 		try {
-			const original_quiz_length = await getQuestionCounts(
+			const [original_quiz, original_quiz_length] = await getQuestionCounts(
 				req.params.code,
 				req.params.test
 			);
 			const attempt_quiz_length = req.body.length;
-			// console.log(req.body);
-			// req.body.map((data) => {
-			// 	const key = Object.keys(data)[0];
-			// 	console.log(data[key]);
-			// });
+
+			const marks = await checkMarks(original_quiz, req.body);
+			console.log(marks);
+
 			if (original_quiz_length === attempt_quiz_length) {
 				const model = mongoose.model(
 					`${req.params.code}-${req.params.test}`,
@@ -367,7 +405,8 @@ router.post(
 							if (!err) {
 								updateStudentUser(
 									req.obj.email,
-									`${req.params.code}-${req.params.test}`
+									`${req.params.code}-${req.params.test}`,
+									marks
 								).then((data, err) => {
 									if (data) {
 										res.json({ ok: true, msg: "Test succesfully attempted" });
@@ -405,9 +444,9 @@ router.post(
 
 async function getQuestionCounts(code, test) {
 	const course = mongoose.model(code, courseSchema);
-	let testDoc = await course.findOne({ test_name: test }).exec();
+	let testDoc = await course.findOne({ test_name: test }).select("-_id").exec();
 	if (testDoc) {
-		return testDoc.quiz.length;
+		return [testDoc.quiz, testDoc.quiz.length];
 	}
 }
 
