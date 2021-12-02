@@ -126,7 +126,7 @@ const TestCard = ({ test }) => {
                 </Link>
             </div>
             <div className='r-card-bottom' style={{ padding: '0px' }}>
-                <table className='table-info'>
+                <table className='table-info' style={{ height: '80%' }}>
                     <tbody>
                         <tr>
                             <th>Started</th>

@@ -792,17 +792,25 @@
     }
 }
 
-/*Nadim css*/
-.popup-Testcontainer{
-    color:blue;
-    top:30%;
-    left:33%;
-    z-index:100;
-    position:fixed;
-    border-radius: 10px;
-    border: 1px solid #000;   
+.big-table-content > tr > th,
+.big-table-content > tr > td {
+    width: 50%;
+    text-align: start;
+    font-size: 1rem;
+    padding-left: 1.6rem;
 }
-.popup-Testform{
+
+/*Nadim css*/
+.popup-Testcontainer {
+    color: blue;
+    top: 30%;
+    left: 33%;
+    z-index: 100;
+    position: fixed;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+.popup-Testform {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -811,13 +819,13 @@
     border-radius: 10px;
     /* height: 30vh; */
     width: 34vw;
-    background-color:rgba(245, 245, 245, 0.842);
+    background-color: rgba(245, 245, 245, 0.842);
     backdrop-filter: blur(5px);
 }
-.test-heading{
+.test-heading {
     margin-top: 1rem;
 }
-.popup-testbttn{
+.popup-testbttn {
     padding: 0.5rem;
     width: 10vw;
     border: 2px solid #000;
@@ -830,18 +838,16 @@
     margin-bottom: 0.2rem;
 }
 
-.popup-testbttn:hover{
+.popup-testbttn:hover {
     background-color: #fff;
     color: #000;
 }
-@media screen and (max-width: 950px) { 
-    .popup-Testcontainer{
+@media screen and (max-width: 950px) {
+    .popup-Testcontainer {
         left: 25%;
     }
 
-    .popup-Testform{
-            width: 40vw;
-        
+    .popup-Testform {
+        width: 40vw;
     }
-    
 }

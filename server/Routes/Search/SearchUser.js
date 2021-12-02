@@ -26,4 +26,24 @@ router.post('/teacher/', async (req, res) => {
     }
 });
 
+router.post('/student/', async (req, res) => {
+    if (req.obj.role === 'teacher') {
+        const student = await studentUser
+            .findOne({ email: req.body.email }, { password: 0 })
+            .exec();
+        console.log(student);
+        res.json(student);
+    }
+});
+
+router.post('/student/marks/', async (req, res) => {
+    if (req.obj.role === 'student') {
+        const student = await studentUser
+            .findOne({ email: req.body.email }, { test_attempted: 1 })
+            .exec();
+        console.log(student);
+        res.json(student);
+    }
+});
+
 module.exports = router;
