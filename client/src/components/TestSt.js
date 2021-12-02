@@ -83,19 +83,37 @@ const NotStarted = ({ test }) => {
             <div className='main-container'>
                 <div className='main-info'>
                     <h1 style={{ textAlign: 'center' }}>{test.course_name}</h1>
-                    <table style={{ textAlign: 'center' }}>
-                        <tr>
-                            <td>Test Name</td>
-                            <td>{test.test_name}</td>
-                        </tr>
-                        <tr>
-                            <td>Test Type</td>
-                            <td>{test.test_type}</td>
-                        </tr>
-                        <tr>
-                            <td>Test started</td>
-                            <td>No</td>
-                        </tr>
+                    <table className='table-info'>
+                        <tbody className='big-table-content'>
+                            <tr>
+                                <th>Test Name</th>
+                                <td>{test.test_name}</td>
+                            </tr>
+                            <tr>
+                                <th>Test Type</th>
+                                <td>{test.test_type}</td>
+                            </tr>
+                            <tr>
+                                <th>Test started</th>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <th>Marks</th>
+                                <td>{test.total_marks}</td>
+                            </tr>
+                            <tr>
+                                <th>Scheduled on</th>
+                                <td>{test.test_start_date}</td>
+                            </tr>
+                            <tr>
+                                <th>Test start time</th>
+                                <td>{test.test_start_time}</td>
+                            </tr>
+                            <tr>
+                                <th>Test duration </th>
+                                <td>{test.test_duration} hr(s)</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div className='main-countdown'>
@@ -154,6 +172,9 @@ const Started = ({ test, courseCode, testName }) => {
                     console.log(data);
                     if (data.ok) {
                         window.alert('Test Attempt successful');
+                        window.location.replace(
+                            `${window.location.href}/result`
+                        );
                     } else {
                         window.alert('Error occured');
                     }

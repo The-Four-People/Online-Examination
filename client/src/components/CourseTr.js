@@ -51,6 +51,7 @@ const CourseTr = (params) => {
             })
             .then((data) => {
                 setTests(data);
+                console.log(data);
                 setIsLoading(false);
             })
             .catch((err) => console.log(err));
@@ -255,7 +256,7 @@ const TestCard = ({ test }) => {
                 </Link>
             </div>
             <div className='r-card-bottom' style={{ padding: '0px' }}>
-			<table className='table-info'>
+                <table className='table-info'>
                     <tbody>
                         <tr>
                             <th>Started</th>
@@ -271,15 +272,15 @@ const TestCard = ({ test }) => {
                         </tr>
                         <tr>
                             <th>Start On</th>
-                            <td>{}</td>
+                            <td>{test.startDate}</td>
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>{}</td>
+                            <td>{test.time}</td>
                         </tr>
                         <tr>
                             <th>Duration</th>
-                            <td>{}</td>
+                            <td>{test.duration} hrs</td>
                         </tr>
                     </tbody>
                 </table>

@@ -37,6 +37,7 @@ const ResultSt = ({ user }) => {
                 console.log(data);
                 if (data.ok) {
                     setTest(data);
+                    console.log(data.attempt);
                     setIsLoading(false);
                 }
             })
@@ -154,15 +155,15 @@ const TestCard = ({ test, marks }) => {
                         </tr>
                         <tr>
                             <th>Start On</th>
-                            <td>{}</td>
+                            <td>{test.test_start_date}</td>
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>{}</td>
+                            <td>{test.test_start_time}</td>
                         </tr>
                         <tr>
                             <th>Duration</th>
-                            <td>{}</td>
+                            <td>{test.test_duration}</td>
                         </tr>
                         <tr>
                             <th>Marks Obtained</th>
@@ -242,7 +243,10 @@ const DisplayIndividualQuestion = ({ question }) => {
                         <div className='individual-question-heading right'>
                             <div className='individual-question-heading'>
                                 <h1>Marks Obtained:</h1>
-                                <h1>{question.marks}</h1>
+                                <h1>
+                                    {' '}
+                                    {question.marks} / {question.weight}
+                                </h1>
                             </div>
                         </div>
                     </div>
