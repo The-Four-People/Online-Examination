@@ -223,6 +223,9 @@ router.get('/:code', async (req, res) => {
                     isStarted: test.isStarted,
                     course_name: test.name,
                     createdAt: test.createdAt,
+                    test_start_time: test.time,
+                    test_duration: test.duration,
+                    test_date: test.startDate,
                 };
                 // if (test.isStarted) {
                 //     obj.quiz = test.quiz.map((question) => {
@@ -259,14 +262,18 @@ router.get('/:code', async (req, res) => {
 
         if (course_auth) {
             const collection = mongoose.model(req.params.code, courseSchema);
-            collection.find({}, '-quiz -_id -createdBy', (err, course) => {
-                if (!err) {
-                    console.log(course);
-                    res.json(course);
-                } else {
-                    res.json(err);
+            collection.find(
+                {},
+                { quiz: 0, _id: 0, createdBy: 0 },
+                (err, course) => {
+                    if (!err) {
+                        console.log(course);
+                        res.json(course);
+                    } else {
+                        res.json(err);
+                    }
                 }
-            });
+            );
         }
     } else {
         res.json({ ok: false, msg: 'Not Authorized' });
@@ -498,6 +505,9 @@ router.get('/:code/:test', async (req, res) => {
                     isStarted: test.isStarted,
                     course_name: test.name,
                     createdAt: test.createdAt,
+                    test_duration: test.duration,
+                    test_start_date: test.startDate,
+                    test_start_time: test.time,
                 };
                 if (already_attempted) {
                     obj.attempted = true;
@@ -513,6 +523,7 @@ router.get('/:code/:test', async (req, res) => {
                             question: ques.question,
                             options: ques.options,
                             answer: hey.answer,
+                            weight: ques.marks,
                             c_ans: ques.answer,
                             marks: marks,
                             id: ques.id,
@@ -643,4 +654,69 @@ router.post('/:code/:test/start', async (req, res) => {
         }
     }
 });
+
+router.post('/:code/:test/show', async (req, res) => {
+    if (req.obj.role === 'teacher') {
+        const teacher = await teacherUser
+            .findOne({ email: req.obj.email })
+            .exec();
+        if (teacher) {
+            // console.log(teacher);
+            let isCourseByThisTeacher = false;
+            teacher.courses.map((course) => {
+                if (course.code === req.params.code) {
+                    isCourseByThisTeacher = true;
+                }
+            });
+
+            if (isCourseByThisTeacher) {
+                const collection = mongoose.model(
+                    req.params.code,
+                    courseSchema
+                );
+                const test = await collection
+                    .findOne({ test_name: req.params.test })
+                    .exec();
+                if (
+                    req.body.showMarks !== undefined &&
+                    typeof req.body.showMarks === 'boolean'
+                ) {
+                    test.showMarks = req.body.showMarks;
+                    test.save()
+                        .then((testObj) => {
+                            testObj.showMarks
+                                ? res.json({
+                                      ok: true,
+                                      msg: 'Marks Visible to student',
+                                  })
+                                : res.json({
+                                      ok: true,
+                                      msg: 'Marks Hidden from student',
+                                  });
+                        })
+                        .catch((err) => {
+                            res.json({
+                                ok: false,
+                                msg: 'An error occured',
+                                error: err,
+                            });
+                        });
+                } else {
+                    res.json({
+                        ok: false,
+                        msg: 'Please provide valid credentials',
+                    });
+                }
+            } else {
+                res.json({
+                    ok: false,
+                    msg: "You're not authorized to do this task",
+                });
+            }
+        } else {
+            res.json({ ok: false, msg: 'No teacher with that credentials' });
+        }
+    }
+});
+
 module.exports = router;
