@@ -126,7 +126,7 @@ const TestCard = ({ test }) => {
                 </Link>
             </div>
             <div className='r-card-bottom' style={{ padding: '0px' }}>
-                <table className='table-info'>
+                <table className='table-info' style={{ height: '80%' }}>
                     <tbody>
                         <tr>
                             <th>Started</th>
@@ -142,15 +142,15 @@ const TestCard = ({ test }) => {
                         </tr>
                         <tr>
                             <th>Start On</th>
-                            <td>{}</td>
+                            <td>{test.test_start_date}</td>
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>{}</td>
+                            <td>{test.test_start_time}</td>
                         </tr>
                         <tr>
                             <th>Duration</th>
-                            <td>{}</td>
+                            <td>{test.test_duration} hrs</td>
                         </tr>
                     </tbody>
                 </table>

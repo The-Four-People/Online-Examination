@@ -1,14 +1,11 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { Navbar } from '../componentIndex';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import hasToken from '../../methods/hasToken';
+import { Navbar } from '../componentIndex';
+import { Redirect } from 'react-router-dom';
 
-export default function Login() {
+const LoginAdmin = () => {
     document.title = 'Login | Online Examination';
     const [isLoggedIn, setisLoggedIn] = useState(false);
-    const [role, setrole] = useState('teacher');
-    const [teacherColor, setteacherColor] = useState('#ffbb00');
-    const [studentColor, setstudentColor] = useState('#00ffdd');
     const email = useRef(null);
     const password = useRef(null);
 
@@ -17,27 +14,12 @@ export default function Login() {
         setisLoggedIn(data.ok);
     }, []);
 
-    function teacherClickHandle(e) {
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-        setrole('teacher');
-        setteacherColor('#ffbb00');
-        setstudentColor('#00ffdd');
-    }
-
-    function studentClickHandle(e) {
-        e.preventDefault();
-        setrole('student');
-        setstudentColor('#ffbb00');
-        setteacherColor('#00ffdd');
-    }
-
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        console.log('Login.......');
         const Email = email.current.value;
         const Password = password.current.value;
         if (Email && Password) {
-            fetch(`${process.env.REACT_APP_BASE_URI}/api/login/${role}`, {
+            fetch(`${process.env.REACT_APP_BASE_URI}/api/login/admin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +37,7 @@ export default function Login() {
                     }
                 })
                 .then((data) => {
-                    // console.log(data);
+                    console.log(data);
                     if (data.ok === true) {
                         localStorage.setItem(
                             'token',
@@ -68,30 +50,15 @@ export default function Login() {
                     console.log(err);
                 });
         }
-    }
+    };
+
     return (
         <>
-            {isLoggedIn && <Redirect to='/dashboard' />}
+            {isLoggedIn && <Redirect to='/' />}
             <Navbar signIn={!hasToken().ok} />
             <div className='main-form-container'>
                 <div className='form-container'>
                     <form className='form' onSubmit={handleFormSubmit}>
-                        <div className='btn-cont'>
-                            <button
-                                className='btn-role'
-                                style={{ backgroundColor: teacherColor }}
-                                onClick={teacherClickHandle}
-                            >
-                                Teacher
-                            </button>
-                            <button
-                                className='btn-role'
-                                style={{ backgroundColor: studentColor }}
-                                onClick={studentClickHandle}
-                            >
-                                Student
-                            </button>
-                        </div>
                         <input
                             name='email'
                             type='email'
@@ -111,16 +78,11 @@ export default function Login() {
                         />
 
                         <input type='submit' value='Login' />
-                        <p className='reg-login'>
-                            Don't have an account? Contact{' '}
-                            <Link className='reg-login-link' to='/login-admin'>
-                                Admin
-                            </Link>{' '}
-                            or Teacher
-                        </p>
                     </form>
                 </div>
             </div>
         </>
     );
-}
+};
+
+export default LoginAdmin;
