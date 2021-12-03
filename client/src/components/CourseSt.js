@@ -142,7 +142,7 @@ const TestCard = ({ test }) => {
                         </tr>
                         <tr>
                             <th>Start On</th>
-                            <td>{test.test_start_date}</td>
+                            <td>{test.test_date}</td>
                         </tr>
                         <tr>
                             <th>Time</th>

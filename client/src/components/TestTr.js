@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { IoMdArrowDropright } from 'react-icons/io';
 import './TestTr.css';
@@ -7,7 +7,38 @@ import './TestTr.css';
 function TestTr() {
     const [courseCode, setCourseCode] = useState(useParams().code);
     const [testCode, setTestCode] = useState(useParams().test);
+    const [attempts, setAttempts] = useState(0);
     const [test, setTest] = useState(null);
+
+    function getAttempts() {
+        fetch(
+            `${process.env.REACT_APP_BASE_URI}/api/course/${courseCode}/${testCode}/result`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(
+                        localStorage.getItem('token')
+                    )}`,
+                },
+            }
+        )
+            .then((data, err) => {
+                if (data) return data.json();
+                else console.log(err);
+            })
+            .then((data) => {
+                console.log(data);
+                if (data.ok) {
+                    setAttempts(data.students_marks.length);
+                } else {
+                    console.log('error', data.msg);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     function getTest() {
         fetch(
@@ -40,6 +71,7 @@ function TestTr() {
     }
     useLayoutEffect(() => {
         getTest();
+        getAttempts();
     }, []);
     function handleShowMarksBtn(e) {
         fetch(
@@ -102,7 +134,7 @@ function TestTr() {
                     <div className='body-contd'>
                         <div className='hero-container'>
                             <div className='heading-sep heading'>
-                                {test.test_name} - {test.name}
+                                {test.name} - {test.test_name}
                             </div>
                         </div>
                         <div className='main-container'>
@@ -165,6 +197,24 @@ function TestTr() {
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div
+                                    style={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: '8rem',
+                                        paddingTop: '1rem',
+                                    }}
+                                >
+                                    <Link
+                                        to={`/c/${courseCode}/${testCode}/result`}
+                                    >
+                                        <button className='btn btn-primary'>
+                                            Results ({attempts})
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
                             <RenderForm
                                 getTest={getTest}
