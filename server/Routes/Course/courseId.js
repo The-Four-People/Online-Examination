@@ -719,4 +719,62 @@ router.post('/:code/:test/show', async (req, res) => {
     }
 });
 
+router.get('/:code/:test/result', async (req, res) => {
+    if (req.obj.role === 'teacher') {
+        const teacher = await teacherUser
+            .findOne({ email: req.obj.email })
+            .exec();
+        if (teacher) {
+            // console.log(teacher);
+            let isCourseByThisTeacher = false;
+            teacher.courses.map((course) => {
+                if (course.code === req.params.code) {
+                    isCourseByThisTeacher = true;
+                }
+            });
+
+            if (isCourseByThisTeacher) {
+                const collection = mongoose.model(
+                    `${req.params.code}-${req.params.test}`,
+                    testSchema
+                );
+                var all_marks = await collection
+                    .find({}, { quiz: 0, _id: 0 })
+                    .exec();
+
+                const students_info = await studentUser
+                    .find({}, { name: 1, email: 1 })
+                    .exec();
+
+                if (all_marks) {
+                    all_marks = all_marks.map((ele) => {
+                        stud = students_info.find(
+                            (stud) => stud.email === ele.student_email
+                        );
+
+                        return {
+                            student_email: ele.student_email,
+                            marks: ele['_doc'].marks[0],
+                            student_name: stud.name,
+                        };
+                    });
+                }
+
+                res.json({
+                    ok: true,
+                    msg: 'Teacher verified',
+                    students_marks: all_marks,
+                });
+            } else {
+                res.json({
+                    ok: false,
+                    msg: 'Teacher has not created this course',
+                });
+            }
+        } else {
+            res.json({ ok: false, msg: 'No teacher with that credentials' });
+        }
+    }
+});
+
 module.exports = router;
