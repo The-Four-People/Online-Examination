@@ -91,7 +91,9 @@ const ResultSt = ({ user }) => {
                     }}
                 >
                     <TestCard test={test} marks={marks} />
-                    <DisplayQuestions question={test.attempt} />
+                    {test.showMarks && (
+                        <DisplayQuestions question={test.attempt} />
+                    )}
                 </div>
             ) : (
                 <Redirect to={`/c/${courseCode}/${testCode}`} />
@@ -167,11 +169,20 @@ const TestCard = ({ test, marks }) => {
                         </tr>
                         <tr>
                             <th>Marks Obtained</th>
-                            <td>{marks.marks}</td>
+                            <td>
+                                {test.showMarks
+                                    ? marks.marks
+                                    : 'Not Public yet'}
+                            </td>
                         </tr>
                         <tr>
                             <th>Percentage</th>
-                            <td>{(marks.marks / test.total_marks) * 100} %</td>
+                            <td>
+                                {test.showMarks
+                                    ? (marks.marks / test.total_marks) * 100 +
+                                      '%'
+                                    : 'Not public yet'}{' '}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -120,7 +120,7 @@ const StudentDisplay = ({ courseCode }) => {
     var c = 1;
 
     const showCopied = () => {
-        const label = document.querySelector(`#${courseCode}`);
+        const label = document.querySelector(`#${CSS.escape(courseCode)}`);
         label.style.display = 'inline-block';
         setTimeout(() => (label.style.display = 'none'), 1000);
     };
