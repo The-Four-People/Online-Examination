@@ -37,3 +37,10 @@
     font-size: 1.2rem;
     transform: translate(0px, 5px);
 }
+#countdown-instant-container {
+    color: inherit;
+}
+#countdown-instant-container > span {
+    color: inherit;
+    font-size: 1.3rem;
+}

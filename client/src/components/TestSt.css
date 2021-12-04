@@ -1,32 +1,32 @@
-.not-started-container{
+.not-started-container {
     padding: 0 0.5rem 0 0.5rem;
 }
 
-.not-started-main{
+.not-started-main {
     margin-top: 0.5rem;
 }
 
-.main-countdown{
+.main-countdown {
     width: 50vw;
     display: flex;
     justify-content: center;
     /* margin-top: 1rem; */
     background-color: rgb(235, 236, 141);
-    border-radius:10px;
+    border-radius: 10px;
     margin-left: 1rem;
 }
 
-.rules-block{
+.rules-block {
     background-color: burlywood;
     overflow-y: auto;
     height: 5rem;
 }
 
-.rules-list{
+.rules-list {
     margin-left: 2rem;
 }
 
-.started-block{
+.started-block {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,25 +35,29 @@
     margin-top: 1rem;
 }
 
-.question-student{
+.question-student {
     margin-top: 1rem;
 }
-.question-ul{
+.question-ul {
     margin-top: 0.3rem;
     list-style: none;
 }
 
-.question-ul li{
+.question-ul li {
     margin-left: 2rem;
 }
 
-.started-form{
-    padding: 1rem;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
+.question-ul input {
+    margin-right: 0.8rem;
 }
 
-.started-btn-block{
+.started-form {
+    padding: 1rem;
+    width: 80%;
+    border: 1px solid #000;
+}
+
+.started-btn-block {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,7 +65,17 @@
     text-align: center;
     margin-top: 2rem;
 }
-.started-btn{
+.started-btn {
     cursor: pointer;
     padding: 0.5rem;
+}
+
+#countdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#countdown-container > span {
+    font-size: 2rem;
 }
