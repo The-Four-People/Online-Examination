@@ -2,7 +2,7 @@ import React, { useEffect, useState, useLayoutEffect } from 'react';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { useParams } from 'react-router-dom';
 import { IoMdRefresh } from 'react-icons/io';
-import { FiDownload } from 'react-icons/fi';
+import { InstantCountdown } from './componentIndex';
 
 import './TestTr.css';
 import './ResultTr.css';
@@ -116,9 +116,8 @@ const ResultTr = ({ user }) => {
             ) : (
                 <div className='body-contd'>
                     <Heading
-                        courseName={test.name}
-                        testName={test.test_name}
                         attempts={marks.students_marks.length}
+                        test={test}
                     />
                     <button className='task-btn' onClick={getMarks}>
                         <IoMdRefresh /> Refresh
@@ -141,7 +140,7 @@ const ResultTr = ({ user }) => {
     );
 };
 
-const Heading = ({ courseName, testName, attempts }) => {
+const Heading = ({ test, attempts }) => {
     return (
         <div
             className='hero-container'
@@ -149,11 +148,19 @@ const Heading = ({ courseName, testName, attempts }) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                color: 'white'
             }}
         >
             <div className='heading-sep heading'>
-                {courseName} - {testName}
+                {test.name} - {test.test_name}
             </div>
+
+            <InstantCountdown
+                duration={test.duration}
+                dateTime={`${test.startDate}T${test.time}`}
+                isStarted={test.isStarted}
+            />
+
             <div className='heading-sep heading' style={{ fontSize: '1rem' }}>
                 {attempts} attempts
             </div>

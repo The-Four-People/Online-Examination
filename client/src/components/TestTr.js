@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { IoMdArrowDropright } from 'react-icons/io';
+import { InstantCountdown } from './componentIndex';
 import './TestTr.css';
 
 function TestTr() {
@@ -9,6 +10,8 @@ function TestTr() {
     const [testCode, setTestCode] = useState(useParams().test);
     const [attempts, setAttempts] = useState(0);
     const [test, setTest] = useState(null);
+
+    const isStartedRef = useRef(null);
 
     function getAttempts() {
         fetch(
@@ -154,6 +157,7 @@ function TestTr() {
                                             </td>
                                             <td>
                                                 <button
+                                                    ref={isStartedRef}
                                                     onClick={handleOnToggleBtn}
                                                     className='toggle-test-btn btn btn-primary'
                                                 >
@@ -205,6 +209,8 @@ function TestTr() {
                                         alignItems: 'center',
                                         height: '8rem',
                                         paddingTop: '1rem',
+                                        flexDirection: 'column',
+                                        rowGap: '0.5rem',
                                     }}
                                 >
                                     <Link
@@ -214,6 +220,12 @@ function TestTr() {
                                             Results ({attempts})
                                         </button>
                                     </Link>
+                                    <InstantCountdown
+                                        dateTime={`${test.startDate}T${test.time}`}
+                                        duration={test.duration}
+                                        isStarted={test.isStarted}
+                                        toggleRef={isStartedRef}
+                                    />
                                 </div>
                             </div>
                             <RenderForm

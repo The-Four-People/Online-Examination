@@ -13,5 +13,6 @@ export { default as TestSt } from './TestSt';
 export { default as TestCr } from './TestCr';
 export { default as ResultTr } from './ResultTr';
 export { default as ResultSt } from './ResultSt';
+export { default as InstantCountdown } from './InstantCountdown';
 
 // use import {ComponentName1, ComponentName2} from './component/componentIndex'

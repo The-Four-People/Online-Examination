@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useParams, Redirect } from 'react-router-dom';
+import Countdown from 'react-countdown';
 import './TestSt.css';
 import './TestTr.css';
 
@@ -117,7 +118,11 @@ const NotStarted = ({ test }) => {
                     </table>
                 </div>
                 <div className='main-countdown'>
-                    <h1>This is countdown</h1>
+                    <TestCountdown
+                        date={test.test_start_date}
+                        time={test.test_start_time}
+                        duration={test.test_duration}
+                    />
                 </div>
             </div>
 
@@ -139,6 +144,28 @@ const NotStarted = ({ test }) => {
                     </ul>
                 </div>
             ) : null}
+        </div>
+    );
+};
+
+const TestCountdown = ({ date, time, duration }) => {
+    const decideRender = () => {
+        const testDate = new Date(`${date}T${time}`);
+        if (testDate.getTime() > Date.now()) {
+            return <Countdown date={testDate} />;
+        } else if (
+            testDate.getTime() + duration * 60 * 60 * 1000 >
+            Date.now()
+        ) {
+            return <h1>Test Started</h1>;
+        } else {
+            return <h1>Test has ended</h1>;
+        }
+    };
+    return (
+        <div id='countdown-container'>
+            <span>Test will start in</span>
+            {decideRender()}
         </div>
     );
 };
@@ -185,6 +212,13 @@ const Started = ({ test, courseCode, testName }) => {
     }
     return (
         <div className='started-block'>
+            <Countdown
+                date={
+                    new Date(
+                        `${test.test_start_date}T${test.test_start_time}`
+                    ).getTime() + test.test_duration
+                }
+            />
             <form className='started-form' onSubmit={handleSubmit}>
                 {test.quiz.map((question) => (
                     <Question
