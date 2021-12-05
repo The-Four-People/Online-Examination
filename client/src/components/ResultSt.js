@@ -8,6 +8,7 @@ import {
 } from 'react-icons/ai';
 import { IoMdArrowDropright } from 'react-icons/io';
 import './TestTr.css';
+import to12hrFormat from '../methods/to12hrFormat';
 
 const ResultSt = ({ user }) => {
     // const [testAttempt, setTestAttempt] = useState([]);
@@ -161,11 +162,17 @@ const TestCard = ({ test, marks }) => {
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>{test.test_start_time}</td>
+                            <td>{to12hrFormat(test.test_start_time)}</td>
                         </tr>
                         <tr>
                             <th>Duration</th>
-                            <td>{test.test_duration}</td>
+                            <td>
+                                {Math.floor(test.test_duration)} hr{' '}
+                                {(test.test_duration -
+                                    Math.floor(test.test_duration)) *
+                                    60}{' '}
+                                mins
+                            </td>
                         </tr>
                         <tr>
                             <th>Marks Obtained</th>

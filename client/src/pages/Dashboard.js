@@ -7,6 +7,7 @@ const Dashboard = () => {
     React.useLayoutEffect(() => {
         setUser(hasToken());
     }, []);
+    document.title = 'Dashboard';
     const decideRender = () => {
         if (user.role === 'teacher') {
             return (
@@ -20,6 +21,13 @@ const Dashboard = () => {
                 <>
                     <Navbar signIn={!user.ok} />
                     <DashboardSt user={user} />
+                </>
+            );
+        } else if (user.role === 'admin') {
+            return (
+                <>
+                    <Navbar signIn={!user.ok} />
+                    <div className='center-msg'>Welcome Admin</div>
                 </>
             );
         } else {

@@ -9,6 +9,7 @@ export default function Login() {
     const [role, setrole] = useState('teacher');
     const [teacherColor, setteacherColor] = useState('#ffbb00');
     const [studentColor, setstudentColor] = useState('#00ffdd');
+    const [msg, setMsg] = useState('');
     const email = useRef(null);
     const password = useRef(null);
 
@@ -56,6 +57,7 @@ export default function Login() {
                 })
                 .then((data) => {
                     // console.log(data);
+                    setMsg(data.msg);
                     if (data.ok === true) {
                         localStorage.setItem(
                             'token',
@@ -109,7 +111,7 @@ export default function Login() {
                             maxLength='20'
                             ref={password}
                         />
-
+                        {msg}
                         <input type='submit' value='Login' />
                         <p className='reg-login'>
                             Don't have an account? Contact{' '}

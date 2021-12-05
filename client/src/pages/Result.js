@@ -7,6 +7,7 @@ const Result = () => {
     React.useLayoutEffect(() => {
         setUser(hasToken());
     }, []);
+    document.title = 'Result';
     const decideRender = () => {
         if (user.role === 'teacher') {
             return (

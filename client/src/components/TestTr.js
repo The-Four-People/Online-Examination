@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { IoMdArrowDropright } from 'react-icons/io';
+import  to12hrFormat  from '../methods/to12hrFormat';
 import { InstantCountdown } from './componentIndex';
 import './TestTr.css';
 
@@ -63,7 +64,11 @@ function TestTr() {
             .then((data) => {
                 console.log(data);
                 if (data.ok) {
-                    setTest({ ok: data.ok, ...data.data });
+                    setTest({
+                        ok: data.ok,
+                        ...data.data,
+                        duration: parseFloat(data.data.duration),
+                    });
                 } else {
                     setTest(data);
                 }
@@ -193,11 +198,17 @@ function TestTr() {
                                         </tr>
                                         <tr>
                                             <th>Test start time</th>
-                                            <td>{test.time}</td>
+                                            <td>{to12hrFormat(test.time)}</td>
                                         </tr>
                                         <tr>
                                             <th>Test duration </th>
-                                            <td>{test.duration} hr(s)</td>
+                                            <td>
+                                                {Math.floor(test.duration)} hr{' '}
+                                                {(test.duration -
+                                                    Math.floor(test.duration)) *
+                                                    60}{' '}
+                                                mins
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

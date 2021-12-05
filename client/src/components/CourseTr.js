@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaClone } from 'react-icons/fa';
 import { TestCr } from './componentIndex';
+import to12hrFormat  from '../methods/to12hrFormat';
 
 const CourseTr = (params) => {
     const [tests, setTests] = useState([]);
@@ -276,11 +277,16 @@ const TestCard = ({ test }) => {
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>{test.time}</td>
+                            <td>{to12hrFormat(test.time)}</td>
                         </tr>
                         <tr>
                             <th>Duration</th>
-                            <td>{test.duration} hrs</td>
+                            <td>
+                                {Math.floor(test.duration)} hr{' '}
+                                {(test.duration - Math.floor(test.duration)) *
+                                    60}{' '}
+                                mins
+                            </td>
                         </tr>
                     </tbody>
                 </table>
