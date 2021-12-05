@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BG1, BG2, BG3, BG4, BG5, BG6, plusImg } from '../res/resIndex';
+import { BG1, BG2, BG3, BG4, BG5, BG6 } from '../res/resIndex';
 import { Link, useParams } from 'react-router-dom';
-
+import to12hrFormat  from '../methods/to12hrFormat';
 const CourseSt = (props) => {
     const [tests, setTests] = useState(null);
     const [code, setCode] = useState(useParams().code);
@@ -146,11 +146,17 @@ const TestCard = ({ test }) => {
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>{test.test_start_time}</td>
+                            <td>{to12hrFormat(test.test_start_time)}</td>
                         </tr>
                         <tr>
                             <th>Duration</th>
-                            <td>{test.test_duration} hrs</td>
+                            <td>
+                                {Math.floor(test.test_duration)} hr{' '}
+                                {(test.test_duration -
+                                    Math.floor(test.test_duration)) *
+                                    60}{' '}
+                                mins
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -4,6 +4,7 @@ export { default as Login } from './login/Login';
 export { default as LoginAdmin } from './login/LoginAdmin';
 export { default as RegisterAdmin } from './register/Admin';
 export { default as RegisterStudent } from './register/Student';
+export { default as RegisterTeacher } from './register/Teacher';
 export { default as DashboardTr } from './DashboardTr';
 export { default as DashboardSt } from './DashboardSt';
 export { default as CourseTr } from './CourseTr';

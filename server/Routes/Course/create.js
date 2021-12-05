@@ -154,7 +154,7 @@ const createCollection = (
                     total_marks: marks,
                     startDate: test_date,
                     time: test_start_time,
-                    duration: parseInt(test_duration),
+                    duration: test_duration,
                 })
                 .then((data, err) => {
                     if (!err) {

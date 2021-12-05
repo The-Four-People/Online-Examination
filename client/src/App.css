@@ -1,13 +1,14 @@
 .main-form-container {
     height: inherit;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     background-color: #fff;
 }
 
 .main-form-container .form-container {
     background-color: rgba(253, 231, 171, 0.774);
+    margin-top: 3rem;
     padding: 1rem;
     width: 30vw;
     border-radius: 1rem;
@@ -578,9 +579,10 @@
 }
 .r-card-bottom {
     width: 100%;
-    padding: 1rem;
+    padding-left: 1rem;
     position: relative;
-    height: 70%;
+    height: 58%;
+    overflow-y: auto;
 }
 .r-card-bottom > span {
     display: block;

@@ -4,7 +4,7 @@ import { Navbar, CourseTr, CourseSt } from '../components/componentIndex';
 
 const Course = () => {
     const [user, setUser] = React.useState({});
-
+    document.title = 'Courses';
     React.useLayoutEffect(() => {
         setUser(hasToken());
     }, []);
