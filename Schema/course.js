@@ -54,7 +54,9 @@ const courseSchema = new mongoose.Schema({
     },
     startDate: String,
     time: String,
-    duration: Number,
+    duration: {
+        type: Number,
+    },
     total_marks: {
         type: Number,
         // required: true,
