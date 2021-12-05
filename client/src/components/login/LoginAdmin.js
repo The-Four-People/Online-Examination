@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 const LoginAdmin = () => {
     document.title = 'Login | Online Examination';
     const [isLoggedIn, setisLoggedIn] = useState(false);
+    const [msg, setMsg] = useState('');
     const email = useRef(null);
     const password = useRef(null);
 
@@ -37,7 +38,7 @@ const LoginAdmin = () => {
                     }
                 })
                 .then((data) => {
-                    console.log(data);
+                    setMsg(data.msg);
                     if (data.ok === true) {
                         localStorage.setItem(
                             'token',
@@ -78,6 +79,7 @@ const LoginAdmin = () => {
                         />
 
                         <input type='submit' value='Login' />
+                        {msg}
                     </form>
                 </div>
             </div>

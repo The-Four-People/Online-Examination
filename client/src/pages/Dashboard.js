@@ -4,11 +4,10 @@ import { Navbar, DashboardTr, DashboardSt } from "../components/componentIndex";
 
 const Dashboard = () => {
 	const [user, setUser] = React.useState({});
-
-	document.title = "Dashboard | Online Examination";
 	React.useLayoutEffect(() => {
 		setUser(hasToken());
 	}, []);
+	document.title = "Dashboard | Online Examination";
 	const decideRender = () => {
 		if (user.role === "teacher") {
 			return (
@@ -22,6 +21,13 @@ const Dashboard = () => {
 				<>
 					<Navbar signIn={!user.ok} />
 					<DashboardSt user={user} />
+				</>
+			);
+		} else if (user.role === "admin") {
+			return (
+				<>
+					<Navbar signIn={!user.ok} />
+					<div className="center-msg">Welcome Admin</div>
 				</>
 			);
 		} else {

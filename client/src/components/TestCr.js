@@ -21,7 +21,7 @@ function Test(props) {
             testType: test_type.current.value,
             marks: test_marks.current.value,
             test_date: test_date.current.value,
-            test_duration: test_duration.current.value,
+            test_duration: parseFloat(test_duration.current.value) / 60.0,
             test_start_time: test_start_time.current.value,
         };
         console.log(formObj);
@@ -108,7 +108,7 @@ function Test(props) {
                             placeholder='Duration'
                             ref={test_duration}
                         />{' '}
-                        hrs
+                        mins
                     </div>
 
                     <button className='popup-testbttn' type='submit'>

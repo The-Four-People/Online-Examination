@@ -4,7 +4,7 @@ import { useParams, Redirect } from 'react-router-dom';
 import Countdown from 'react-countdown';
 import './TestSt.css';
 import './TestTr.css';
-
+import  to12hrFormat  from '../methods/to12hrFormat';
 function TestSt() {
     const [courseCode, setCourseCode] = useState(useParams().code);
     const [testCode, setTestCode] = useState(useParams().test);
@@ -112,7 +112,13 @@ const NotStarted = ({ test }) => {
                             </tr>
                             <tr>
                                 <th>Test duration </th>
-                                <td>{test.test_duration} hr(s)</td>
+                                <td>
+                                    {Math.floor(test.test_duration)} hr{' '}
+                                    {(test.test_duration -
+                                        Math.floor(test.test_duration)) *
+                                        60}{' '}
+                                    mins
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -120,7 +126,7 @@ const NotStarted = ({ test }) => {
                 <div className='main-countdown'>
                     <TestCountdown
                         date={test.test_start_date}
-                        time={test.test_start_time}
+                        time={to12hrFormat(test.test_start_time)}
                         duration={test.test_duration}
                     />
                 </div>
@@ -216,7 +222,8 @@ const Started = ({ test, courseCode, testName }) => {
                 date={
                     new Date(
                         `${test.test_start_date}T${test.test_start_time}`
-                    ).getTime() + test.test_duration
+                    ).getTime() +
+                    test.test_duration * 60 * 60 * 1000
                 }
             />
             <form className='started-form' onSubmit={handleSubmit}>

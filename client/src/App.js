@@ -4,6 +4,8 @@ import {
 	Login,
 	LoginAdmin,
 	RegisterStudent,
+	RegisterAdmin,
+	RegisterTeacher,
 } from "./components/componentIndex";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { useState, useLayoutEffect } from "react";
@@ -30,9 +32,16 @@ function App() {
 				<Route exact path="/login-admin">
 					<LoginAdmin />
 				</Route>
-				<Route exact path="/register">
+				<Route exact path="/register/student">
 					<RegisterStudent />
 				</Route>
+				<Route exact path="/register/teacher">
+					<RegisterTeacher />
+				</Route>
+				<Route exact path="/register/admin">
+					<RegisterAdmin />
+				</Route>
+
 				{/* <Route exact path="/c/:courseid/new">
 					<Test />
 				</Route> */}
