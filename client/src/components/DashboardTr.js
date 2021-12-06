@@ -152,9 +152,13 @@ function UpcomingTest({ courseCode, courseName }) {
 						// let b
 						let temp = b.diff(a, "days");
 						if (temp <= 5) {
-							console.log(dt.startDate);
-							dt.togo = b.diff(a, "days");
-							return true;
+							if (!(temp < 0)) {
+								console.log(dt.startDate);
+								dt.togo = b.diff(a, "days");
+								return true;
+							} else {
+								return false;
+							}
 						}
 					} else {
 						return false;
@@ -244,11 +248,6 @@ const CourseCards = (params) => {
 			})
 			.then((data) => {
 				setTests(data);
-				console.log(params.testNum + data.length);
-				params.testNum
-					? params.settestNum(() => params.testNum + data.length)
-					: params.settestNum(data.length);
-				console.log(data.length);
 				setIsLoading(false);
 			});
 	}, []);
