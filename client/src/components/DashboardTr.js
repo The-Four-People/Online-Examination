@@ -14,11 +14,12 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
 import "./TestTr.css";
 import moment from "moment";
+import "./ResultTr.css";
 
 const DashboardTr = (params) => {
-	const [courses, setCourses] = useState(null);
+	const [testNum, settestNum] = useState(null);
+	const [courses, setCourses] = useState([]);
 	const [createButtonClicked, setcreateButtonClicked] = useState(false);
-
 	const getCourses = () => {
 		fetch(`${process.env.REACT_APP_BASE_URI}/api/course`, {
 			method: "GET",
@@ -50,23 +51,39 @@ const DashboardTr = (params) => {
 			/>
 			<div className="body-container">
 				<div className="r1">
-					<InfoCard user={params.user} />
-					<div className="r1-card upcoming">
-						<table cellSpacing="0px" className="table-upcoming">
-							{courses
-								? courses.map((cour) => {
-										return (
-											<UpcomingTest
-												key={cour._id}
-												courseCode={cour.course_code}
-												courseName={cour.course_name}
-											/>
-										);
-								  })
-								: null}
+					<InfoCard
+						user={params.user}
+						coursesLength={courses.length}
+						testNum={testNum}
+					/>
+					<div className="r1-card upcoming" style={{ maxWidth: "30rem" }}>
+						<table
+							id="style-table"
+							cellSpacing="0px"
+							className="table-upcoming"
+							style={{ marginTop: "0px" }}
+						>
+							<thead>
+								<tr>
+									<th colSpan="2">Upcoming Test</th>
+								</tr>
+							</thead>
+							<tbody>
+								{courses
+									? courses.map((cour) => {
+											return (
+												<UpcomingTest
+													key={cour._id}
+													courseCode={cour.course_code}
+													courseName={cour.course_name}
+												/>
+											);
+									  })
+									: null}
+							</tbody>
 						</table>
 					</div>
-					<div className="r1-card">Search bar</div>
+					{/* <div className="r1-card">Search bar</div> */}
 				</div>
 
 				{courses !== null ? (
@@ -81,6 +98,8 @@ const DashboardTr = (params) => {
 												key={course._id}
 												courseCode={course.course_code}
 												courseName={course.course_name}
+												settestNum={settestNum}
+												testNum={testNum}
 											/>
 										);
 									})}
@@ -225,7 +244,11 @@ const CourseCards = (params) => {
 			})
 			.then((data) => {
 				setTests(data);
-
+				console.log(params.testNum + data.length);
+				params.testNum
+					? params.settestNum(() => params.testNum + data.length)
+					: params.settestNum(data.length);
+				console.log(data.length);
 				setIsLoading(false);
 			});
 	}, []);
@@ -274,6 +297,10 @@ const CourseCards = (params) => {
 						</li>
 					) : (
 						tests.map((test) => {
+							// {
+							// 	params.settestNum(params.testNum + 1);
+							// 	console.log(params.testNum);
+							// }
 							return (
 								<li key={test.test_name}>
 									<Link to={`/c/${params.courseCode}/${test.test_name}`}>
@@ -289,7 +316,7 @@ const CourseCards = (params) => {
 	);
 };
 
-const InfoCard = ({ user }) => {
+const InfoCard = ({ user, coursesLength, testNum }) => {
 	return (
 		<div className="r1-card">
 			<div className="r-card-top">
@@ -299,6 +326,8 @@ const InfoCard = ({ user }) => {
 			<div className="r-card-bottom">
 				<span>Role : {user.role}</span>
 				<span>Email : {user.email}</span>
+				<span>Courses Created : {coursesLength}</span>
+				<span>Tests Created : {testNum}</span>
 			</div>
 		</div>
 	);

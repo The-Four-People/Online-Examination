@@ -527,7 +527,7 @@
 }
 .r1 {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-shrink: 0;
     width: 100%;
 }
@@ -543,6 +543,7 @@
     height: 12rem;
     background: white;
     margin: 0.5rem;
+
 }
 .r-card-top {
     width: 100%;
@@ -620,6 +621,8 @@
 .upcoming{
     overflow-y: auto;
     padding: 0.1rem;
+    border: 0;
+    border-bottom: 1px solid #000;
 }
 .table-upcoming{
     border-collapse: separate;
