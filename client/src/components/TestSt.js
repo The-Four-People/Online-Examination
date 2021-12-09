@@ -58,7 +58,7 @@ function TestSt() {
                     'Some error occured'
                 )
             ) : (
-                'Loading'
+                <div className='center-msg'>Loading.... </div>
             )}
         </>
     );
@@ -108,7 +108,7 @@ const NotStarted = ({ test }) => {
                             </tr>
                             <tr>
                                 <th>Test start time</th>
-                                <td>{test.test_start_time}</td>
+                                <td>{to12hrFormat(test.test_start_time)}</td>
                             </tr>
                             <tr>
                                 <th>Test duration </th>
@@ -126,7 +126,7 @@ const NotStarted = ({ test }) => {
                 <div className='main-countdown'>
                     <TestCountdown
                         date={test.test_start_date}
-                        time={to12hrFormat(test.test_start_time)}
+                        time={test.test_start_time}
                         duration={test.test_duration}
                     />
                 </div>
