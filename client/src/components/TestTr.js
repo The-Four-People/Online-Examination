@@ -1,18 +1,30 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { AiOutlineArrowRight } from 'react-icons/ai';
-import { IoMdArrowDropright } from 'react-icons/io';
-import  to12hrFormat  from '../methods/to12hrFormat';
+import {
+    AiOutlineArrowRight,
+    AiFillEdit,
+    AiOutlineCheck,
+    AiOutlineClose,
+} from 'react-icons/ai';
+import { IoMdArrowDropright, IoMdTrash } from 'react-icons/io';
+import to12hrFormat from '../methods/to12hrFormat';
 import { InstantCountdown } from './componentIndex';
 import './TestTr.css';
 
 function TestTr() {
-    const [courseCode, setCourseCode] = useState(useParams().code);
-    const [testCode, setTestCode] = useState(useParams().test);
+    const [courseCode] = useState(useParams().code);
+    const [testCode] = useState(useParams().test);
     const [attempts, setAttempts] = useState(0);
     const [test, setTest] = useState(null);
 
+    const [tDate, setTDate] = useState(false);
+    const [tTime, setTTime] = useState(false);
+    const [tDuration, setTDuration] = useState(false);
+
     const isStartedRef = useRef(null);
+    const dateRef = useRef(null);
+    const timeRef = useRef(null);
+    const durationRef = useRef(null);
 
     function getAttempts() {
         fetch(
@@ -108,6 +120,96 @@ function TestTr() {
                 }
             });
     }
+    function handleChangeDate(e) {
+        fetch(
+            `${process.env.REACT_APP_BASE_URI}/api/course/update/${courseCode}/${testCode}/`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${JSON.parse(
+                        localStorage.getItem('token')
+                    )}`,
+                },
+                body: JSON.stringify({
+                    startDate: dateRef.current.value,
+                }),
+            }
+        )
+            .then((data, err) => {
+                if (data) return data.json();
+                else console.log(err);
+            })
+            .then((data) => {
+                if (data.ok) {
+                    console.log('Date Changed');
+                    getTest();
+                    setTDate(!tDate);
+                } else {
+                    window.alert(data.msg);
+                }
+            });
+    }
+    function handleChangeTime(e) {
+        fetch(
+            `${process.env.REACT_APP_BASE_URI}/api/course/update/${courseCode}/${testCode}/`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${JSON.parse(
+                        localStorage.getItem('token')
+                    )}`,
+                },
+                body: JSON.stringify({
+                    time: timeRef.current.value,
+                }),
+            }
+        )
+            .then((data, err) => {
+                if (data) return data.json();
+                else console.log(err);
+            })
+            .then((data) => {
+                if (data.ok) {
+                    console.log('Time Changed');
+                    getTest();
+                    setTTime(!tTime);
+                } else {
+                    window.alert(data.msg);
+                }
+            });
+    }
+    function handleChangeDuration(e) {
+        fetch(
+            `${process.env.REACT_APP_BASE_URI}/api/course/update/${courseCode}/${testCode}/`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${JSON.parse(
+                        localStorage.getItem('token')
+                    )}`,
+                },
+                body: JSON.stringify({
+                    duration: durationRef.current.value / 60,
+                }),
+            }
+        )
+            .then((data, err) => {
+                if (data) return data.json();
+                else console.log(err);
+            })
+            .then((data) => {
+                if (data.ok) {
+                    console.log('Duration Changed');
+                    getTest();
+                    setTDuration(!tDuration);
+                } else {
+                    window.alert(data.msg);
+                }
+            });
+    }
     function handleOnToggleBtn(e) {
         fetch(
             `${process.env.REACT_APP_BASE_URI}/api/course/${courseCode}/${testCode}/start`,
@@ -153,6 +255,8 @@ function TestTr() {
                                         height: 'fit-content',
                                         color: 'black',
                                     }}
+                                    cellSpacing={'3px'}
+                                    cellPadding={'3px'}
                                 >
                                     <tbody className='big-table-content'>
                                         <tr>
@@ -193,21 +297,147 @@ function TestTr() {
                                             <td>{test.total_marks}</td>
                                         </tr>
                                         <tr>
-                                            <th>Scheduled on</th>
-                                            <td>{test.startDate}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Test start time</th>
-                                            <td>{to12hrFormat(test.time)}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Test duration </th>
+                                            <th>Start date</th>
                                             <td>
-                                                {Math.floor(test.duration)} hr{' '}
-                                                {(test.duration -
-                                                    Math.floor(test.duration)) *
-                                                    60}{' '}
-                                                mins
+                                                {tDate ? (
+                                                    <input
+                                                        type='date'
+                                                        ref={dateRef}
+                                                    />
+                                                ) : (
+                                                    test.startDate
+                                                )}
+                                            </td>
+                                            <td>
+                                                {tDate && (
+                                                    <button
+                                                        style={{
+                                                            height: 'fit-content',
+                                                            padding:
+                                                                '0.3rem 0.3rem 0 0.3rem',
+                                                        }}
+                                                        onClick={() => {
+                                                            handleChangeDate();
+                                                        }}
+                                                    >
+                                                        <AiOutlineCheck />{' '}
+                                                    </button>
+                                                )}{' '}
+                                                <button
+                                                    style={{
+                                                        height: 'fit-content',
+                                                        padding:
+                                                            '0.3rem 0.3rem 0 0.3rem',
+                                                    }}
+                                                    onClick={() =>
+                                                        setTDate(!tDate)
+                                                    }
+                                                >
+                                                    {tDate ? (
+                                                        <AiOutlineClose />
+                                                    ) : (
+                                                        <AiFillEdit />
+                                                    )}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Start time</th>
+                                            <td>
+                                                {tTime ? (
+                                                    <input
+                                                        ref={timeRef}
+                                                        type='time'
+                                                    />
+                                                ) : (
+                                                    to12hrFormat(test.time)
+                                                )}
+                                            </td>
+                                            <td>
+                                                {tTime && (
+                                                    <button
+                                                        style={{
+                                                            height: 'fit-content',
+                                                            padding:
+                                                                '0.3rem 0.3rem 0 0.3rem',
+                                                        }}
+                                                        onClick={() => {
+                                                            handleChangeTime();
+                                                        }}
+                                                    >
+                                                        <AiOutlineCheck />{' '}
+                                                    </button>
+                                                )}{' '}
+                                                <button
+                                                    style={{
+                                                        height: 'fit-content',
+                                                        padding:
+                                                            '0.3rem 0.3rem 0 0.3rem',
+                                                    }}
+                                                    onClick={() =>
+                                                        setTTime(!tTime)
+                                                    }
+                                                >
+                                                    {tTime ? (
+                                                        <AiOutlineClose />
+                                                    ) : (
+                                                        <AiFillEdit />
+                                                    )}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Duration </th>
+                                            <td>
+                                                {tDuration ? (
+                                                    <input
+                                                        ref={durationRef}
+                                                        type='number'
+                                                        placeholder='in mins'
+                                                    />
+                                                ) : (
+                                                    `${Math.floor(
+                                                        test.duration
+                                                    )} hr ${
+                                                        (test.duration -
+                                                            Math.floor(
+                                                                test.duration
+                                                            )) *
+                                                        60
+                                                    } mins`
+                                                )}
+                                            </td>
+                                            <td>
+                                                {tDuration && (
+                                                    <button
+                                                        style={{
+                                                            height: 'fit-content',
+                                                            padding:
+                                                                '0.3rem 0.3rem 0 0.3rem',
+                                                        }}
+                                                        onClick={() => {
+                                                            handleChangeDuration();
+                                                        }}
+                                                    >
+                                                        <AiOutlineCheck />{' '}
+                                                    </button>
+                                                )}{' '}
+                                                <button
+                                                    style={{
+                                                        height: 'fit-content',
+                                                        padding:
+                                                            '0.3rem 0.3rem 0 0.3rem',
+                                                    }}
+                                                    onClick={() =>
+                                                        setTDuration(!tDuration)
+                                                    }
+                                                >
+                                                    {tDuration ? (
+                                                        <AiOutlineClose />
+                                                    ) : (
+                                                        <AiFillEdit />
+                                                    )}
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -245,7 +475,11 @@ function TestTr() {
                                 testCode={testCode}
                             />
                         </div>
-                        <DisplayQuestions test={test} />
+                        <DisplayQuestions
+                            test={test}
+                            codeTest={`${courseCode}/${testCode}`}
+                            getTest={getTest}
+                        />
                     </div>
                 ) : (
                     <div className='center-msg'>Test doesn't exists</div>
@@ -257,7 +491,7 @@ function TestTr() {
     );
 }
 
-const DisplayQuestions = ({ test }) => {
+const DisplayQuestions = ({ test, codeTest, getTest }) => {
     const [arrowClicked, setArrowClicked] = useState(false);
     const css = {
         transform: arrowClicked ? 'rotate(90deg)' : '',
@@ -282,6 +516,8 @@ const DisplayQuestions = ({ test }) => {
                         <DisplayIndividualQuestion
                             key={data.id}
                             question={data}
+                            codeTest={codeTest}
+                            getTest={getTest}
                         />
                     ))}
                 </div>
@@ -290,8 +526,8 @@ const DisplayQuestions = ({ test }) => {
     );
 };
 
-const DisplayIndividualQuestion = ({ question }) => {
-    const [isSmallArrowClicked, setisSmallArrowClicked] = useState(false);
+const DisplayIndividualQuestion = ({ question, codeTest, getTest }) => {
+    const [isSmallArrowClicked, setisSmallArrowClicked] = useState(true);
     const css = {
         transform: isSmallArrowClicked ? 'rotate(90deg)' : null,
         transition: '300ms ease-in-out',
@@ -305,6 +541,33 @@ const DisplayIndividualQuestion = ({ question }) => {
     function handleSmallArrowClicked() {
         setisSmallArrowClicked(!isSmallArrowClicked);
     }
+    const handleClick = () => {
+        fetch(
+            `${process.env.REACT_APP_BASE_URI}/api/course/update/${codeTest}/`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${JSON.parse(
+                        localStorage.getItem('token')
+                    )}`,
+                },
+                body: JSON.stringify({
+                    id: question.id,
+                }),
+            }
+        )
+            .then((data, err) => {
+                if (data) return data.json();
+                else console.log(err);
+            })
+            .then((data) => {
+                if (data.ok) {
+                    console.log('Question Removed');
+                    getTest();
+                }
+            });
+    };
     return (
         <div className='individual-question'>
             {question ? (
@@ -317,20 +580,33 @@ const DisplayIndividualQuestion = ({ question }) => {
                         <h1>{question.question}</h1>
                         <div className='individual-question-heading right'>
                             <div className='individual-question-heading'>
-                                <h1>Marks :</h1>
-                                <h1>{question.marks}</h1>
+                                <h1>({question.id})</h1>
                             </div>
                             <div className='individual-question-heading'>
-                                <h1>Answer :</h1>
-                                <h1>{question.answer}</h1>
+                                <h1>
+                                    <button
+                                        className='btn btn-txt'
+                                        style={{
+                                            fontSize: '1.3rem',
+                                            color: 'darkblue',
+                                        }}
+                                        onClick={() => handleClick()}
+                                    >
+                                        <IoMdTrash />
+                                    </button>
+                                </h1>
                             </div>
                         </div>
                     </div>
                     <ul className='individual-question-options' style={css1}>
                         {question.options.map((option) => (
-                            <li>{option}</li>
+                            <li key={option}>{option}</li>
                         ))}
                     </ul>
+                    <h1>Answer : {question.answer}</h1>
+                    <h1>
+                        Marks {'\u00A0'}: {question.marks}
+                    </h1>
                 </>
             ) : null}
         </div>
@@ -397,82 +673,84 @@ const RenderForm = ({ courseCode, testCode, getTest }) => {
         <div className='quiz'>
             <form className='quiz-form' onSubmit={handleFormSubmit}>
                 <table className='quiz-table'>
-                    <tr>
-                        <td>
-                            <label>ID </label>
-                        </td>
-                        <td>
-                            <input
-                                ref={Id}
-                                type='number'
-                                placeholder='Enter id'
-                                required
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Question </label>
-                        </td>
-                        <td>
-                            <input
-                                ref={Question}
-                                type='text'
-                                placeholder='Enter question'
-                                required
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Answer </label>
-                        </td>
-                        <td>
-                            <input
-                                ref={Answer}
-                                type='text'
-                                placeholder='Enter answer'
-                                required
-                            />
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label>ID </label>
+                            </td>
+                            <td>
+                                <input
+                                    ref={Id}
+                                    type='number'
+                                    placeholder='Enter id'
+                                    required
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Question </label>
+                            </td>
+                            <td>
+                                <input
+                                    ref={Question}
+                                    type='text'
+                                    placeholder='Enter question'
+                                    required
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Answer </label>
+                            </td>
+                            <td>
+                                <input
+                                    ref={Answer}
+                                    type='text'
+                                    placeholder='Enter answer'
+                                    required
+                                />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <label>Marks </label>
-                        </td>
-                        <td>
-                            <input
-                                ref={Marks}
-                                type='number'
-                                placeholder='Enter marks'
-                                required
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Options </label>
-                        </td>
+                        <tr>
+                            <td>
+                                <label>Marks </label>
+                            </td>
+                            <td>
+                                <input
+                                    ref={Marks}
+                                    type='number'
+                                    placeholder='Enter marks'
+                                    required
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Options </label>
+                            </td>
 
-                        <td>
-                            <input
-                                ref={Options}
-                                type='text'
-                                placeholder='Enter Comma separated options'
-                                required
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan='2' style={{ textAlign: 'center' }}>
-                            <input
-                                className='quiz-btn'
-                                type='submit'
-                                value='Insert'
-                            />
-                        </td>
-                    </tr>
+                            <td>
+                                <input
+                                    ref={Options}
+                                    type='text'
+                                    placeholder='Enter Comma separated options'
+                                    required
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan='2' style={{ textAlign: 'center' }}>
+                                <input
+                                    className='quiz-btn'
+                                    type='submit'
+                                    value='Insert'
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </form>
         </div>

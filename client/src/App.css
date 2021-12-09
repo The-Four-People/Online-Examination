@@ -306,7 +306,9 @@
     color: rgb(55, 69, 219);
     padding: 0px;
 }
-
+.btn-txt svg {
+    font-size: 1.3rem;
+}
 .btn-txt:hover {
     color: rgb(40, 50, 250);
     text-decoration: underline;
@@ -543,7 +545,6 @@
     height: 12rem;
     background: white;
     margin: 0.5rem;
-
 }
 .r-card-top {
     width: 100%;
@@ -618,13 +619,12 @@
     align-items: flex-start;
 }
 
-.upcoming{
+.upcoming {
     overflow-y: auto;
     padding: 0.1rem;
     border: 0;
-    border-bottom: 1px solid #000;
 }
-.table-upcoming{
+.table-upcoming {
     border-collapse: separate;
     border-spacing: 0 5px;
 }
@@ -633,20 +633,20 @@
     background-color:antiquewhite;
 } */
 
-.table-link{
+.table-link {
     text-decoration: none;
     color: brown;
     transition: all 300ms ease-in-out;
     font-weight: 525;
 }
 
-.table-link:hover{
+.table-link:hover {
     color: blue;
     text-decoration: underline;
     font-weight: 530;
-} 
+}
 
-.table-row td{
+.table-row td {
     padding: 0.1rem;
 }
 
