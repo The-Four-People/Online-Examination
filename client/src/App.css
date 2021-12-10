@@ -629,6 +629,15 @@
     border-spacing: 0 5px;
 }
 
+@media only screen and (max-width: 430px){
+    .table-upcoming{
+        width: 90vw !important;
+    }
+    .upcoming{
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+} 
 /* .table-row{
     background-color:antiquewhite;
 } */

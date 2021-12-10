@@ -56,7 +56,7 @@ const DashboardTr = (params) => {
 						coursesLength={courses.length}
 						testNum={testNum}
 					/>
-					<div className="r1-card upcoming" style={{ maxWidth: "30rem" }}>
+					<div className="r1-card upcoming">
 						<table
 							id="style-table"
 							cellSpacing="0px"
