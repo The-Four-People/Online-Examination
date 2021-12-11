@@ -1,3 +1,6 @@
+.style-table-div{
+    overflow-x: auto;
+}
 #style-table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -43,4 +46,14 @@
 #countdown-instant-container > span {
     color: inherit;
     font-size: 1.3rem;
+}
+
+.controls-div{
+    display: flex;
+    flex-wrap: wrap;
+}
+@media only screen and (max-width:450px) {
+    .sub-heading{
+        margin-left: 0.4rem;
+    }
 }

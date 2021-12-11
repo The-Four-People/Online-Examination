@@ -629,6 +629,15 @@
     border-spacing: 0 5px;
 }
 
+@media only screen and (max-width: 430px){
+    .table-upcoming{
+        width: 90vw !important;
+    }
+    .upcoming{
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+} 
 /* .table-row{
     background-color:antiquewhite;
 } */
@@ -834,6 +843,7 @@
     text-align: start;
     font-size: 1rem;
     padding-left: 1.6rem;
+    /* font-weight: 6   00; */
 }
 
 /*Nadim css*/

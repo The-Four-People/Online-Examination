@@ -12,10 +12,9 @@
     width: 50vw;
     display: flex;
     justify-content: center;
-    /* margin-top: 1rem; */
+    margin-top: 1rem;
     background-color: rgb(235, 236, 141);
     border-radius: 10px;
-    margin-left: 1rem;
 }
 
 .quiz-form {
@@ -43,12 +42,13 @@
 .quiz-btn {
     margin-top: 2rem;
     cursor: pointer;
-    width: 15vw !important;
+    /* width: 15vw !important; */
     background-color: #000;
     color: #fff;
     border: 2px solid #000;
     border-radius: 5px;
     transition: 300ms ease-in-out;
+    padding: 0.5rem;
 }
 
 .quiz-btn:hover {
@@ -84,6 +84,9 @@
 .main-container {
     margin-top: 1rem;
     display: flex;
+    justify-content: center;
+    gap:1rem;
+    /* flex-wrap: wrap; */
 }
 
 .main-info {
@@ -91,6 +94,33 @@
     border-radius: 10px;
     background-color: rgb(226, 236, 141);
     padding: 1rem;
+    margin-top: 1rem;
+}
+
+@media only screen and (max-width: 900px){
+    .body-contd{
+        padding:0.1rem;
+    }
+} 
+
+@media only screen and (max-width:700px) {
+    .main-container{
+        flex-wrap: wrap ;
+    }
+    .main-info,.quiz{
+        width: 100%;
+    }
+
+    .big-table-content > tr > th, .big-table-content > tr > td{
+        padding-left: 0;
+    }
+    .quiz-table tr td{
+        text-align: center;
+    }
+
+    .quiz-form,.quiz-table,.quiz-form table tr td input{
+        width: 100%;
+    }
 }
 
 .question-block {
@@ -143,5 +173,14 @@
     cursor: pointer;
 }
 
-#countdown-instant-container {
+.div-r2-card{
+    width: 50vw;
+    height: 18rem;
+    align-self: center;
+}
+
+@media screen and (max-width:700px){
+    .div-r2-card{
+        width: 80vw;
+    }
 }
