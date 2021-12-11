@@ -121,10 +121,7 @@ const TestCard = ({ test, marks }) => {
 	};
 
 	return (
-		<div
-			className="r2-card"
-			style={{ width: "32rem", height: "18rem", alignSelf: "center" }}
-		>
+		<div className="r2-card div-r2-card">
 			<div
 				className="r-card-top"
 				style={{
@@ -134,11 +131,11 @@ const TestCard = ({ test, marks }) => {
 				}}
 			>
 				<span
-					style={{ fontSize: "1.8rem", paddingLeft: "1rem" }}
+					style={{ fontSize: "1.8rem" }}
 				>{`${test.course_name} - ${test.test_name}`}</span>
 			</div>
-			<div className="r-card-bottom" style={{ padding: "0px" }}>
-				<table className="table-info" style={{ height: "99%" }}>
+			<div className="r-card-bottom">
+				<table className="table-info" style={{ height: "99%", width: "100%" }}>
 					<tbody className="big-table-content">
 						<tr>
 							<th>Started</th>

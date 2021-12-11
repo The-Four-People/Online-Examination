@@ -172,3 +172,15 @@
 .toggle-test-btn {
     cursor: pointer;
 }
+
+.div-r2-card{
+    width: 50vw;
+    height: 18rem;
+    align-self: center;
+}
+
+@media screen and (max-width:700px){
+    .div-r2-card{
+        width: 80vw;
+    }
+}
