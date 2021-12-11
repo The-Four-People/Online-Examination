@@ -17,7 +17,6 @@ import moment from "moment";
 import "./ResultTr.css";
 
 const DashboardTr = (params) => {
-	const [testNum, settestNum] = useState(null);
 	const [courses, setCourses] = useState([]);
 	const [createButtonClicked, setcreateButtonClicked] = useState(false);
 	const getCourses = () => {
@@ -51,11 +50,7 @@ const DashboardTr = (params) => {
 			/>
 			<div className="body-container">
 				<div className="r1">
-					<InfoCard
-						user={params.user}
-						coursesLength={courses.length}
-						testNum={testNum}
-					/>
+					<InfoCard user={params.user} coursesLength={courses.length} />
 					<div className="r1-card upcoming">
 						<table
 							id="style-table"
@@ -98,8 +93,6 @@ const DashboardTr = (params) => {
 												key={course._id}
 												courseCode={course.course_code}
 												courseName={course.course_name}
-												settestNum={settestNum}
-												testNum={testNum}
 											/>
 										);
 									})}
@@ -315,7 +308,7 @@ const CourseCards = (params) => {
 	);
 };
 
-const InfoCard = ({ user, coursesLength, testNum }) => {
+const InfoCard = ({ user, coursesLength }) => {
 	return (
 		<div className="r1-card">
 			<div className="r-card-top">
@@ -326,7 +319,6 @@ const InfoCard = ({ user, coursesLength, testNum }) => {
 				<span>Role : {user.role}</span>
 				<span>Email : {user.email}</span>
 				<span>Courses Created : {coursesLength}</span>
-				<span>Tests Created : {testNum}</span>
 			</div>
 		</div>
 	);
