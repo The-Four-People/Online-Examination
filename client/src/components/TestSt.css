@@ -13,7 +13,7 @@
     /* margin-top: 1rem; */
     background-color: rgb(235, 236, 141);
     border-radius: 10px;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
 }
 
 .rules-block {
@@ -78,4 +78,15 @@
 }
 #countdown-container > span {
     font-size: 2rem;
+}
+
+
+@media screen  and (max-width:700px){
+    .main-countdown{
+        padding: 1rem;
+        width: 100%;
+    }
+    #countdown-container span{
+        font-size: 1.5rem;
+    }
 }
