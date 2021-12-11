@@ -253,6 +253,7 @@ function TestTr() {
 													ref={isStartedRef}
 													onClick={handleOnToggleBtn}
 													className="toggle-test-btn btn btn-primary"
+													style={{width:'fit-content', padding:'0.5rem'}}
 												>
 													Toggle
 												</button>
@@ -265,6 +266,7 @@ function TestTr() {
 												<button
 													onClick={handleShowMarksBtn}
 													className="toggle-test-btn btn btn-primary"
+													style={{width:'fit-content', padding:'0.5rem'}}
 												>
 													Toggle
 												</button>
@@ -282,7 +284,7 @@ function TestTr() {
 											<th>Start date</th>
 											<td>
 												{tDate ? (
-													<input type="date" ref={dateRef} />
+													<input type="date" ref={dateRef} className='date-input' />
 												) : (
 													test.startDate
 												)}
@@ -354,6 +356,7 @@ function TestTr() {
 														ref={durationRef}
 														type="number"
 														placeholder="in mins"
+														style={{width:'5rem'}}
 													/>
 												) : (
 													`${Math.floor(test.duration)} hr ${

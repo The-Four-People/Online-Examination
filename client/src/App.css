@@ -822,7 +822,7 @@
     #card-dropdown {
         left: -4rem;
         font-size: 0.8rem;
-        width: 5.8rem;
+        width: fit-content;
     }
     .card-user-icon {
         margin: 0 0.5rem 0 0.5rem;
@@ -892,7 +892,9 @@
     .popup-Testcontainer {
         left: 25%;
     }
-
+    .date-input {
+        width: 5rem;
+    }
     .popup-Testform {
         width: 40vw;
     }

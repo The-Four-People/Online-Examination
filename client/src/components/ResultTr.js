@@ -146,6 +146,7 @@ const Heading = ({ test, attempts }) => {
 			className="hero-container"
 			style={{
 				display: "flex",
+				flexDirection: "column",
 				justifyContent: "space-between",
 				alignItems: "center",
 				color: "white",
@@ -165,7 +166,7 @@ const Heading = ({ test, attempts }) => {
 				className="heading-sep heading sub-heading"
 				style={{ fontSize: "1rem" }}
 			>
-				{attempts} attempts
+				({attempts} attempts)
 			</div>
 		</div>
 	);
