@@ -832,7 +832,7 @@
         margin-top: 1rem;
     }
     #test-search-container {
-        width: 12rem;
+        width: 90vw;
         font-size: 0.9rem;
     }
 }
@@ -849,7 +849,8 @@
 /*Nadim css*/
 .popup-Testcontainer {
     color: blue;
-    top: 30%;
+    /* top: 30%; */
+    top: 25%;
     left: 33%;
     z-index: 100;
     position: fixed;
@@ -884,18 +885,74 @@
     margin-bottom: 0.2rem;
 }
 
+.popup-Testform input{
+    padding: 0.3rem;
+}
 .popup-testbttn:hover {
     background-color: #fff;
     color: #000;
 }
 @media screen and (max-width: 950px) {
     .popup-Testcontainer {
+        
         left: 25%;
     }
     .date-input {
         width: 5rem;
     }
     .popup-Testform {
+        width: 50vw;
+    }
+    .popup-testbttn{
+        width: 20vw;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .popup-Testcontainer{
+        left: 18%;
+    }
+    .popup-Testform{
+        width: 60vw;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .popup-Testcontainer{
+        top: 15%;
+        left: 10%;
+    }
+    .popup-testbttn{
+        width: 30vw;
+    }
+    .popup-Testform{
+        width: 80vw;
+    }
+    .popup-Testform div{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width:400px){
+    .popup-testbttn{
         width: 40vw;
     }
+    .test-list{
+        padding: 0rem;
+        width: 20rem;
+    }
+    .test-list span{
+        /* font-size: 0.9rem; */
+    }
+
+    /* #test-search-container{
+        width: 20rem;
+    } */
+
+    #test-search-container ol{
+        overflow-x: auto;
+
+    }
+
 }

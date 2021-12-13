@@ -185,21 +185,23 @@ const StudentDisplay = ({ courseCode }) => {
 			>
 				Students Enrolled
 			</span>
-			<ol style={{ overflowY: "auto", maxHeight: "90%" }}>
-				{isloading ? (
-					<span>Loading...</span>
-				) : (
-					students.map((student) => {
-						return (
-							<li className="test-list" key={student._id}>
-								<span>{c++})</span>
-								<span>{student.name}</span>
-								<span>{student.email}</span>
-							</li>
-						);
-					})
-				)}
-			</ol>
+			<div style={{ overflowY: "auto" }}>
+				<ol style={{ overflowY: "auto", maxHeight: "90%" }}>
+					{isloading ? (
+						<span>Loading...</span>
+					) : (
+						students.map((student) => {
+							return (
+								<li className="test-list" key={student._id}>
+									<span>{c++})</span>
+									<span>{student.name}</span>
+									<span>{student.email}</span>
+								</li>
+							);
+						})
+					)}
+				</ol>
+			</div>
 		</div>
 	);
 };
