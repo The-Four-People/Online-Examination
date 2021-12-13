@@ -188,3 +188,13 @@
         width: 80vw;
     }
 }
+
+@media screen and (max-width:400px){
+    .question-div .individual-question-heading h1{
+        font-size: 0.9rem;
+    }
+
+    .question-div .individual-question-heading .right{
+        font-size: 0.9rem;
+    }
+}
