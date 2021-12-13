@@ -128,13 +128,14 @@ const TestCard = ({ test, marks }) => {
 					backgroundImage: `url(${randomBG(test.test_name)})`,
 					backgroundSize: "cover",
 					height: "30%",
+					// overflowY: "auto",
 				}}
 			>
 				<span
-					style={{ fontSize: "1.8rem" }}
+					style={{ fontSize: "1.8rem", overflowY: "auto" }}
 				>{`${test.course_name} - ${test.test_name}`}</span>
 			</div>
-			<div className="r-card-bottom">
+			<div className="r-card-bottom r-card-bottom-div">
 				<table className="table-info" style={{ height: "99%", width: "100%" }}>
 					<tbody className="big-table-content">
 						<tr>
@@ -238,7 +239,7 @@ const DisplayIndividualQuestion = ({ question }) => {
 						<h1>{question.question}</h1>
 						<div className="individual-question-heading right">
 							<div className="individual-question-heading">
-								<h1>Marks Obtained:</h1>
+								<h1>Marks: </h1>
 								<h1>
 									{" "}
 									{question.marks} / {question.weight}

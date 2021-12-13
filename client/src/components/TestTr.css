@@ -179,6 +179,10 @@
     align-self: center;
 }
 
+.r-card-bottom-div{
+    height: 70%;
+}
+
 @media screen and (max-width:700px){
     .div-r2-card{
         width: 80vw;
