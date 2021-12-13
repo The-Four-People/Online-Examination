@@ -231,7 +231,7 @@ const DisplayIndividualQuestion = ({ question }) => {
 		setisSmallArrowClicked(!isSmallArrowClicked);
 	}
 	return (
-		<div className="individual-question">
+		<div className="individual-question question-div">
 			{question ? (
 				<>
 					<div className="individual-question-heading">
