@@ -593,6 +593,18 @@
     list-style: none;
     overflow-y: auto;
 }
+.r-card-bottom ul li > a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding-top: 0.2rem;
+}
+.r-card-bottom ul li > a:hover {
+    text-decoration: underline;
+}
+.r-card-bottom ul li > a:focus {
+    color: rgb(40, 50, 250);
+}
 .r2 {
     display: flex;
     justify-content: flex-start;
@@ -629,15 +641,15 @@
     border-spacing: 0 5px;
 }
 
-@media only screen and (max-width: 430px){
-    .table-upcoming{
+@media only screen and (max-width: 430px) {
+    .table-upcoming {
         width: 90vw !important;
     }
-    .upcoming{
+    .upcoming {
         margin-left: 1rem;
         margin-right: 1rem;
     }
-} 
+}
 /* .table-row{
     background-color:antiquewhite;
 } */
@@ -885,7 +897,7 @@
     margin-bottom: 0.2rem;
 }
 
-.popup-Testform input{
+.popup-Testform input {
     padding: 0.3rem;
 }
 .popup-testbttn:hover {
@@ -894,7 +906,6 @@
 }
 @media screen and (max-width: 950px) {
     .popup-Testcontainer {
-        
         left: 25%;
     }
     .date-input {
@@ -903,54 +914,50 @@
     .popup-Testform {
         width: 50vw;
     }
-    .popup-testbttn{
+    .popup-testbttn {
         width: 20vw;
     }
 }
 
 @media screen and (max-width: 750px) {
-    .popup-Testcontainer{
+    .popup-Testcontainer {
         left: 18%;
     }
-    .popup-Testform{
+    .popup-Testform {
         width: 60vw;
     }
-
 }
 
 @media screen and (max-width: 600px) {
-    .popup-Testcontainer{
+    .popup-Testcontainer {
         top: 15%;
         left: 10%;
     }
-    .popup-testbttn{
+    .popup-testbttn {
         width: 30vw;
     }
-    .popup-Testform{
+    .popup-Testform {
         width: 80vw;
     }
-    .popup-Testform div{
+    .popup-Testform div {
         text-align: center;
     }
 }
 
-@media screen and (max-width:400px){
-    .popup-testbttn{
+@media screen and (max-width: 400px) {
+    .popup-testbttn {
         width: 40vw;
     }
-    .test-list{
+    .test-list {
         padding: 0rem;
         width: 20rem;
     }
-    
 
     /* #test-search-container{
         width: 20rem;
     } */
 
-    #test-search-container ol{
+    #test-search-container ol {
         overflow-x: auto;
-
     }
-
 }
